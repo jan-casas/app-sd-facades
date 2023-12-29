@@ -47,8 +47,9 @@
 	color: var(--bs-card-color);
 }
 
-.app-header-title {
-	text-align: left;
+.modal-body-modals {
+	font-family: 'Open Sans';
+	font-size: 16px;
 }
 
 @font-face {

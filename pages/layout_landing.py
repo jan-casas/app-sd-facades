@@ -56,7 +56,7 @@ layout_intro_modal = dbc.Modal([
     Overall, this project represents a cutting-edge approach to urban analysis, blending modern technology to assess and enhance the quality of urban environments. It aims to contribute significantly to the development of urban areas that are not only functional but also enrich the lives of their inhabitants.
 
     Enjoy exploring the application!
-    ''')),
+    '''), className='modal-body-modals'),
 ], id='modal_intro', is_open=False, size='lg')
 
 
@@ -243,7 +243,7 @@ layout_workflow_modal = dbc.Modal([
     3. **Hypothetical Window View Simulation**: Finally, the workflow culminates in **simulating a view from a hypothetical window position**. This step involves generating a visual representation of what one would see from a specific point within the building, taking into account the orientation, sun exposure, and shadow analysis previously conducted. This simulation is instrumental in understanding the visual and environmental impact of the design from a human perspective.
 
     This workflow represents a comprehensive approach to urban space design, leveraging advanced tools like Grasshopper and Speckle System to create data-driven, sustainable, and contextually relevant urban environments. By integrating geospatial data, parametric modeling, and environmental analysis, this method offers a deeply informed and efficient pathway to designing urban spaces that are both functional and aesthetically pleasing.
-        ''')),
+        '''), className='modal-body-modals'),
 ], id='collapse_workflow', is_open=False, size='lg')
 
 
@@ -621,7 +621,7 @@ layout_conclusion_modal = dbc.Modal([
     This technology can also be used to engage the public in the urban design process. By visualizing and sharing potential designs with the community, planners can gather valuable feedback and foster a sense of ownership among residents. This can lead to designs that better reflect the needs and desires of the community.
 
     In summary, the use of stable diffusion in urban space design facilitates a more dynamic, collaborative, and innovative approach to urban planning. It enables faster prototyping and iteration, leading to designs that are not only cost-effective and sustainable but also more aligned with the needs and aspirations of the community.
-    ''')),
+    '''), className='modal-body-modals'),
 ], id='collapse_conclusion', is_open=False, size='lg')
 
 
