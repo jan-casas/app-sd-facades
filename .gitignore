@@ -1,0 +1,5 @@
+.vscode/
+__pycache__/
+size_example_test.png
+.mypy_cache/
+.conda/

@@ -1,0 +1,266 @@
+/* @import url('https://fonts.googleapis.com/css?family=Roboto');
+@import url('https://fonts.googleapis.com/css?family=Roboto+Mono');
+@import url('https: //fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Colfax:400,600,700,800'); */
+
+
+.dropdown-style {
+	/* background-color: #fff;
+	border-radius: 4px; */
+	border: 1px solid #eeeeef;
+	/* box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+	color: #6e6e80;
+	font-size: 14px;
+	font-weight: 400;
+	padding: 8px 12px;
+	width: 100%; */
+}
+
+.mx-5 {
+	margin-right: 18rem !important;
+	margin-left: 18rem !important;
+}
+
+.my-4 {
+	margin-top: 1rem !important;
+	margin-bottom: 1rem !important;
+}
+
+.card {
+	overflow: hidden;
+	--bs-card-spacer-x: .8rem !important;
+}
+
+.card-img {
+	height: 190px;
+	object-fit: cover;
+}
+
+.card-img-small {
+	height: 320px;
+	object-fit: cover;
+}
+
+.card-body {
+	flex: 1 1 auto;
+	/* padding: var(--bs-card-spacer-y) var(--bs-card-spacer-x); */
+	color: var(--bs-card-color);
+}
+
+.app-header-title {
+	text-align: left;
+}
+
+@font-face {
+	font-family: 'Open Sans';
+	font-style: normal;
+	font-weight: 400;
+	src: url('fonts/Open_Sans/static/OpenSans-Regular.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'Open Sans bold';
+	font-style: normal;
+	/* font-weight: 1000; */
+	src: url('fonts/Open_Sans/static/Open_Sans-ExtraBold.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'Colfax';
+	font-style: normal;
+	font-weight: 400;
+	src: url('fonts/Colfax/ColfaxAIRegular.otf') format('opentype');
+}
+
+@font-face {
+	font-family: 'Roboto Mono';
+	font-style: normal;
+	/* font-weight: 1000; */
+	src: url('fonts/Roboto_Mono/static/RobotoMono-Regular.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'Roboto Mono';
+	font-style: normal;
+	src: url('fonts/Roboto_Mono/static/RobotoMono-Regular.ttf') format('truetype');
+}
+
+body {
+	font-family: 'Open Sans', sans-serif;
+	font-size: 11px;
+	color: #6e6e80;
+}
+
+/* .collapse-transition {
+	transition: max-height 1.4s ease-in-out;
+} */
+
+.default-modal-css {
+	background-color: white !important;
+}
+
+.code-docs {
+	font-family: 'Roboto Mono', monospace;
+	font-size: 15px;
+	background-color: rgb(247, 247, 248);
+}
+
+
+h1 {
+	font-family: 'Colfax', sans-serif;
+	font-size: 24px;
+	font-weight: 600;
+	color: #202123;
+}
+
+
+h2 {
+	font-family: 'Colfax', sans-serif;
+	font-size: 19px;
+	font-weight: 600;
+	color: #202123;
+}
+
+h3 {
+	font-family: 'Colfax', sans-serif;
+	font-size: 16px;
+	font-weight: 600;
+	color: #202123;
+}
+
+h5 {
+	font-family: 'Colfax', sans-serif;
+	font-size: 14px;
+	font-weight: 600;
+	color: #202123;
+}
+
+h6 {
+	font-family: 'Colfax', sans-serif;
+	font-size: 16px;
+	font-weight: 400;
+	color: #6e6e80;
+}
+
+p {
+	font-size: 11px;
+}
+
+span {
+	font-family: 'Colfax', sans-serif;
+	font-size: 12px;
+	font-weight: 400;
+	color: #6e6e80;
+}
+
+
+.app-header {
+	align-items: center;
+	background-color: white !important;
+	border-bottom: 1px solid #dedee3;
+	display: flex;
+	height: 50px;
+	justify-content: space-between;
+	overflow: auto;
+	padding: 0 24px;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	z-index: 100;
+}
+
+
+.button-primary {
+	font-size: 14px;
+	padding: 6px 12px;
+	color: #6e6e80;
+	background-color: #dedee3;
+	border-radius: 4px;
+	border: 1px solid #dedee3;
+}
+
+.btn-primary {
+	font-size: 10px;
+	/* padding: 6px 12px; */
+	color: black;
+	background-color: #dedee3;
+	border-radius: 4px;
+	border: 1px solid #dedee3;
+}
+
+footer {
+	position: relative;
+	bottom: 0;
+	width: 100%;
+}
+
+
+.modal-header {
+	/* background-image: url('../static/images/OIG (1).jpg'); */
+	background-size: cover;
+	background-position: center;
+}
+
+.modal-title {
+	font-family: 'Roboto Mono', sans-serif;
+	font-size: 24px;
+	font-weight: 600;
+	color: #202123;
+	background-color: #fff;
+}
+
+.modal-description {
+	font-family: 'Colfax', sans-serif;
+	font-size: 14px;
+	font-weight: 600;
+	color: #202123;
+	background-color: #fff;
+}
+
+.icon-item {
+	cursor: pointer;
+	display: flex;
+	min-width: 0;
+	align-content: center;
+	width: 54px;
+	height: 54px;
+}
+
+
+.icon-item-icon {
+	border-radius: 4px;
+	color: #fff;
+	flex: 0 0 auto;
+	font-size: 24px;
+	line-height: 0px;
+	padding: 15px;
+}
+
+
+.icon-item-tag {
+	background-color: #ececf1;
+	border-radius: 3px;
+	display: inline-block;
+	font-size: 12px;
+	font-weight: 700;
+	line-height: 16px;
+	margin-left: 12px;
+	padding: 0 4px;
+}
+
+.item-tag {
+	border-radius: 3px;
+	border-color: #cecedb;
+	border-style: solid;
+	border-width: 1px;
+	display: inline-block;
+	font-size: 14px;
+	font-weight: 400;
+	margin-right: 4px;
+	padding: 1px 6px;
+}
+
+.row>* {
+	padding-left: calc(var(--bs-gutter-x) * .4) !important;
+	padding-right: calc(var(--bs-gutter-x) * .4) !important;
+}
