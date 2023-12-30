@@ -6,7 +6,6 @@ import sys
 import time
 from typing import List, Optional
 import requests
-import pandas as pd
 import json
 
 import dash
