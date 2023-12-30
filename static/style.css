@@ -21,6 +21,30 @@
 	margin-left: 18rem !important;
 }
 
+/* For screens smaller than 1200px */
+@media (max-width: 1199px) {
+	.mx-5 {
+		margin-right: 10rem !important;
+		margin-left: 10rem !important;
+	}
+}
+
+/* For screens smaller than 992px */
+@media (max-width: 991px) {
+	.mx-5 {
+		margin-right: 5rem !important;
+		margin-left: 5rem !important;
+	}
+}
+
+/* For screens smaller than 768px */
+@media (max-width: 767px) {
+	.mx-5 {
+		margin-right: 2rem !important;
+		margin-left: 2rem !important;
+	}
+}
+
 .my-4 {
 	margin-top: 1rem !important;
 	margin-bottom: 1rem !important;
@@ -50,6 +74,10 @@
 .modal-body-modals {
 	font-family: 'Open Sans';
 	font-size: 16px;
+}
+
+.modal-body {
+	padding: 2rem;
 }
 
 @font-face {
