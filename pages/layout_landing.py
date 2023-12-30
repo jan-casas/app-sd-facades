@@ -4,7 +4,7 @@ import dash_html_components as html
 import dash_core_components as dcc
 
 from pages.layout_modals import *
-from pages.layout_default import layout_header
+from pages.layout_default import layout_header, layout_footer
 from pages.layout_grid import grid_option_1
 
 
@@ -29,7 +29,7 @@ layout_intro = dbc.Row([
             )),
         dbc.Col(
             dcc.Markdown('''
-                         ## Overall, this project represents a cutting-edge approach to urban analysis, blending modern technology to assess and enhance the quality of urban environments. It aims to contribute significantly to the development of urban areas that are not only functional but also enrich the lives of their inhabitants.
+                         ## Overall, this project represents a cutting-edge approach to urban analysis, blending modern technology to assess and enhance the quality of urban environments.
                          '''),
         ),
     ]),
@@ -222,7 +222,7 @@ layout_workflow_explanation = dbc.Row([
             )),
         dbc.Col(
             dcc.Markdown('''
-                         ## This workflow represents a comprehensive approach to urban space design, leveraging advanced tools like Grasshopper and Speckle System to create data-driven, sustainable, and contextually relevant urban environments. By integrating geospatial data, parametric modeling, and environmental analysis, this method offers a deeply informed and efficient pathway to designing urban spaces that are both functional and aesthetically pleasing.
+                         ## This workflow represents a comprehensive approach to urban space design, leveraging advanced tools like Grasshopper and Speckle System to create data-driven, sustainable, and contextually relevant urban environments.
                          '''),
         ),
     ]),
@@ -596,7 +596,7 @@ layout_conclusion = dbc.Row([
             )),
         dbc.Col(
             dcc.Markdown('''
-                         ## In summary, the use of stable diffusion in urban space design facilitates a more dynamic, collaborative, and innovative approach to urban planning. It enables faster prototyping and iteration, leading to designs that are not only cost-effective and sustainable but also more aligned with the needs and aspirations of the community.
+                         ## In summary, the use of stable diffusion in urban space design facilitates a more dynamic, collaborative, and innovative approach to urban planning.
                          '''),
         ),
     ]),
@@ -642,6 +642,7 @@ layout = html.Div([
     # layout_helper,
     layout_modal,
     layout_popup,
+    layout_footer
 ])
 
 
