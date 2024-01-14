@@ -5,4 +5,5 @@ size_example_test.png
 .conda/
 .venv/
 *.
-.gis/
+gis/
+sql_tests
