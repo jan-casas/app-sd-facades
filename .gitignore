@@ -3,3 +3,6 @@ __pycache__/
 size_example_test.png
 .mypy_cache/
 .conda/
+.venv/
+*.
+.gis/

@@ -1,6 +1,5 @@
 from dash.dependencies import Input, Output
 from dash.dependencies import Input, Output, State
-import openai
 import logging
 import sys
 import time
@@ -20,7 +19,6 @@ sys.path.insert(0, '/static/style.py')
 sys.path.insert(0, 'callbacks_core.py')
 
 
-# %%
 @dash_app.callback(
     dash.dependencies.Output("collapse_conclusion", "is_open"),
     [dash.dependencies.Input("button_conclusion", "n_clicks")],
