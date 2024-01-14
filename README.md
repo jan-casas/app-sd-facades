@@ -73,7 +73,7 @@ $ python main.py
 ## Documentation
 
 - [API Endpoints](docs/api-endpoints.md)
-- [Entity Relations](docs/entity-relations.md)
+- [Entity Relations](sql_tests/entity-relations.md)
 - [Python Wiki](docs/wiki-python.md)
 - [Grasshopper Wiki](docs/wiki-grasshopper.md)
 

@@ -7,3 +7,4 @@ size_example_test.png
 *.
 gis/
 sql_tests
+*.idea/
