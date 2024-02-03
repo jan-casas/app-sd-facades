@@ -344,7 +344,8 @@ layout_map_dash_deck = dbc.Container([
 ],
     fluid=True)
 
-layout_iframe_speckle = dbc.Row([
+# TODO: Probably this should be a modal -> Then delete the layout_helper
+layout_iframe_speckle = dbc.Container([
     html.H2('Analytical Model Sample'),
     dcc.Markdown("""
         The analysis is based on the data of the sensors that are installed in the building. The sensors are connected to a node that is connected to the internet. The node sends the data to a server that stores the data. The data is then processed and visualized in the dashboard. The dashboard is updated every 5 minutes."""),
@@ -354,6 +355,67 @@ layout_iframe_speckle = dbc.Row([
                 ".07711%2C-998.06%2C1136.40997%2C21%2C1%2C0.5987369392383786%5D&transparent=true&autoload=true"
                 "&hidecontrols=true&noscroll=true&hidesidebar=true&hideselectioninfo=true", className="map-size")),
 ], className="my-4 mx-5")
+
+layout_helper = dbc.Container([
+
+    html.H2("In Depth Contact", id='title_helpers', className="my-3 mx-5"),
+    dbc.Row(
+        [
+            dbc.Col(
+                dbc.Card(
+                    dbc.CardBody(
+                        [
+                            html.H5("Experience",
+                                    className="card-title"),
+                            html.P(
+                                "Go-to resource for entering the world of collaborative software development on "
+                                "GitHub, providing essential tools and insights to kickstart your coding projects.",
+                                className="card-text"),
+                            dbc.Button(">>", id='helper-button-1',
+                                       color="primary", href="#", size="sm"),
+                        ]
+                    ), className="h-100"
+                ),
+                # width=6,
+            ),
+            dbc.Col(
+                dbc.Card(
+                    dbc.CardBody(
+                        [
+                            html.H5("Articles Published",
+                                    className="card-title"),
+                            html.P(
+                                "Repository of your expertise and ideas, featuring a collection of insightful and "
+                                "informative articles you've shared with the world.",
+                                className="card-text"),
+                            dbc.Button(">>", id='helper-button-2',
+                                       color="primary", href="#", size="sm"),
+                        ]
+                    ), className="h-100"
+                ),
+                # width=6,
+            ),
+            dbc.Col(
+                dbc.Card(
+                    dbc.CardBody(
+                        [
+                            html.H5("Credits and Acknowledgements",
+                                    className="card-title"),
+                            html.P(
+                                "Invaluable contributions of individuals and teams who have been instrumental in "
+                                "shaping your projects, fostering a culture of gratitude and collaboration.",
+                                className="card-text"),
+                            # dbc.Button("Watch list",
+                            #            color="primary", href="#"),
+                        ]
+                    ), className="h-100"
+                ),
+                # width=6,
+            ),
+        ],
+        className="my-4 mx-5"
+    )
+], fluid=True)
 
 layout_popup = dbc.Row([
     dbc.Popover(
@@ -400,7 +462,8 @@ layout = html.Div([
     layout_details,
     layout_map_dash_deck,
     layout_modal_help,
-    layout_iframe_speckle,
+    # layout_iframe_speckle,
+    # layout_helper,
     layout_stepper,
     layout_popup,
     layout_notifications,
