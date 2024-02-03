@@ -121,7 +121,7 @@ def callback(selection1, dropdown_analysis_id):
     df_selected_prop = propiedades_entidad.iloc[df_selected.iloc[:, 0].values.tolist(
     ), :].reset_index(drop=True)
 
-    df_deck = parse_data(json, dropdown_analysis_id)
+    df_deck = parse_data(gdf, dropdown_analysis_id)
     deck_layer = create_deck_layer(df_deck)
 
     return blank_map(geojson, selection1, df_selected_prop), subplot_fig, deck_layer

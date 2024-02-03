@@ -13,20 +13,38 @@ import dash_deck
 import dash_html_components as html
 import pydeck as pdk
 import pandas as pd
+import geopandas as gpd
 
 from utils.utils import extract_main_colors_rgb
 
 # Load in the JSON data
-DATA_URL = "https://raw.githubusercontent.com/visgl/deck.gl-data/master/examples/geojson/vancouver-blocks.json"
-json = pd.read_json(DATA_URL)
+# Load the GeoJSON file
+DATA_URL = r"C:\Users\casas\OneDrive\Escritorio\Projects-In Progress\APPS\app-sd-facades\gis\buildings\building_logroño_bp.geojson"
+gdf = gpd.read_file(DATA_URL)
 
 
-def parse_data(json, image_path='static/images/energy_saving7.png', df=pd.DataFrame(), n=13):
+# TODO: Guardar en formato PICKLE para una carga más rápida
+
+def extract_coordinates(geom):
+    # Check the geometry type and process accordingly
+    if geom.geom_type == 'Polygon':
+        return [list(geom.exterior.coords)]
+    elif geom.geom_type == 'MultiPolygon':
+        # Extract coordinates for each Polygon in the MultiPolygon
+        coords = []
+        for polygon in geom.geoms:  # Use .geoms to properly iterate through a MultiPolygon
+            coords.append(list(polygon.exterior.coords))
+        return coords
+    else:
+        raise ValueError(f'Unhandled geometry type: {geom.geom_type}')
+
+
+def parse_data(gdf, image_path='static/images/energy_saving7.png', df=pd.DataFrame(), n=13):
     # Custom color scale
-    # n = 13
-    # image_path = 'static/images/energy_saving7.png'
     COLOR_RANGE = extract_main_colors_rgb(image_path, n)
-    BREAKS = [-0.6 + i * (1.8 / (n - 1)) for i in range(n)]
+    min_fl = 1
+    max_fl = 50
+    BREAKS = [min_fl + i * ((max_fl - min_fl) / (n - 1)) for i in range(n)]
 
     def color_scale(val):
         for i, b in enumerate(BREAKS):
@@ -35,18 +53,13 @@ def parse_data(json, image_path='static/images/energy_saving7.png', df=pd.DataFr
         return COLOR_RANGE[i]
 
     def calculate_elevation(val):
-        return math.sqrt(val) * 10
+        return val * 3
 
     # Parse the geometry out in Pandas
-    df["coordinates"] = json["features"].apply(lambda row: row["geometry"]["coordinates"])
-    df["valuePerSqm"] = json["features"].apply(lambda row: row["properties"]["valuePerSqm"])
-    df["growth"] = json["features"].apply(lambda row: row["properties"]["growth"])
-    df["elevation"] = json["features"].apply(
-        lambda row: calculate_elevation(row["properties"]["valuePerSqm"])
-    )
-    df["fill_color"] = json["features"].apply(
-        lambda row: color_scale(row["properties"]["growth"])
-    )
+    df["coordinates"] = gdf["geometry"].apply(extract_coordinates)
+    df["localId"] = gdf["localId"]
+    df["numberOfFl"] = gdf["numberOfFl"].apply(calculate_elevation)
+    df["fill_color"] = df["numberOfFl"].apply(color_scale)
 
     return df
 
@@ -72,10 +85,10 @@ def create_deck_layer(df):
 
     view_state = pdk.ViewState(
         **{
-            "latitude": 49.254,
-            "longitude": -123.13,
-            "zoom": 11,
-            "maxZoom": 16,
+            "latitude": 42.466,
+            "longitude": -2.450,
+            "zoom": 15,
+            "maxZoom": 17,
             "pitch": 45,
             "bearing": 0,
         }
@@ -95,7 +108,7 @@ def create_deck_layer(df):
         filled=True,
         extruded=True,
         wireframe=False,
-        get_elevation="elevation",
+        get_elevation="numberOfFl",
         get_fill_color="fill_color",
         get_line_color=[255, 255, 255],
         auto_highlight=True,
