@@ -6,5 +6,7 @@ size_example_test.png
 .venv/
 *.
 gis/
-sql_tests
+database/data_experiments/
 *.idea/
+.env
+.dockerignore

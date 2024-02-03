@@ -1,7 +1,6 @@
-# Project Name
+# GeoNexus: Safeguarding Urban Legacies through Informed Mapping
 
-[![Build Status](https://travis-ci.org/your-username/project-name.svg?branch=master)](https://travis-ci.org/your-username/project-name)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+<img src="static/readme_header.png" height="400">
 
 ## Description
 
@@ -55,7 +54,7 @@ $ python main.py
 - `Dockerfile`: Defines the environment in which the application runs in a Docker container.
 - `docs/`: Contains documentation files for the project.
     - `api-endpoints.md`: Documentation of the API endpoints provided by the application.
-    - `entity-relations.md`: Explanation of the relationships between different entities in the application.
+    - `entity-relations.md`: Explanation of the relationships between differpip install dash-deckent entities in the application.
     - `wiki-python.md`: A wiki for Python-related topics in the project.
     - `wiki-grasshopper.md`: A wiki for Grasshopper-related topics in the project.
 - `gis/`: Contains Geographic Information System (GIS) related scripts.
@@ -72,8 +71,8 @@ $ python main.py
 
 ## Documentation
 
-- [API Endpoints](docs/api-endpoints.md)
-- [Entity Relations](sql_tests/entity-relations.md)
+- [API Endpoints](docs/Endpoints)
+- [Entity Relations](database/entity-relations.md)
 - [Python Wiki](docs/wiki-python.md)
 - [Grasshopper Wiki](docs/wiki-grasshopper.md)
 
