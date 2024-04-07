@@ -1,4 +1,4 @@
-from callbacks_core import *
+from core_callbacks import *
 from callbacks import (callback_modal, callback_response, callback_login, callback_chat)
 
 if __name__ == '__main__':
