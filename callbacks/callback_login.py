@@ -1,9 +1,8 @@
-from flask_login import login_user, LoginManager, UserMixin, logout_user, current_user
-from callbacks_core import app, dash_app
-from flask import Flask, request, redirect, session
+from flask_login import login_user, LoginManager, UserMixin, current_user
+from core_callbacks import app, dash_app
+from flask import request, redirect, session
 import os
-from dash import dcc, html, Input, Output, State, ALL, no_update
-from dash.exceptions import PreventUpdate
+from dash import dcc, Input, Output, ALL, no_update
 from utils.login_handler import restricted_page
 
 #  passwords should be encrypted

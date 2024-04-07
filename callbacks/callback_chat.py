@@ -1,6 +1,6 @@
 import sys
 import dash
-from callbacks_core import dash_app
+from core_callbacks import dash_app
 
 from dash import html
 import dash_bootstrap_components as dbc
@@ -9,11 +9,9 @@ from hugchat.login import Login
 import time
 import dash_core_components as dcc
 
-sys.path.insert(0, 'callbacks_core.py')
+from constants import HUGGINGFACE_MAIL, HUGGINGFACE_PASSWORD
 
-# hardcoded credentials (not recommended for production)
-HARDCODED_EMAIL = "casasvil@protonmail.com"
-HARDCODED_PASSWORD = "MArbuTpw29t:8zB"
+sys.path.insert(0, 'core_callbacks.py')
 
 
 @dash_app.callback(
@@ -44,7 +42,7 @@ def update_chat(send_n_clicks, reset_n_clicks, message, chat_history):
         time.sleep(1)
         message_prompt = f"{message}. Create a concise and precise response. Limit the answer to 1-2 short paragraphs."
         # call the function to handle HugChat logic
-        response = handle_hugchat_logic(HARDCODED_EMAIL, HARDCODED_PASSWORD, message_prompt)
+        response = handle_hugchat_logic(HUGGINGFACE_MAIL, HUGGINGFACE_PASSWORD, message_prompt)
 
         # prepare chat messages for display
         new_message = create_message_div(
@@ -98,7 +96,7 @@ def handle_hugchat_logic(email, password, user_message):
     [dash.dependencies.Input("nav-link-contact", "n_clicks")],
     [dash.dependencies.State("modal-help", "is_open")],
 )
-def toggle_modal(n1, is_open):
+def toggle_modal(n1, is_open: bool) -> bool:
     if n1:
         return not is_open
     return is_open

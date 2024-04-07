@@ -1,67 +1,85 @@
 import sys
-import dash
 from dash_iconify import DashIconify
 import dash_mantine_components as dmc
 
 from apps.app_modals import create_subplots
-from callbacks_core import dash_app, app
+from core_callbacks import dash_app
 from apps.app_mapbox_playground import update_mapbox, geojson, propiedades_entidad, blank_map
 from pandas import DataFrame
 from numpy import intersect1d
 
 from utils.utils import extract_main_colors
-from database.test_data import df
+from apps.test_data import df
 from apps.app_dash_deck import *
 from constants import min_step, max_step, active
 
 sys.path.insert(0, '/static/style.py')
-sys.path.insert(0, 'callbacks_core.py')
+sys.path.insert(0, 'core_callbacks.py')
 sys.path.insert(0, 'apps/app_mapbox_playground.py')
 
 
-@dash_app.callback(
-    dash.dependencies.Output("collapse_conclusion", "is_open"),
-    [dash.dependencies.Input("button_conclusion", "n_clicks")],
-    [dash.dependencies.State("collapse_conclusion", "is_open")],
-)
-def toggle_conclusion(n, is_open):
-    if n:
-        return not is_open
-    return is_open
+#
+# @dash_app.callback(
+#     dash.dependencies.Output("collapse_conclusion", "is_open"),
+#     [dash.dependencies.Input("button_conclusion", "n_clicks")],
+#     [dash.dependencies.State("collapse_conclusion", "is_open")],
+# )
+# def toggle_conclusion(n, is_open):
+#     if n:
+#         return not is_open
+#     return is_open
+#
+#
+# @dash_app.callback(
+#     dash.dependencies.Output("collapse_workflow", "is_open"),
+#     [dash.dependencies.Input("button_workflow", "n_clicks")],
+#     [dash.dependencies.State("collapse_workflow", "is_open")],
+# )
+# def toggle_conclusion(n, is_open):
+#     if n:
+#         return not is_open
+#     return is_open
+#
+#
+# @dash_app.callback(
+#     dash.dependencies.Output("modal_intro", "is_open"),
+#     [dash.dependencies.Input("button_intro", "n_clicks")],
+#     [dash.dependencies.State("modal_intro", "is_open")],
+# )
+# def toggle_modal(n, is_open):
+#     if n:
+#         return not is_open
+#     return is_open
+#
+# # Default sidebar sub-items collapse
+# @dash_app.callback(
+#     dash.dependencies.Output("collapse_experiments", "is_open"),
+#     [dash.dependencies.Input("experiments_link", "n_clicks")],
+#     [dash.dependencies.State("collapse_experiments", "is_open")],
+# )
+# def toggle_collapse(n, is_open):
+#     if n:
+#         return not is_open
+#     return is_open
+
+# TODO: TEST BEHAVIOR
+# Toggle collapse
+def create_toggle_callback(element_id, button_id):
+    @dash_app.callback(
+        dash.dependencies.Output(element_id, "is_open"),
+        [dash.dependencies.Input(button_id, "n_clicks")],
+        [dash.dependencies.State(element_id, "is_open")],
+    )
+    def toggle_element(n, is_open):
+        if n:
+            return not is_open
+        return is_open
 
 
-@dash_app.callback(
-    dash.dependencies.Output("collapse_workflow", "is_open"),
-    [dash.dependencies.Input("button_workflow", "n_clicks")],
-    [dash.dependencies.State("collapse_workflow", "is_open")],
-)
-def toggle_conclusion(n, is_open):
-    if n:
-        return not is_open
-    return is_open
-
-
-@dash_app.callback(
-    dash.dependencies.Output("modal_intro", "is_open"),
-    [dash.dependencies.Input("button_intro", "n_clicks")],
-    [dash.dependencies.State("modal_intro", "is_open")],
-)
-def toggle_modal(n, is_open):
-    if n:
-        return not is_open
-    return is_open
-
-
-# Default sidebar sub-items collapse
-@dash_app.callback(
-    dash.dependencies.Output("collapse_experiments", "is_open"),
-    [dash.dependencies.Input("experiments_link", "n_clicks")],
-    [dash.dependencies.State("collapse_experiments", "is_open")],
-)
-def toggle_collapse(n, is_open):
-    if n:
-        return not is_open
-    return is_open
+create_toggle_callback("collapse_conclusion", "button_conclusion")
+create_toggle_callback("collapse_workflow", "button_workflow")
+create_toggle_callback("modal_intro", "button_intro")
+create_toggle_callback("collapse_experiments", "experiments_link")
 
 
 @dash_app.callback(
