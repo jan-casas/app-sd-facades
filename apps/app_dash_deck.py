@@ -16,6 +16,7 @@ import pandas as pd
 import geopandas as gpd
 
 from utils.utils import extract_main_colors_rgb
+from constants import MAPBOX_API
 
 # Load in the JSON data
 # Load the GeoJSON file
@@ -63,7 +64,7 @@ def parse_data(gdf, image_path='static/images/energy_saving7.png', df=pd.DataFra
 
     return df
 
-
+# todo: check if the package is sending data about my geometry into the server (like mapbox does)
 def create_deck_layer(df):
     # Add sunlight shadow to the polygons
     sunlight = {
@@ -124,7 +125,7 @@ def create_deck_layer(df):
 
     layout_dash_deck = dash_deck.DeckGL(
         r.to_json(), id="deck-gl", tooltip=tooltip,
-        mapboxKey="pk.eyJ1IjoiamFuY2FzYXMiLCJhIjoiY2tlYTk4ZnBlMTBwZzJ5cHhzbzBjdTltaSJ9.nYGQnvw5kkC0m0EC5eHLbg"
+        mapboxKey=MAPBOX_API
     )
 
     return layout_dash_deck

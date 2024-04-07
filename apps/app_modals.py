@@ -8,7 +8,7 @@ import logging
 import dash_bootstrap_components as dbc
 from plotly.subplots import make_subplots
 
-sys.path.insert(0, '../callbacks_core.py')
+sys.path.insert(0, '../core_callbacks.py')
 
 
 def create_subplots(df: pd.DataFrame, ncols: int = 3, colors_str: List[str] = None):

@@ -7,9 +7,9 @@ from plotly.subplots import make_subplots
 from dash.dependencies import Input, Output
 import dash
 
-from callbacks_core import app, dash_app
+from core_callbacks import app, dash_app
 
-sys.path.insert(0, '../callbacks_core.py')
+sys.path.insert(0, '../core_callbacks.py')
 
 
 def random_normal_distribution(loc: list, scale: list, size: int, n: int) -> tuple:
