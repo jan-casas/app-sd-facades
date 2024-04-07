@@ -10,3 +10,5 @@ database/data_experiments/
 *.idea/
 .env
 .dockerignore
+database/
+test/
