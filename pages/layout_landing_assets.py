@@ -1,15 +1,13 @@
 import dash
 import dash_table
 
-from database.test_data import df
+from apps.test_data import df
 from pages.layout_modals import *
 from pages.layout_default import layout_header, layout_footer, sidebar, layout_stepper, layout_notifications
-from pages.layout_grid import grid_option_1_assets
 from pages.layout_chat_help import layout_modal_help
 from apps.futures_figures import fig_normal, fig_cum
 
 dash.register_page(__name__, path="/assets")
-
 
 selector_grid = dbc.Collapse(dbc.Row([
     dbc.Col([
@@ -37,7 +35,10 @@ selector_grid = dbc.Collapse(dbc.Row([
         ),
         dcc.Markdown(
             """
-            Morning/Afternoon Sun Radiation: The analysis is based on the data of the sensors that are installed in the building. The sensors are connected to a node that is connected to the internet. The node sends the data to a server that stores the data. The data is then processed and visualized in the dashboard. The dashboard is updated every 5 minutes.
+            Morning/Afternoon Sun Radiation: The analysis is based on the data of the sensors that are installed in 
+            the building. The sensors are connected to a node that is connected to the internet. The node sends the 
+            data to a server that stores the data. The data is then processed and visualized in the dashboard. The 
+            dashboard is updated every 5 minutes.
             """),
     ], style={'margin-top': '1rem', 'margin-right': '1rem'}
     ),
@@ -100,7 +101,12 @@ layout_details = dbc.Container([
                             html.H5("Large Scale Deployment for Generative Prototyping",
                                     className="card-title"),
                             html.P(
-                                "The goal of this project is to create a digital twin of a real object, using sensors that capture information about its state and behavior. In this case, the real object is a digital twin model that represents the location of the sensors in space. \n The sensors can measure different environmental variables such as temperature, humidity, lighting, or noise. An Arduino and a Raspberry Pi are used to transmit the sensor data to the digital twin."),
+                                "The goal of this project is to create a digital twin of a real object, using sensors "
+                                "that capture information about its state and behavior. In this case, the real object "
+                                "is a digital twin model that represents the location of the sensors in space. \n The "
+                                "sensors can measure different environmental variables such as temperature, humidity, "
+                                "lighting, or noise. An Arduino and a Raspberry Pi are used to transmit the sensor "
+                                "data to the digital twin."),
                         ]
                     ),
 
@@ -153,7 +159,9 @@ layout_details = dbc.Container([
                                 dbc.Badge("In Progress",
                                           color="info"),
                                 html.P(
-                                    "Contemporary architecture is transformed by data-driven decision-making, harmonizing aesthetics and practicality to create structures that resonate with the modern world."),
+                                    "Contemporary architecture is transformed by data-driven decision-making, "
+                                    "harmonizing aesthetics and practicality to create structures that resonate with "
+                                    "the modern world."),
                             ]
                         ),
                     ],
@@ -188,7 +196,9 @@ layout_details = dbc.Container([
                                 html.H5("Ocupancy and Density",
                                         className="card-title"),
                                 html.P(
-                                    "Explorative Non Real Spaces are digital canvases where designers are unshackled by the constraints of reality, enabling boundless creativity and the conception of visionary architectural concepts."),
+                                    "Explorative Non Real Spaces are digital canvases where designers are unshackled "
+                                    "by the constraints of reality, enabling boundless creativity and the conception "
+                                    "of visionary architectural concepts."),
                             ]
                         ),
 
@@ -293,12 +303,15 @@ layout_map_dash_deck = dbc.Container([
         dbc.Col([
             html.Span('Description of the Analysis:'),
             dcc.Markdown("""
-    The analysis is based on the data of the sensors that are installed in the building. The sensors are connected to a node that is connected to the internet. The node sends the data to a server that stores the data. The data is then processed and visualized in the dashboard. The dashboard is updated every 5 minutes."""),
+    The analysis is based on the data of the sensors that are installed in the building. The sensors are connected to 
+    a node that is connected to the internet. The node sends the data to a server that stores the data. The data is 
+    then processed and visualized in the dashboard. The dashboard is updated every 5 minutes."""),
             dbc.Card(
                 html.Div(id='layout_dash_deck', className="map-size"),
                 # html.Iframe(
                 # src="https://speckle.xyz/embed?stream=df13255f81&commit=0c61f52341&c=%5B-918.70498%2C1182.48981
-                # %2C125.07711%2C-998.06%2C1136.40997%2C21%2C1%2C0.5987369392383786%5D&transparent=true&autoload=true&hidecontrols=true&noscroll=true&hidesidebar=true&hideselectioninfo=true",
+                # %2C125.07711%2C-998.06%2C1136.40997%2C21%2C1%2C0.5987369392383786%5D&transparent=true&autoload=true
+                # &hidecontrols=true&noscroll=true&hidesidebar=true&hideselectioninfo=true",
                 # className="map-size"),
             ),
             dcc.Markdown(
@@ -308,7 +321,8 @@ layout_map_dash_deck = dbc.Container([
         dbc.Col([
             html.Span('Top Assets In Spain Performing the Current Analysis:'),
             dcc.Markdown("""
-    The analysis is based on the data of the sensors that are installed in the building. The sensors are connected to a node that is connected to the internet."""),
+    The analysis is based on the data of the sensors that are installed in the building. The sensors are connected to 
+    a node that is connected to the internet."""),
             dbc.Card(dcc.Graph(id='blank_map', figure={})),
             # dcc.Graph(id='subplot_div', figure={}),
             dcc.Markdown("""**Figure 1.** Bar chart about the current performance of the assets globally."""),
@@ -325,7 +339,9 @@ layout_map_dash_deck = dbc.Container([
     dbc.Row([
         html.Span('Top Assets In Spain Performing the Current Analysis:'),
         dcc.Markdown("""
-        The analysis is based on the data of the sensors that are installed in the building. The sensors are connected to a node that is connected to the internet. The node sends the data to a server that stores the data. The data is then processed and visualized in the dashboard. The dashboard is updated every 5 minutes."""),
+        The analysis is based on the data of the sensors that are installed in the building. The sensors are 
+        connected to a node that is connected to the internet. The node sends the data to a server that stores the 
+        data. The data is then processed and visualized in the dashboard. The dashboard is updated every 5 minutes."""),
         dcc.Graph(id='subplot_div_assets', figure={}),
         dcc.Markdown("""**Figure 1.** Bar chart about the current performance of the assets globally."""),
         # dcc.Markdown(congrats_conclusion),
@@ -340,7 +356,9 @@ layout_popup = dbc.Row([
         [
             # dbc.PopoverHeader("Popover title"),
             dbc.PopoverBody(
-                "The Wake Up Services for Previews allows you test the functionalities of some of the services that we develop in the Wake Up Lab. These services are anonimized and are not connected to any of the real data."),
+                "The Wake Up Services for Previews allows you test the functionalities of some of the services that "
+                "we develop in the Wake Up Lab. These services are anonimized and are not connected to any of the "
+                "real data."),
         ],
         id="popover",
         target="title_services",  # needs to be the same as the Button's id
@@ -351,7 +369,8 @@ layout_popup = dbc.Row([
         [
             # dbc.PopoverHeader("Popover title"),
             dbc.PopoverBody(
-                "The Lines of Interest defines the main topics that we are currently working on. These topics are related to the research that we are developing in the Wake Up Lab."),
+                "The Lines of Interest defines the main topics that we are currently working on. These topics are "
+                "related to the research that we are developing in the Wake Up Lab."),
         ],
         id="popover",
         target="title_lines",  # needs to be the same as the Button's id
@@ -362,7 +381,8 @@ layout_popup = dbc.Row([
         [
             # dbc.PopoverHeader("Popover title"),
             dbc.PopoverBody(
-                "This sections makes tribute to the people that have been instrumental in shaping your projects, fostering a culture of gratitude and collaboration."),
+                "This sections makes tribute to the people that have been instrumental in shaping your projects, "
+                "fostering a culture of gratitude and collaboration."),
         ],
         id="popover",
         target="title_helpers",  # needs to be the same as the Button's id
