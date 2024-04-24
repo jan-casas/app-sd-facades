@@ -1,4 +1,4 @@
-from pages.layout_modals import *
+from pages.pages_helper.layout_modals import *
 
 layout_chat = dbc.Container(
     [

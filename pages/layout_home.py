@@ -1,8 +1,8 @@
 import dash
-from pages.layout_modals import *
-from pages.layout_default import sidebar, layout_footer, layout_header, layout_stepper, layout_notifications
-from pages.descriptions import *
-from pages.layout_chat_help import layout_modal_help
+from pages.pages_helper.layout_modals import *
+from pages.pages_helper.layout_default import sidebar, layout_footer, layout_header, layout_stepper, layout_notifications
+from pages.pages_helper.descriptions import *
+from pages.layout_chat import layout_modal_help
 
 dash.register_page(__name__, path="/home")
 

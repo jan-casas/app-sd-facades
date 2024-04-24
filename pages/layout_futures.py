@@ -4,9 +4,9 @@ from dash import dash_table
 
 
 from apps.test_data import df
-from pages.layout_modals import *
-from pages.layout_default import layout_footer, layout_stepper, sidebar, layout_header, layout_notifications
-from pages.layout_chat_help import layout_modal_help
+from pages.pages_helper.layout_modals import *
+from pages.pages_helper.layout_default import layout_footer, layout_stepper, sidebar, layout_header, layout_notifications
+from pages.layout_chat import layout_modal_help
 from apps.futures_figures import fig_normal, fig_cum
 
 dash.register_page(__name__, path="/futures")

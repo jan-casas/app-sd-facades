@@ -1,13 +1,13 @@
 import sys
 import dash
 from core_callbacks import dash_app
-from pages.layout_modals import modal_default_layout
-from pages.layout_grid import grid_option_2, grid_option_1
+from pages.pages_helper.layout_modals import modal_default_layout
+from pages.pages_helper.layout_grid import grid_option_2, grid_option_1
 # Import functions
 from apps.app_modals import mapbox_plotly, horizontal_bar_graph, create_subplots
 # Import test data
 from apps.test_data import df, df_global
-from pages.descriptions import *
+from pages.pages_helper.descriptions import *
 from utils.utils import extract_main_colors
 
 sys.path.insert(0, 'core_callbacks.py')
