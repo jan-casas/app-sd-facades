@@ -1,4 +1,4 @@
-from pages.layout_modals import *
+from pages.pages_helper.layout_modals import *
 
 grid_option_1 = dbc.Row(
     [

@@ -1,6 +1,6 @@
 import dash_bootstrap_components as dbc
 from dash import dcc, html
-from pages.descriptions import congrats_conclusion, congrats_intro
+from pages.pages_helper.descriptions import congrats_conclusion, congrats_intro
 
 modal_default_layout = dbc.Row([
     html.Hr(style={'borderTop': '1px solid white'}),
