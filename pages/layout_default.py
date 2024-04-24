@@ -119,33 +119,33 @@ sidebar = html.Div(
                     active="exact",
                     id="experiments_link",
                 ),
-                dbc.NavLink(
-                    [
-                        html.I(className="bi bi-broadcast-pin me-2"),
-                        html.Span("Endpoints"),
-                    ],
-                    href="/endpoints",
-                    active="exact",
-                ),
-                html.Hr(),
-                # dmc.Divider(label="", labelPosition="center"),
-                # html.P("Admin", className="sidebar-header-separator"),
-                dbc.NavLink(
-                    [
-                        html.I(className="bi bi-chat-square-text-fill me-2"),
-                        html.Span("News"),
-                    ],
-                    href="/details",
-                    active="exact",
-                ),
-                dbc.NavLink(
-                    [
-                        html.I(className="bi bi-bookmark-star me-2"),
-                        html.Span("Docs"),
-                    ],
-                    href="/docs",
-                    active="exact",
-                ),
+                # dbc.NavLink(
+                #     [
+                #         html.I(className="bi bi-broadcast-pin me-2"),
+                #         html.Span("Endpoints"),
+                #     ],
+                #     href="/endpoints",
+                #     active="exact",
+                # ),
+                # html.Hr(),
+                # # dmc.Divider(label="", labelPosition="center"),
+                # # html.P("Admin", className="sidebar-header-separator"),
+                # dbc.NavLink(
+                #     [
+                #         html.I(className="bi bi-chat-square-text-fill me-2"),
+                #         html.Span("News"),
+                #     ],
+                #     href="/details",
+                #     active="exact",
+                # ),
+                # dbc.NavLink(
+                #     [
+                #         html.I(className="bi bi-bookmark-star me-2"),
+                #         html.Span("Docs"),
+                #     ],
+                #     href="/docs",
+                #     active="exact",
+                # ),
                 dbc.NavLink(
                     [
                         html.I(className="bi bi-life-preserver me-2"),
@@ -177,30 +177,28 @@ layout_stepper = dmc.Container(
             children=[
                 dmc.StepperStep(
                     label="First step",
-                    description="Create an account",
-                    icon=get_icon(icon="material-symbols:account-circle"),
-                    progressIcon=get_icon(icon="material-symbols:account-circle"),
-                    completedIcon=get_icon(icon="mdi:account-check"),
+                    description="Select an analysis",
+                    # icon=get_icon(icon="material-symbols:account-circle"),
+                    # progressIcon=get_icon(icon="material-symbols:account-circle"),
+                    # completedIcon=get_icon(icon="mdi:account-check"),
                     children=[
                         dmc.Text("Step 1 content: Create an account", align="center")
                     ],
                 ),
                 dmc.StepperStep(
                     label="Second step",
-                    description="Verify email",
-                    icon=get_icon(icon="ic:outline-email"),
-                    progressIcon=get_icon(icon="ic:outline-email"),
-                    completedIcon=get_icon(
-                        icon="material-symbols:mark-email-read-rounded"
-                    ),
+                    description="Search meaningful data",
+                    # icon=get_icon(icon="ic:outline-email"),
+                    # progressIcon=get_icon(icon="ic:outline-email"),
+                    # completedIcon=get_icon(icon="material-symbols:mark-email-read-rounded"),
                     children=[dmc.Text("Step 2 content: Verify email", align="center")],
                 ),
                 dmc.StepperStep(
                     label="Final step",
-                    description="Get full access",
-                    icon=get_icon(icon="material-symbols:lock-outline"),
-                    progressIcon=get_icon(icon="material-symbols:lock-outline"),
-                    completedIcon=get_icon(icon="material-symbols:lock-open-outline"),
+                    description="Save the report",
+                    # icon=get_icon(icon="material-symbols:lock-outline"),
+                    # progressIcon=get_icon(icon="material-symbols:lock-outline"),
+                    # completedIcon=get_icon(icon="material-symbols:lock-open-outline"),
                     children=[
                         dmc.Text("Step 3 content: Get full access", align="center")
                     ],
