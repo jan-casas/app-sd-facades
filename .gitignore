@@ -12,3 +12,4 @@ database/data_experiments/
 .dockerignore
 database/
 test/
+!/gis/
