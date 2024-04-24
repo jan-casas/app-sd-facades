@@ -9,8 +9,9 @@ import os
 import math
 
 import dash
+from dash import html
 import dash_deck
-import dash_html_components as html
+# import dash_html_components as html
 import pydeck as pdk
 import pandas as pd
 import geopandas as gpd
@@ -20,7 +21,8 @@ from constants import MAPBOX_API
 
 # Load in the JSON data
 # Load the GeoJSON file
-DATA_URL = r"C:\Users\casas\OneDrive\Escritorio\Projects-In Progress\APPS\app-sd-facades\gis\buildings\building_logroño_bp.geojson"
+DATA_URL = (r"C:\Users\casas\OneDrive\Escritorio\Projects-In "
+            r"Progress\APPS\app-sd-facades\gis\buildings\building_logroño_bp.geojson")
 gdf = gpd.read_file(DATA_URL)
 
 
@@ -63,6 +65,7 @@ def parse_data(gdf, image_path='static/images/energy_saving7.png', df=pd.DataFra
     df["fill_color"] = df["numberOfFl"].apply(color_scale)
 
     return df
+
 
 # todo: check if the package is sending data about my geometry into the server (like mapbox does)
 def create_deck_layer(df):

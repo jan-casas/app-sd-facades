@@ -18,3 +18,4 @@ logging.basicConfig(level=logging.INFO, handlers=[logging.StreamHandler(sys.stdo
 
 # Define Dash app layout and callbacks
 dash_app.layout = dash.page_container
+

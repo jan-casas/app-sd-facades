@@ -25,8 +25,8 @@ access_token_mapbox = os.environ.get("ACCESS_TOKEN_MAPBOX")
 style_token_mapbox = os.environ.get("STYLE_TOKEN_MAPBOX")
 
 # API credentials
-openai.api_key = os.getenv("OPENAI_API_KEY")
-weather_api_key = os.getenv("IQAIR_WEATHER_API")
+openai.api_key = os.getenv("OPENAI_API_KEY", "")
+weather_api_key = os.getenv("IQAIR_WEATHER_API", "")
 
 # stepper
 min_step = 0

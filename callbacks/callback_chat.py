@@ -1,5 +1,6 @@
 import sys
 import dash
+from dash import dcc
 from core_callbacks import dash_app
 
 from dash import html
@@ -7,7 +8,7 @@ import dash_bootstrap_components as dbc
 from hugchat import hugchat
 from hugchat.login import Login
 import time
-import dash_core_components as dcc
+# import dash_core_components as dcc
 
 from constants import HUGGINGFACE_MAIL, HUGGINGFACE_PASSWORD
 

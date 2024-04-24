@@ -1,5 +1,6 @@
 import dash
-import dash_table
+from dash import dcc, dash_table
+# import dash_table
 
 from apps.test_data import df
 from pages.layout_modals import *
