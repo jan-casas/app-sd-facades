@@ -1,8 +1,10 @@
 import dash
 from pages.pages_helper.layout_modals import *
-from pages.pages_helper.layout_default import sidebar, layout_footer, layout_header, layout_stepper, layout_notifications
+from pages.pages_helper.layout_default import sidebar, layout_footer, layout_header, \
+    layout_notifications
 from pages.pages_helper.descriptions import *
 from pages.layout_chat import layout_modal_help
+import dash_mantine_components as dmc
 
 dash.register_page(__name__, path="/home")
 
@@ -423,6 +425,63 @@ layout_popup = dbc.Row([
         placement='bottom-start'
     ),
 ])
+
+layout_stepper = dmc.Container(
+    children=[
+        dcc.Store(id='stepper-state', storage_type='session'),
+        dmc.Stepper(
+            id="stepper-custom-icons",
+            active=0,
+            breakpoint="sm",
+            children=[
+                dmc.StepperStep(
+                    label="First step",
+                    description="Select an analysis",
+                    # icon=get_icon(icon="material-symbols:account-circle"),
+                    # progressIcon=get_icon(icon="material-symbols:account-circle"),
+                    # completedIcon=get_icon(icon="mdi:account-check"),
+                    children=[
+                        dmc.Text("Step 1 content: Create an account", align="center")
+                    ],
+                ),
+                dmc.StepperStep(
+                    label="Second step",
+                    description="Search meaningful data",
+                    # icon=get_icon(icon="ic:outline-email"),
+                    # progressIcon=get_icon(icon="ic:outline-email"),
+                    # completedIcon=get_icon(icon="material-symbols:mark-email-read-rounded"),
+                    children=[dmc.Text("Step 2 content: Verify email", align="center")],
+                ),
+                dmc.StepperStep(
+                    label="Final step",
+                    description="Save the report",
+                    # icon=get_icon(icon="material-symbols:lock-outline"),
+                    # progressIcon=get_icon(icon="material-symbols:lock-outline"),
+                    # completedIcon=get_icon(icon="material-symbols:lock-open-outline"),
+                    children=[
+                        dmc.Text("Step 3 content: Get full access", align="center")
+                    ],
+                ),
+                dmc.StepperCompleted(
+                    children=[
+                        dmc.Text(
+                            "Completed, click back button to get to previous step",
+                            align="center",
+                        )
+                    ]
+                ),
+            ],
+        ),
+        dmc.Group(
+            position="center",
+            mt="xl",
+            children=[
+                dmc.Button("Back", id="back-custom-icons", variant="default"),
+                dmc.Button("Next step", id="next-custom-icons"),
+            ],
+        ),
+    ]
+)
 
 layout = html.Div([
     # dcc.Location(id='url', refresh=False),

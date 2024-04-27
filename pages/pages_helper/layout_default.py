@@ -4,8 +4,6 @@ import datetime
 import dash_mantine_components as dmc
 from dash_iconify import DashIconify
 
-from constants import active
-
 # HEADER
 last_updated = datetime.datetime.now().strftime('%Y-%m -%d')
 

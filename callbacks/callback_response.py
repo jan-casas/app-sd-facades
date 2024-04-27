@@ -169,3 +169,45 @@ def toggle_collapse(n):
     if n is True:
         return True
     return False
+
+
+# Stepper interaction: Capture the active step and update page route based on the next and back buttons
+@dash_app.callback(
+    [dash.dependencies.Output('url', 'pathname'),
+     dash.dependencies.Output('stepper-state', 'data')],
+    [dash.dependencies.Input("next-custom-icons", "n_clicks"),
+     dash.dependencies.Input("back-custom-icons", "n_clicks")],
+    [dash.dependencies.State("stepper-state", "data")],
+    prevent_initial_call=True,
+)
+def update_url(next_clicks, back_clicks, active_step):
+    logging.info(f"Active step: {active_step}, Next clicks: {next_clicks}, Back clicks: {back_clicks}")
+
+    # Detect active step
+    active_step_var = active_step if active_step is not None else 0
+
+    if next_clicks is not None and back_clicks is None:
+        active_step_var += 1
+    elif next_clicks is None and back_clicks is not None:
+        active_step_var -= 1
+
+    logging.info(active_step_var)
+
+    # Re-route based on active step
+    if active_step_var == 0:
+        return "/home", active_step_var
+    elif active_step_var == 1:
+        return "/assets", active_step_var
+    elif active_step_var == 2:
+        return "/futures", active_step_var
+    elif active_step_var > 2 or active_step_var < 1:
+        return "/home", 0
+
+
+@dash_app.callback(
+    dash.dependencies.Output('stepper-custom-icons', 'active'),
+    dash.dependencies.Input('stepper-state', 'data'),
+    prevent_initial_call=True,
+)
+def update_stepper(active_step):
+    return active_step

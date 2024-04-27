@@ -162,7 +162,7 @@ layout_workflow = dbc.Container([
 )
 
 layout = html.Div([
-    dcc.Location(id='url', refresh=False),
+    dcc.Location(id='url', refresh=True),
     sidebar,
     layout_workflow_explanation,
     layout_playground,

@@ -65,37 +65,37 @@ def load_user(username):
     """
     return User(username)
 
-
-# Login
-@dash_app.callback(
-    Output("user-status-header", "children"),
-    Output('url', 'pathname'),
-    Input("url", "pathname"),
-    Input({'index': ALL, 'type': 'redirect'}, 'n_intervals')
-)
-def update_authentication_status(path, n):
-    # logout redirect
-    if n:
-        if not n[0]:
-            return '', no_update
-        else:
-            return '', '/login'
-
-    # test if user is logged in
-    if current_user.is_authenticated:
-        if path == '/login':
-            return dcc.Link("logout", href="/logout"), '/'
-        return dcc.Link("logout", href="/logout"), no_update
-    else:
-        # if page is restricted, redirect to login and save path
-        if path in restricted_page:
-            session['url'] = path
-            return dcc.Link("login", href="/login"), '/login'
-
-    # if path not login and logout display login link
-    if current_user and path not in ['/login', '/logout']:
-        return dcc.Link("login", href="/login"), no_update
-
-    # if path login and logout hide links
-    if path in ['/login', '/logout']:
-        return '', no_update
+#
+# # Login
+# @dash_app.callback(
+#     Output("user-status-header", "children"),
+#     Output('url', 'pathname'),
+#     Input("url", "pathname"),
+#     Input({'index': ALL, 'type': 'redirect'}, 'n_intervals')
+# )
+# def update_authentication_status(path, n):
+#     # logout redirect
+#     if n:
+#         if not n[0]:
+#             return '', no_update
+#         else:
+#             return '', '/login'
+#
+#     # test if user is logged in
+#     if current_user.is_authenticated:
+#         if path == '/login':
+#             return dcc.Link("logout", href="/logout"), '/'
+#         return dcc.Link("logout", href="/logout"), no_update
+#     else:
+#         # if page is restricted, redirect to login and save path
+#         if path in restricted_page:
+#             session['url'] = path
+#             return dcc.Link("login", href="/login"), '/login'
+#
+#     # if path not login and logout display login link
+#     if current_user and path not in ['/login', '/logout']:
+#         return dcc.Link("login", href="/login"), no_update
+#
+#     # if path login and logout hide links
+#     if path in ['/login', '/logout']:
+#         return '', no_update
