@@ -11,22 +11,34 @@ import math
 import dash
 from dash import html
 import dash_deck
+from psycopg2.sql import SQL, Identifier
+from sqlalchemy import create_engine, text
+# import pickle
+# import pyarrow as pa
+# import pyarrow.parquet as pq
+
 # import dash_html_components as html
 import pydeck as pdk
 import pandas as pd
 import geopandas as gpd
+from shapely import wkb
 
 from utils.utils import extract_main_colors_rgb
-from constants import MAPBOX_API
+from utils.utils_database import retrieve_df
+from constants import MAPBOX_API, PG_USER, PG_PASS, PG_HOST, PG_DATABASE, PG_PORT
 
 # Load in the JSON data
 # Load the GeoJSON file
-DATA_URL = (r"C:\Users\casas\OneDrive\Escritorio\Projects-In "
-            r"Progress\APPS\app-sd-facades\gis\buildings\building_logroño_bp.geojson")
-gdf = gpd.read_file(DATA_URL)
+# DATA_URL = (r"C:\Users\casas\OneDrive\Escritorio\Projects-In "
+#             r"Progress\APPS\app-sd-facades\gis\buildings\building_logroño_bp.geojson")
+# gdf = gpd.read_file(DATA_URL)
 
 
-# TODO: Guardar en formato PICKLE para una carga más rápida
+query_buildings = text("SELECT * FROM {} WHERE numberoffl > 1;".format("qgis.logrono"))
+gdf = retrieve_df(query_buildings)
+gdf['geometry'] = gdf['wkb_geometry'].apply(lambda x: wkb.loads(bytes(x).hex(), hex=True))
+gdf.rename(columns={'localid': 'localId', 'numberoffl': 'numberOfFl'}, inplace=True)
+
 
 def extract_coordinates(geom):
     # Check the geometry type and process accordingly

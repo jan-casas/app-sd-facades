@@ -1,3 +1,4 @@
+import pandas as pd
 import psycopg2 as pg
 import logging
 from constants import PG_HOST, PG_DATABASE, PG_USER, PG_PASS
@@ -28,6 +29,17 @@ def insert_dataframe(df, table_name, schema_name):
     except Exception as e:
         logging.error(f"Error saving data in postgres database: {e}")
         return 'STATUS: ERROR'
+
+
+def retrieve_df(query):
+    try:
+        engine = create_engine(f"postgresql://{PG_USER}:{PG_PASS}@{PG_HOST}/{PG_DATABASE}")
+        df = pd.read_sql(query, engine)
+        return df
+
+    except Exception as e:
+        logging.error(f"Error retrieving data from postgres database: {e}")
+        return None
 
 
 def execute_queries(query, vars_list):

@@ -28,11 +28,6 @@ style_token_mapbox = os.environ.get("STYLE_TOKEN_MAPBOX")
 openai.api_key = os.getenv("OPENAI_API_KEY", "")
 weather_api_key = os.getenv("IQAIR_WEATHER_API", "")
 
-# stepper
-min_step = 0
-max_step = 3
-active = 1
-
 MAPBOX_API = os.getenv("MAPBOX_API",
                        "pk.eyJ1IjoiamFuY2FzYXMiLCJhIjoiY2tlYTk4ZnBlMTBwZzJ5cHhzbzBjdTltaSJ9.nYGQnvw5kkC0m0EC5eHLbg")
 
