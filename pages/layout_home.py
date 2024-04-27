@@ -26,9 +26,14 @@ layout_modal = html.Div([
         ], style={'padding': '0px', 'margin': '0px'}, close_button=False, id='modal-header'
         ),
         # Responsive information
-        dbc.ModalBody(id='modal-body', children=[],
-                      style={'padding': '0px', 'margin': '0px'}),
-
+        dcc.Loading(
+            id="loading",
+            type="dot",
+            fullscreen=False,
+            children=[
+                dbc.ModalBody(id='modal-body', children=[],
+                              style={'padding': '0px', 'margin': '0px'}),
+            ]),
     ], id='modal', size='xl', scrollable=True, is_open=False,
         style={'width': '100%', 'height': '100%', 'padding': '0px', 'margin': '0px'}),
 ])
@@ -484,15 +489,20 @@ layout_stepper = dmc.Container(
 )
 
 layout = html.Div([
-    # dcc.Location(id='url', refresh=False),
     # layout_header,
-    dcc.Location(id='url', refresh=False),
+    dcc.Location(id='url', refresh=True),
     layout_header,
     sidebar,
     html.Div(style={'height': '3.4rem'}),
-    layout_details,
-    layout_stepper,
-    layout_helper,
+    dcc.Loading(
+        id="loading",
+        type="dot",
+        fullscreen=True,
+        children=[
+            layout_details,
+            layout_stepper,
+            layout_helper
+        ]),
     layout_modal,
     layout_modal_help,
     layout_popup,

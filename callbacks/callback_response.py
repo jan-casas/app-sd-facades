@@ -1,6 +1,8 @@
+import logging
 import sys
 from dash_iconify import DashIconify
 import dash_mantine_components as dmc
+from dash import no_update, callback_context
 
 from apps.app_modals import create_subplots
 from core_callbacks import dash_app
@@ -11,7 +13,6 @@ from numpy import intersect1d
 from utils.utils import extract_main_colors
 from apps.test_data import df
 from apps.app_dash_deck import *
-from constants import min_step, max_step, active
 
 sys.path.insert(0, '/static/style.py')
 sys.path.insert(0, 'core_callbacks.py')
@@ -124,24 +125,6 @@ def callback(selection1, dropdown_analysis_id):
     deck_layer = create_deck_layer(df_deck)
 
     return blank_map(geojson, selection1, df_selected_prop), subplot_fig, deck_layer
-
-
-# Stepper
-@dash_app.callback(
-    dash.dependencies.Output("stepper-custom-icons", "active"),
-    dash.dependencies.Input("back-custom-icons", "n_clicks"),
-    dash.dependencies.Input("next-custom-icons", "n_clicks"),
-    dash.dependencies.State("stepper-custom-icons", "active"),
-    prevent_initial_call=True,
-)
-def update_with_icons(back, next_, current):
-    button_id = dash.ctx.triggered_id
-    step = current if current is not None else active
-    if button_id == "back-custom-icons":
-        step = step - 1 if step > min_step else step
-    else:
-        step = step + 1 if step < max_step else step
-    return step
 
 
 # Notification

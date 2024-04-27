@@ -299,7 +299,6 @@ layout_details = dbc.Container([
 )
 
 layout_map_dash_deck = dbc.Container([
-
     html.H2("My Assets In Detail View", className="my-3 mx-5"),
     dbc.Row([
         dbc.Col([
@@ -345,7 +344,8 @@ layout_map_dash_deck = dbc.Container([
         connected to a node that is connected to the internet. The node sends the data to a server that stores the 
         data. The data is then processed and visualized in the dashboard. The dashboard is updated every 5 minutes."""),
         dcc.Graph(id='subplot_div_assets', figure={}),
-        dcc.Markdown("""**Figure 1.** Bar chart about the current performance of the assets globally."""),
+        dcc.Markdown("""**Figure 1.** Bar chart about 
+                the current performance of the assets globally."""),
         # dcc.Markdown(congrats_conclusion),
     ], className="my-4 mx-5"),
     dbc.Row(
@@ -451,13 +451,19 @@ layout_stepper = dmc.Container(
 )
 
 layout = html.Div([
-    dcc.Location(id='url', refresh=False),
+    dcc.Location(id='url', refresh=True),
     layout_header,
     sidebar,
     html.Div(style={'height': '3.4rem'}),
     selector_grid,
-    layout_details,
-    layout_map_dash_deck,
+    dcc.Loading(
+        id="loading",
+        type="dots",
+        fullscreen=True,
+        children=[
+            layout_details,
+            layout_map_dash_deck
+        ]),
     layout_modal_help,
     layout_stepper,
     layout_popup,

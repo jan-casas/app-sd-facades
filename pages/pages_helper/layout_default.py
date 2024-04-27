@@ -166,62 +166,6 @@ def get_icon(icon):
     return DashIconify(icon=icon, height=20)
 
 
-layout_stepper = dmc.Container(
-    [
-        dmc.Stepper(
-            id="stepper-custom-icons",
-            active=active,
-            breakpoint="sm",
-            children=[
-                dmc.StepperStep(
-                    label="First step",
-                    description="Select an analysis",
-                    # icon=get_icon(icon="material-symbols:account-circle"),
-                    # progressIcon=get_icon(icon="material-symbols:account-circle"),
-                    # completedIcon=get_icon(icon="mdi:account-check"),
-                    children=[
-                        dmc.Text("Step 1 content: Create an account", align="center")
-                    ],
-                ),
-                dmc.StepperStep(
-                    label="Second step",
-                    description="Search meaningful data",
-                    # icon=get_icon(icon="ic:outline-email"),
-                    # progressIcon=get_icon(icon="ic:outline-email"),
-                    # completedIcon=get_icon(icon="material-symbols:mark-email-read-rounded"),
-                    children=[dmc.Text("Step 2 content: Verify email", align="center")],
-                ),
-                dmc.StepperStep(
-                    label="Final step",
-                    description="Save the report",
-                    # icon=get_icon(icon="material-symbols:lock-outline"),
-                    # progressIcon=get_icon(icon="material-symbols:lock-outline"),
-                    # completedIcon=get_icon(icon="material-symbols:lock-open-outline"),
-                    children=[
-                        dmc.Text("Step 3 content: Get full access", align="center")
-                    ],
-                ),
-                dmc.StepperCompleted(
-                    children=[
-                        dmc.Text(
-                            "Completed, click back button to get to previous step",
-                            align="center",
-                        )
-                    ]
-                ),
-            ],
-        ),
-        dmc.Group(
-            position="center",
-            mt="xl",
-            children=[
-                dmc.Button("Back", id="back-custom-icons", variant="default"),
-                dmc.Button("Next step", id="next-custom-icons"),
-            ],
-        ),
-    ]
-)
-
 layout_notifications = dmc.NotificationsProvider(
     html.Div(
         [
@@ -292,7 +236,10 @@ default_modal = dbc.Row([
 default_response = dbc.Row([
     # html.Hr(),
     html.P(
-        'Please tell us the orientation of the building where you live. This information is important for us to understand the amount of sunlight and shade your building receives throughout the day.\n Please tell us the orientation of the building where you live. This information is important for us to understand the amount of sunlight and shade your building receives throughout the day.',
+        'Please tell us the orientation of the building where you live. This information is important for us to '
+        'understand the amount of sunlight and shade your building receives throughout the day.\n Please tell us the '
+        'orientation of the building where you live. This information is important for us to understand the amount of '
+        'sunlight and shade your building receives throughout the day.',
         style={'color': '#202123', 'padding': '0px'}
     ),
     html.Div(id='api-response', children=[]),
@@ -330,15 +277,35 @@ LAYOUT_ASSETS = {
 }
 
 TEXT_PLACEHOLDER = {
-    '1': 'Hola, estoy buscando una casa en Valencia con orientación sur para aprovechar la luz solar. ¿Podrías recomendarme propiedades que cumplan con esta preferencia? Me encantaría tener habitaciones iluminadas por el sol de la mañana y espacios abiertos para disfrutar de la luz natural. Gracias.',
-    '2': 'Hola, estoy buscando una casa en Valencia que esté en una zona tranquila y libre de ruidos en la calle. ¿Podrías recomendarme propiedades que cumplan con esta preferencia? Me encantaría tener un ambiente tranquilo y silencioso para poder relajarme y disfrutar de mi hogar. Gracias.',
-    '3': 'Hola, estoy buscando una casa en Valencia que sea de construcción reciente. ¿Podrías recomendarme propiedades que cumplan con esta preferencia? Me encantaría tener una casa moderna y actualizada con todas las comodidades y tecnologías más recientes. Gracias.',
-    '4': 'Hola, estoy buscando una casa en Valencia que no esté en sombra debido a otros edificios cercanos. ¿Podrías recomendarme propiedades que cumplan con esta preferencia? Me encantaría tener una casa con buena iluminación natural y sin sombras de otros edificios que puedan afectar la luz solar. Gracias.',
-    '5': 'Hola, estoy buscando una casa en Valencia que esté cerca del centro de la ciudad. ¿Podrías recomendarme propiedades que cumplan con esta preferencia? Me encantaría tener una casa con fácil acceso a todas las comodidades y atracciones del centro de la ciudad. Gracias.',
-    '6': 'Hola, estoy buscando una casa en Valencia que esté cerca de parques y entornos vegetales. ¿Podrías recomendarme propiedades que cumplan con esta preferencia? Me encantaría tener una casa con fácil acceso a espacios verdes y naturales para disfrutar del aire libre y la naturaleza. Gracias.',
-    '7': 'Hola, estoy buscando una casa en Valencia que no esté cerca de centros turísticos. ¿Podrías recomendarme propiedades que cumplan con esta preferencia? Me encantaría tener una casa en una zona tranquila y alejada del bullicio turístico para poder disfrutar de mi hogar en paz. Gracias.',
-    '8': 'Hola, estoy buscando una casa en Valencia que tenga buenas vistas. ¿Podrías recomendarme propiedades que cumplan con esta preferencia? Me encantaría tener una casa con una vista impresionante de la ciudad o del paisaje natural. Gracias.',
-    '9': 'Hola, estoy buscando una casa en Valencia que tenga un consumo energético eficiente. ¿Podrías recomendarme propiedades que cumplan con esta preferencia? Me encantaría tener una casa con un bajo consumo de energía y que sea respetuosa con el medio ambiente. Gracias.',
-    '10': 'Hola, estoy buscando una casa en Valencia que esté en un vecindario seguro. ¿Podrías recomendarme propiedades que cumplan con esta preferencia? Me encantaría tener una casa en una zona con bajos índices de criminalidad y donde pueda vivir tranquilo y sin preocupaciones. Gracias.',
+    '1': 'Hola, estoy buscando una casa en Valencia con orientación sur para aprovechar la luz solar. ¿Podrías '
+         'recomendarme propiedades que cumplan con esta preferencia? Me encantaría tener habitaciones iluminadas por '
+         'el sol de la mañana y espacios abiertos para disfrutar de la luz natural. Gracias.',
+    '2': 'Hola, estoy buscando una casa en Valencia que esté en una zona tranquila y libre de ruidos en la calle. '
+         '¿Podrías recomendarme propiedades que cumplan con esta preferencia? Me encantaría tener un ambiente '
+         'tranquilo y silencioso para poder relajarme y disfrutar de mi hogar. Gracias.',
+    '3': 'Hola, estoy buscando una casa en Valencia que sea de construcción reciente. ¿Podrías recomendarme '
+         'propiedades que cumplan con esta preferencia? Me encantaría tener una casa moderna y actualizada con todas '
+         'las comodidades y tecnologías más recientes. Gracias.',
+    '4': 'Hola, estoy buscando una casa en Valencia que no esté en sombra debido a otros edificios cercanos. ¿Podrías '
+         'recomendarme propiedades que cumplan con esta preferencia? Me encantaría tener una casa con buena '
+         'iluminación natural y sin sombras de otros edificios que puedan afectar la luz solar. Gracias.',
+    '5': 'Hola, estoy buscando una casa en Valencia que esté cerca del centro de la ciudad. ¿Podrías recomendarme '
+         'propiedades que cumplan con esta preferencia? Me encantaría tener una casa con fácil acceso a todas las '
+         'comodidades y atracciones del centro de la ciudad. Gracias.',
+    '6': 'Hola, estoy buscando una casa en Valencia que esté cerca de parques y entornos vegetales. ¿Podrías '
+         'recomendarme propiedades que cumplan con esta preferencia? Me encantaría tener una casa con fácil acceso a '
+         'espacios verdes y naturales para disfrutar del aire libre y la naturaleza. Gracias.',
+    '7': 'Hola, estoy buscando una casa en Valencia que no esté cerca de centros turísticos. ¿Podrías recomendarme '
+         'propiedades que cumplan con esta preferencia? Me encantaría tener una casa en una zona tranquila y alejada '
+         'del bullicio turístico para poder disfrutar de mi hogar en paz. Gracias.',
+    '8': 'Hola, estoy buscando una casa en Valencia que tenga buenas vistas. ¿Podrías recomendarme propiedades que '
+         'cumplan con esta preferencia? Me encantaría tener una casa con una vista impresionante de la ciudad o del '
+         'paisaje natural. Gracias.',
+    '9': 'Hola, estoy buscando una casa en Valencia que tenga un consumo energético eficiente. ¿Podrías recomendarme '
+         'propiedades que cumplan con esta preferencia? Me encantaría tener una casa con un bajo consumo de energía y '
+         'que sea respetuosa con el medio ambiente. Gracias.',
+    '10': 'Hola, estoy buscando una casa en Valencia que esté en un vecindario seguro. ¿Podrías recomendarme '
+          'propiedades que cumplan con esta preferencia? Me encantaría tener una casa en una zona con bajos índices '
+          'de criminalidad y donde pueda vivir tranquilo y sin preocupaciones. Gracias.',
 
 }
