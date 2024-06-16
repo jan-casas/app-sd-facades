@@ -1,8 +1,12 @@
+import base64
+import io
+
 import logging
 import sys
 from dash_iconify import DashIconify
 import dash_mantine_components as dmc
-from dash import no_update, callback_context
+import dash_bootstrap_components as dbc
+from dash import no_update, callback_context, dcc
 
 from apps.app_modals import create_subplots
 from core_callbacks import dash_app
@@ -13,10 +17,32 @@ from numpy import intersect1d
 from utils.utils import extract_main_colors
 from apps.test_data import df
 from apps.app_dash_deck import *
+from pages.pages_helper.descriptions import *
 
 sys.path.insert(0, '/static/style.py')
 sys.path.insert(0, 'core_callbacks.py')
 sys.path.insert(0, 'apps/app_mapbox_playground.py')
+
+
+# %% ---- GENERIC/MODALS ----
+# Playground experiments
+@dash_app.callback(
+    [dash.dependencies.Output(component_id='city_mapbox', component_property='figure'),
+     dash.dependencies.Output('graph_edad', 'figure'),
+     dash.dependencies.Output('graph_stacked', 'figure')],
+    [dash.dependencies.Input('city_mapbox', 'selectedData')],
+)
+def callback(selection1):
+    selectedpoints = geojson.index
+    for selected_data in [selection1]:
+        if selected_data and selected_data['points']:
+            selectedpoints = intersect1d(selectedpoints,
+                                         [p['customdata'] for p in selected_data['points']])
+    df_selected = DataFrame.from_dict(selectedpoints)
+    df_selected_prop = propiedades_entidad.iloc[df_selected.iloc[:, 0].values.tolist(
+    ), :].reset_index(drop=True)
+
+    return update_mapbox(geojson, selection1, df_selected_prop)
 
 
 @dash_app.callback(
@@ -75,56 +101,6 @@ def toggle_collapse(n, pathname, is_open):
         if n:
             return not is_open
     return is_open
-
-
-# Playground experiments
-@dash_app.callback(
-    [dash.dependencies.Output(component_id='city_mapbox', component_property='figure'),
-     dash.dependencies.Output('graph_edad', 'figure'),
-     dash.dependencies.Output('graph_stacked', 'figure')],
-    [dash.dependencies.Input('city_mapbox', 'selectedData')],
-)
-def callback(selection1):
-    selectedpoints = geojson.index
-    for selected_data in [selection1]:
-        if selected_data and selected_data['points']:
-            selectedpoints = intersect1d(selectedpoints,
-                                         [p['customdata'] for p in selected_data['points']])
-    df_selected = DataFrame.from_dict(selectedpoints)
-    df_selected_prop = propiedades_entidad.iloc[df_selected.iloc[:, 0].values.tolist(
-    ), :].reset_index(drop=True)
-
-    return update_mapbox(geojson, selection1, df_selected_prop)
-
-
-# My Assets location selectector in blank_map
-@dash_app.callback([
-    dash.dependencies.Output('blank_map', 'figure'),
-    dash.dependencies.Output('subplot_div_assets', 'figure'),
-    dash.dependencies.Output('layout_dash_deck', 'children'), ],
-    [dash.dependencies.Input('blank_map', 'selectedData'),
-     dash.dependencies.Input('dropdown_analysis_id', 'value')],
-)
-def callback(selection1, dropdown_analysis_id):
-    # Main colors
-    n_rows = df.shape[0]
-    colors = extract_main_colors(dropdown_analysis_id, n_rows)
-    colors_str = ['rgb(' + ', '.join(map(str, color)) + ')' for color in colors]
-    subplot_fig = create_subplots(df, colors_str=colors_str)
-
-    selectedpoints = geojson.index
-    for selected_data in [selection1]:
-        if selected_data and selected_data['points']:
-            selectedpoints = intersect1d(selectedpoints,
-                                         [p['customdata'] for p in selected_data['points']])
-    df_selected = DataFrame.from_dict(selectedpoints)
-    df_selected_prop = propiedades_entidad.iloc[df_selected.iloc[:, 0].values.tolist(
-    ), :].reset_index(drop=True)
-
-    df_deck = parse_data(gdf, dropdown_analysis_id)
-    deck_layer = create_deck_layer(df_deck)
-
-    return blank_map(geojson, selection1, df_selected_prop), subplot_fig, deck_layer
 
 
 # Notification
@@ -194,3 +170,107 @@ def update_url(next_clicks, back_clicks, active_step):
 )
 def update_stepper(active_step):
     return active_step
+
+
+# %% ---- LAYOUT LOAD ----
+# Upload file interaction
+def parse_contents(contents, filename):
+    content_type, content_string = contents.split(',')
+    decoded = base64.b64decode(content_string)
+    if 'csv' in filename:
+        # Assume that the user uploaded a CSV file
+        return pd.read_csv(
+            io.StringIO(decoded.decode('utf-8')))
+    elif 'xls' in filename:
+        # Assume that the user uploaded an Excel file
+        return pd.read_excel(io.BytesIO(decoded))
+
+
+@dash_app.callback(
+    dash.dependencies.Output('datatable-upload-container', 'data'),
+    dash.dependencies.Output('datatable-upload-container', 'columns'),
+    dash.dependencies.Input('datatable-upload', 'contents'),
+    dash.dependencies.State('datatable-upload', 'filename'))
+def update_output(contents, filename):
+    if contents is None:
+        return [{}], []
+    df = parse_contents(contents, filename)
+    return df.to_dict('records'), [{"name": i, "id": i} for i in df.columns]
+
+
+# TODO: Add popups if the format is not correct
+
+# %% ---- LAYOUT ASSETS ----
+# My Assets location selectector in blank_map
+@dash_app.callback([
+    dash.dependencies.Output('subplot_div_assets', 'figure'),
+    dash.dependencies.Output('layout_dash_deck', 'children'), ],
+    [dash.dependencies.Input('dropdown_analysis_id', 'value')],
+)
+def callback(dropdown_analysis_id):
+    # Main colors
+    n_rows = df.shape[0]
+    colors = extract_main_colors(dropdown_analysis_id, n_rows)
+    colors_str = ['rgb(' + ', '.join(map(str, color)) + ')' for color in colors]
+    subplot_fig = create_subplots(df, colors_str=colors_str)
+
+    # TODO: Uncomment when the database is connected
+    # gdf = query_buildings(table='logrono', schema='gis')  # TODO: La ciudad podría cambiar, por eso se utiliza una
+    # función helper
+    df_deck = parse_data(gdf, dropdown_analysis_id)
+    deck_layer = create_deck_layer(df_deck)
+
+    return subplot_fig, deck_layer
+
+
+# ---- LAYOUT HOME ----
+# Table home markdown interaction
+@dash_app.callback(
+    dash.dependencies.Output('table_home_markdown', 'children'),
+    [dash.dependencies.Input('datatable-interactivity', 'selected_rows')],
+)
+def update_table_home_markdown(rows: list):
+    # Every row must read a different markdown file
+    # if multiple rows append it
+    # TODO: Create a relation between the analysis row and the construction of the cards with the speckle models
+    # if row is not None:
+    #     return [dcc.Markdown(f"Row {r} selected") for r in row]
+    # return no_update
+
+    result = [
+        html.Span('Analysis Explanation:'),
+        dcc.Markdown("""
+            The next Speckle Iframes models will show a glimpse of the analysis made in a small size city of Spain. This is 
+            used for preview purposes. 
+            The analysis includes various factors such as temperature, occupancy, climatic responsiveness, and installation performance. 
+            Each of these factors is carefully studied and visualized using Speckle, a data-driven design platform. 
+            The models provide a comprehensive understanding of the city's architectural and environmental dynamics. They serve as a 
+            valuable tool for architects, city planners, and environmentalists to make informed decisions and create sustainable urban 
+            environments. 
+            
+            Please note that the models are interactive, allowing you to explore different aspects of the city's architecture and 
+            environment in detail.
+        """),
+    ]
+    for row in rows:
+        card = dbc.Card(
+            [
+                html.A(
+                    html.Iframe(
+                        src=facade_sun_radiation["src"],
+                        width="100%", height="100%", className="card-img"),
+                    # target="_blank",
+                    # id="card-preview-3"
+                ),
+                dbc.CardBody(
+                    [
+                        html.H5(facade_sun_radiation["title"], className="card-title"),
+                        html.P(facade_sun_radiation["description"], className="card-text"),
+                    ]
+                ),
+            ],
+            className="h-100"
+        )
+        result.append(card)
+        result.append(html.Br())
+    return result
