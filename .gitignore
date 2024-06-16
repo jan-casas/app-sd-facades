@@ -13,3 +13,5 @@ database/data_experiments/
 database/
 test/
 !/gis/
+/database
+/data
