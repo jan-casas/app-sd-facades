@@ -1,23 +1,24 @@
 import base64
 import io
-
 import logging
 import sys
-from dash_iconify import DashIconify
-import dash_mantine_components as dmc
+
 import dash_bootstrap_components as dbc
-from dash import no_update, callback_context, dcc
-
-from apps.app_modals import create_subplots
-from core_callbacks import dash_app
-from apps.app_mapbox_playground import update_mapbox, geojson, propiedades_entidad, blank_map
-from pandas import DataFrame
+import dash_mantine_components as dmc
+import plotly.graph_objects as go
+from dash import dcc
+from dash_iconify import DashIconify
 from numpy import intersect1d
+from pandas import DataFrame
 
-from utils.utils import extract_main_colors
-from apps.test_data import df
 from apps.app_dash_deck import *
+from apps.app_load_assets import df, fig
+from apps.app_mapbox_playground import update_mapbox, geojson, propiedades_entidad
+from apps.app_modals import create_subplots
+from constants import MAPBOX_TOKEN
+from core_callbacks import dash_app
 from pages.pages_helper.descriptions import *
+from utils.utils import extract_main_colors
 
 sys.path.insert(0, '/static/style.py')
 sys.path.insert(0, 'core_callbacks.py')
@@ -189,22 +190,40 @@ def parse_contents(contents, filename):
 @dash_app.callback(
     dash.dependencies.Output('datatable-upload-container', 'data'),
     dash.dependencies.Output('datatable-upload-container', 'columns'),
+    dash.dependencies.Output('load_assets', 'figure'),
     dash.dependencies.Input('datatable-upload', 'contents'),
     dash.dependencies.State('datatable-upload', 'filename'))
 def update_output(contents, filename):
+    df_new = parse_contents(contents, filename)
+    # TODO: Coalesce Insert into the database
+
+    if df_new is not None:
+        fig.add_trace(
+            go.Scattermapbox(
+                lat=df_new.latitude,
+                lon=df_new.longitude,
+                mode='markers',
+                marker=go.scattermapbox.Marker(
+                    size=9,
+                    color='#ff0000'
+                ),
+                cluster=dict(enabled=True),
+                hovertext=df_new['local_id'],
+            ))
+
     if contents is None:
-        return [{}], []
-    df = parse_contents(contents, filename)
-    return df.to_dict('records'), [{"name": i, "id": i} for i in df.columns]
+        return [{}], [], fig
+
+    return df_new.to_dict('records'), [{"name": i, "id": i} for i in df_new.columns], fig
 
 
 # TODO: Add popups if the format is not correct
 
 # %% ---- LAYOUT ASSETS ----
 # My Assets location selectector in blank_map
-@dash_app.callback([
-    dash.dependencies.Output('subplot_div_assets', 'figure'),
-    dash.dependencies.Output('layout_dash_deck', 'children'), ],
+@dash_app.callback(
+    # dash.dependencies.Output('subplot_div_assets', 'figure'),
+    dash.dependencies.Output('layout_dash_deck', 'children'),
     [dash.dependencies.Input('dropdown_analysis_id', 'value')],
 )
 def callback(dropdown_analysis_id):
@@ -212,7 +231,7 @@ def callback(dropdown_analysis_id):
     n_rows = df.shape[0]
     colors = extract_main_colors(dropdown_analysis_id, n_rows)
     colors_str = ['rgb(' + ', '.join(map(str, color)) + ')' for color in colors]
-    subplot_fig = create_subplots(df, colors_str=colors_str)
+    # subplot_fig = create_subplots(df, colors_str=colors_str)
 
     # TODO: Uncomment when the database is connected
     # gdf = query_buildings(table='logrono', schema='gis')  # TODO: La ciudad podría cambiar, por eso se utiliza una
@@ -220,7 +239,7 @@ def callback(dropdown_analysis_id):
     df_deck = parse_data(gdf, dropdown_analysis_id)
     deck_layer = create_deck_layer(df_deck)
 
-    return subplot_fig, deck_layer
+    return deck_layer
 
 
 # ---- LAYOUT HOME ----
@@ -240,32 +259,39 @@ def update_table_home_markdown(rows: list):
     result = [
         html.Span('Analysis Explanation:'),
         dcc.Markdown("""
-            The next Speckle Iframes models will show a glimpse of the analysis made in a small size city of Spain. This is 
+            The next Speckle Iframes models will show a glimpse of the analysis made in a small size city of Spain. 
+            This is 
             used for preview purposes. 
-            The analysis includes various factors such as temperature, occupancy, climatic responsiveness, and installation performance. 
+            The analysis includes various factors such as temperature, occupancy, climatic responsiveness, 
+            and installation performance. 
             Each of these factors is carefully studied and visualized using Speckle, a data-driven design platform. 
-            The models provide a comprehensive understanding of the city's architectural and environmental dynamics. They serve as a 
-            valuable tool for architects, city planners, and environmentalists to make informed decisions and create sustainable urban 
+            The models provide a comprehensive understanding of the city's architectural and environmental dynamics. 
+            They serve as a 
+            valuable tool for architects, city planners, and environmentalists to make informed decisions and create 
+            sustainable urban 
             environments. 
             
-            Please note that the models are interactive, allowing you to explore different aspects of the city's architecture and 
+            Please note that the models are interactive, allowing you to explore different aspects of the city's 
+            architecture and 
             environment in detail.
         """),
     ]
+
     for row in rows:
+        df_description_selected = description_df.iloc[row, :]
         card = dbc.Card(
             [
                 html.A(
                     html.Iframe(
-                        src=facade_sun_radiation["src"],
+                        src=df_description_selected["src"],
                         width="100%", height="100%", className="card-img"),
                     # target="_blank",
                     # id="card-preview-3"
                 ),
                 dbc.CardBody(
                     [
-                        html.H5(facade_sun_radiation["title"], className="card-title"),
-                        html.P(facade_sun_radiation["description"], className="card-text"),
+                        html.H5(df_description_selected["title"], className="card-title"),
+                        html.P(df_description_selected["description"], className="card-text"),
                     ]
                 ),
             ],
