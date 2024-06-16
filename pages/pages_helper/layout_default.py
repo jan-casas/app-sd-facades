@@ -9,8 +9,17 @@ last_updated = datetime.datetime.now().strftime('%Y-%m -%d')
 
 layout_header = dbc.NavbarSimple(
     children=[
+        # html.H6("Grupo Aransa"),
+        # html.Span("|"),
         # html.Span("Hello again, MK", className="navbar-text me-2"),
-        # dmc.Avatar("MK", color="cyan", radius="xl"),
+        # dmc.Indicator(
+        #     dmc.Avatar("MK", color="cyan", radius="xl"),
+        #     inline=True,
+        #     size=12,
+        #     # label="New",
+        #     color="blue",
+        #     # processing=True
+        # ),
         dmc.Switch(
             id="switch",
             onLabel="DEV",
@@ -21,7 +30,7 @@ layout_header = dbc.NavbarSimple(
         ),
     ],
     sticky="top",
-    className='app-header justify-content-center'
+    className='app-header justify-content-center',
 )
 
 sidebar = html.Div(
@@ -49,101 +58,73 @@ sidebar = html.Div(
                     active="exact",
                 ),
                 dbc.NavLink(
-                    [html.I(className="bi bi-search-heart me-2"),
-                     html.Span("New Releases")],
-                    href="/home",
-                    active="exact",
-                ),
-                dbc.NavLink(
                     [
                         html.I(className="bi bi-house-heart me-2"),
                         html.Span("My Assets"),
-                        dbc.Collapse(
-                            dbc.Nav(
-                                [
-                                    dbc.NavLink([
-                                        html.I(className="bi bi-dash-square-dotted me-2"),
-                                        html.Span("Edit Assets"),
-                                    ],
-                                        href="/assets/subitem2",
-                                        active="exact"),
-                                ],
-                                vertical=True,
-                            ),
-                            id="collapse_assets",
-                            is_open=False,
-                        ),
+                        # dbc.Collapse(
+                        #     dbc.Nav(
+                        #         [
+                        #             dbc.NavLink([
+                        #                 html.I(className="bi bi-dash-square-dotted me-2"),
+                        #                 html.Span("Edit Assets"),
+                        #             ],
+                        #                 href="/assets/subitem2",
+                        #                 active="exact"),
+                        #         ],
+                        #         vertical=True,
+                        #     ),
+                        #     id="collapse_assets",
+                        #     is_open=False,
+                        # ),
                     ],
-                    href="/assets",
+                    href="/load",
                     active="exact",
                     id="assets_link",
                 ),
                 dbc.NavLink(
                     [html.I(className="bi bi-cart-check-fill me-2"),
-                     html.Span("Futures")],
-                    href="/futures",
+                     html.Span("Select Analysis")],
+                    href="/home",
+                    active="exact",
+                ),
+                dbc.NavLink(
+                    [html.I(className="bi bi-search-heart me-2"),
+                     html.Span("Compare Results ")],
+                    href="/assets",
                     active="exact",
                 ),
                 html.Hr(),
-                # dmc.Divider(label="", labelPosition="center"),
                 dbc.NavLink(
                     [
-                        html.I(className="bi bi-bug-fill me-2"),
-                        html.Span("Playground"),
+                        html.I(className="bi bi-balloon-heart-fill me-2"),
+                        html.Span("Explore Preferences"),
                         dbc.Badge("New", color="warning", className="ms-2"),
-                        dbc.Collapse(
-                            dbc.Nav(
-                                [
-                                    dbc.NavLink([
-                                        html.I(className="bi bi-dash-square-dotted me-2"),
-                                        html.Span(" Energy Saving"),
-                                    ],
-                                        href="/experiments/subitem1",
-                                        active="exact"),
-                                    dbc.NavLink([
-                                        html.I(className="bi bi-dash-square-dotted me-2"),
-                                        html.Span(" Sun Exposure"),
-                                    ],
-                                        href="/experiments/subitem2",
-                                        active="exact"),
-                                ],
-                                vertical=True,
-                            ),
-                            id="collapse_experiments",
-                            is_open=False,
-                        ),
+                        # dbc.Collapse(
+                        #     dbc.Nav(
+                        #         [
+                        #             dbc.NavLink([
+                        #                 html.I(className="bi bi-dash-square-dotted me-2"),
+                        #                 html.Span(" Energy Saving"),
+                        #             ],
+                        #                 href="/experiments/subitem1",
+                        #                 active="exact"),
+                        #             dbc.NavLink([
+                        #                 html.I(className="bi bi-dash-square-dotted me-2"),
+                        #                 html.Span(" Sun Exposure"),
+                        #             ],
+                        #                 href="/experiments/subitem2",
+                        #                 active="exact"),
+                        #         ],
+                        #         vertical=True,
+                        #     ),
+                        #     id="collapse_experiments",
+                        #     is_open=False,
+                        # ),
                     ],
                     href="/experiments",
                     active="exact",
                     id="experiments_link",
                 ),
-                # dbc.NavLink(
-                #     [
-                #         html.I(className="bi bi-broadcast-pin me-2"),
-                #         html.Span("Endpoints"),
-                #     ],
-                #     href="/endpoints",
-                #     active="exact",
-                # ),
-                # html.Hr(),
-                # # dmc.Divider(label="", labelPosition="center"),
-                # # html.P("Admin", className="sidebar-header-separator"),
-                # dbc.NavLink(
-                #     [
-                #         html.I(className="bi bi-chat-square-text-fill me-2"),
-                #         html.Span("News"),
-                #     ],
-                #     href="/details",
-                #     active="exact",
-                # ),
-                # dbc.NavLink(
-                #     [
-                #         html.I(className="bi bi-bookmark-star me-2"),
-                #         html.Span("Docs"),
-                #     ],
-                #     href="/docs",
-                #     active="exact",
-                # ),
                 dbc.NavLink(
                     [
                         html.I(className="bi bi-life-preserver me-2"),
