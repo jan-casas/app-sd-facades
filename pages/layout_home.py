@@ -2,6 +2,7 @@ import dash
 import dash_table
 import pandas as pd
 
+from apps.app_load_assets import df
 from pages.pages_helper.layout_modals import *
 from pages.pages_helper.layout_default import sidebar, layout_footer, layout_header, \
     layout_notifications
@@ -458,7 +459,9 @@ layout_stepper = html.Footer([
                          dmc.StepperStep(
                              label="Compare Results",
                              children=[
-                                 dmc.Text("Step 3/3: Compare the performances of your actives with the rest of the city", align="center")
+                                 dmc.Text(
+                                     "Step 3/3: Compare the performances of your actives with the rest of the city",
+                                     align="center")
                              ],
                          ),
                          dmc.StepperCompleted(
@@ -486,16 +489,18 @@ layout_stepper = html.Footer([
 ], style={'width': '100%', 'margin-left': 'auto', 'margin-right': 'auto', 'margin-top': '50px',
           'background-color': '#f7f7f8', 'height': '200px'})
 
-df = pd.read_csv('https://raw.githubusercontent.com/plotly/datasets/master/gapminder2007.csv')
+# df = pd.read_csv('https://raw.githubusercontent.com/plotly/datasets/master/gapminder2007.csv')
 
 layout_types_analysis = dbc.Container(
     [
         html.H2("New Releases", id='home_title', className="my-4 mx-5"),
-        html.Span('Description of the Map:', className="my-4 mx-5"),
-        dcc.Markdown("""The map displays various housing locations promoted by the company, marked with distinct points. Each point 
+        html.Span('Description of the comparative tables:', className="my-4 mx-5"),
+        dcc.Markdown("""The map displays various housing locations promoted by the company, marked with distinct 
+        points. Each point 
         represents a specific housing location and is color-coded based on the type of property (e.g., apartments, 
         townhouses, single-family homes). The map includes key information such as the name of the housing development, 
-        address, and availability status. Interactive features allow users to click on each point for detailed descriptions, 
+        address, and availability status. Interactive features allow users to click on each point for detailed 
+        descriptions, 
         images, pricing, and contact information. Major roads, landmarks, and amenities are also highlighted for better 
         orientation and context.""", className="my-4 mx-5"),
         dbc.Row([
@@ -504,9 +509,10 @@ layout_types_analysis = dbc.Container(
                 dash_table.DataTable(
                     id='datatable-interactivity',
                     columns=[
-                        {"name": i, "id": i, "deletable": False, "selectable": True} for i in df.columns
+                        {"name": i, "id": i, "deletable": False, "selectable": True} for i in
+                        description_df[["title", "updated"]].columns
                     ],
-                    data=df.to_dict('records'),
+                    data=description_df[["title", "updated"]].to_dict('records'),
                     editable=False,
                     filter_action="native",
                     sort_action="native",
@@ -520,6 +526,8 @@ layout_types_analysis = dbc.Container(
                     page_current=0,
                     page_size=20,
                 ),
+                html.Br(),
+                html.Br(),
                 dcc.Markdown(
                     """**Figure 1.** List of the available analysis."""),
             ]),
@@ -528,7 +536,9 @@ layout_types_analysis = dbc.Container(
                 dash_table.DataTable(
                     id='datatable-interactivity2',
                     columns=[
-                        {"name": i, "id": i, "deletable": False, "selectable": True} for i in df.columns
+                        {"name": i, "id": i, "deletable": False, "selectable": True}
+                        for i in ['local_id', 'local_use', 'floor', 'year_construction', 'unit_cost']
+                        if i in df.columns
                     ],
                     data=df.to_dict('records'),
                     editable=False,
@@ -542,224 +552,16 @@ layout_types_analysis = dbc.Container(
                     selected_rows=[],
                     page_action="native",
                     page_current=0,
-                    page_size=20,
+                    page_size=int(len(description_df.index)),
                 ),
                 dcc.Markdown(
-                    """**Figure 2.** Map of the existing assets."""),
+                    """**Figure 2.** List of the existing assets."""),
             ]),
         ], className="my-4 mx-5"),
 
         html.Div(id='table_home_markdown', children=[], className="my-4 mx-5"),
 
     ], fluid=True)
-
-layout_details = dbc.Container([
-
-    html.H2("Key Measurement Indicators",
-            id='title_lines', className="my-3 mx-5"),
-    dbc.Row(
-        [
-            dbc.Col(
-                dbc.Card(
-                    dbc.CardBody(
-                        [
-                            html.H5("Large Scale Deployment for Generative Prototyping",
-                                    className="card-title"),
-                            html.P(
-                                "The goal of this project is to create a digital twin of a real object, using sensors "
-                                "that capture information about its state and behavior. In this case, the real object "
-                                "is a digital twin model that represents the location of the sensors in space. \n The "
-                                "sensors can measure different environmental variables such as temperature, humidity, "
-                                "lighting, or noise. An Arduino and a Raspberry Pi are used to transmit the sensor "
-                                "data to the digital twin."),
-                        ]
-                    ),
-
-                    # ],
-                    className="h-100"
-                ),
-                # width=3
-            ),
-            dbc.Col(
-                dbc.Card(
-                    [
-                        # dbc.Row([
-                        # dbc.Col(dbc.Card(
-                        #     [
-                        #         html.H2("Humedad:",
-                        #                 className="card-title"),
-                        #         html.H2("Es del 50%",
-                        #                 className="card-text"),
-                        #     ],
-                        #     body=True,
-                        #     color="light",
-                        # ), width='50%'),
-                        dbc.Col(dbc.Card(
-                            [
-                                html.H2("Temperatura:",
-                                        className="card-title"),
-                                html.H2("Es de 27ºC",
-                                        className="card-text", style={'color': 'white'}),
-                            ],
-                            body=True,
-                            color="dark",
-                            inverse=True,
-                        ), width='50%'),
-
-                        # ],
-                        # className="card-img-small"
-                        # ),
-                        # html.A(
-                        #     dbc.CardImg(src="/static/images/OIG (1).jpg", top=True,
-                        #                 alt="...", className="card-img-small"),
-                        #     href="#",
-                        #     id='card-image-1'
-                        #     # data-toggle="modal",
-                        #     # data-target="#myModal",
-                        # ),
-                        dbc.CardBody(
-                            [
-                                html.H5("Temperature Thermal Comfort",
-                                        className="card-title"),
-                                dbc.Badge("In Progress",
-                                          color="info"),
-                                html.P(
-                                    "Contemporary architecture is transformed by data-driven decision-making, "
-                                    "harmonizing aesthetics and practicality to create structures that resonate with "
-                                    "the modern world."),
-                            ]
-                        ),
-                    ],
-                    className="h-100"
-                ),
-                # width=3
-            ),
-            dbc.Col(
-                dbc.Card(
-                    [
-                        dbc.Col(dbc.Card(
-                            [
-                                html.H2("Ocupación:",
-                                        className="card-title"),
-                                html.H2("Es del 20%",
-                                        className="card-text"),
-                            ],
-                            body=True,
-                            color="light",
-                        ), width='50%'),
-                        # dcc.Graph(id='monthly_heatmap', figure={},
-                        #           className="card-img-small"),
-
-                        # html.A(
-                        #     dbc.CardImg(src="/static/images/OIG (2).jpg",
-                        #                 top=True, alt="...", className="card-img-small"),
-                        #     href="#",
-                        #     id='card-image-2'
-                        # ),
-                        dbc.CardBody(
-                            [
-                                html.H5("Ocupancy and Density",
-                                        className="card-title"),
-                                html.P(
-                                    "Explorative Non Real Spaces are digital canvases where designers are unshackled "
-                                    "by the constraints of reality, enabling boundless creativity and the conception "
-                                    "of visionary architectural concepts."),
-                            ]
-                        ),
-
-                    ],
-                    className="h-100"
-                ),
-                # width=3
-            ),
-            dbc.Col(
-                dbc.Card(
-                    [
-                        dbc.Row([
-                            dbc.Col(dbc.Card(
-                                [
-                                    html.H2("Responsividad:",
-                                            className="card-title"),
-                                    html.H2("Es de 1.2s",
-                                            className="card-text"),
-                                ],
-                                body=True,
-                                color="light",
-                            ), width='50%'),
-                            dbc.Col(dbc.Card(
-                                [
-                                    html.H2("Consumo:",
-                                            className="card-title"),
-                                    html.H2("Es de 120Kw/h",
-                                            className="card-text", style={'color': 'white'}),
-                                ],
-                                body=True,
-                                color="dark",
-                                inverse=True,
-                            ), width='50%'),
-
-                        ], ),
-                        dbc.CardBody(
-                            [
-                                html.H5("Climatic Responsive Design",
-                                        className="card-title"),
-                                html.P(
-                                    "Urban analysis has evolved with a data-driven approach, enabling city planners."),
-                            ]
-                        ),
-
-                    ],
-                    className="h-100"
-                ),
-                # width=3
-            ),
-            dbc.Col(
-                dbc.Card(
-                    [
-                        dbc.Row([
-                            dbc.Col(dbc.Card(
-                                [
-                                    html.H2("Performance:",
-                                            className="card-title"),
-                                    html.H2("Está al 95%",
-                                            className="card-text"),
-                                ],
-                                body=True,
-                                color="light",
-                            ), width='50%'),
-                            dbc.Col(dbc.Card(
-                                [
-                                    html.H2("Incidencias:",
-                                            className="card-title"),
-                                    html.H2("Hay 12 Incidencias",
-                                            className="card-text", style={'color': 'white'}),
-                                ],
-                                body=True,
-                                color="dark",
-                                inverse=True,
-                            ), width='50%'),
-
-                        ], ),
-                        dbc.CardBody(
-                            [
-                                html.H5("Installation Performance",
-                                        className="card-title"),
-                                html.P(
-                                    "Leverages generative design to swiftly explore and implement solutions."),
-                            ]
-                        ),
-
-                    ],
-                    className="h-100"
-                ),
-                # width=3
-            ),
-        ],
-        className="my-4 mx-5"  # Add lateral and top/down margin to the row
-
-    ),
-], fluid=True,
-)
 
 layout = html.Div([
     layout_header,
@@ -783,5 +585,6 @@ layout = html.Div([
     # layout_footer
 ])
 
-# TODO: Add SPeckle layout inside the explanatory markdown. Is a grid of cards with a description and an speckle embeded (like the
+# TODO: Add SPeckle layout inside the explanatory markdown. Is a grid of cards with a description and an speckle
+#  embeded (like the
 #  bulding iot examples that i did

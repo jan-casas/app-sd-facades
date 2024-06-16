@@ -94,37 +94,37 @@ sidebar = html.Div(
                     active="exact",
                 ),
                 html.Hr(),
-                dbc.NavLink(
-                    [
-                        html.I(className="bi bi-balloon-heart-fill me-2"),
-                        html.Span("Explore Preferences"),
-                        dbc.Badge("New", color="warning", className="ms-2"),
-                        # dbc.Collapse(
-                        #     dbc.Nav(
-                        #         [
-                        #             dbc.NavLink([
-                        #                 html.I(className="bi bi-dash-square-dotted me-2"),
-                        #                 html.Span(" Energy Saving"),
-                        #             ],
-                        #                 href="/experiments/subitem1",
-                        #                 active="exact"),
-                        #             dbc.NavLink([
-                        #                 html.I(className="bi bi-dash-square-dotted me-2"),
-                        #                 html.Span(" Sun Exposure"),
-                        #             ],
-                        #                 href="/experiments/subitem2",
-                        #                 active="exact"),
-                        #         ],
-                        #         vertical=True,
-                        #     ),
-                        #     id="collapse_experiments",
-                        #     is_open=False,
-                        # ),
-                    ],
-                    href="/experiments",
-                    active="exact",
-                    id="experiments_link",
-                ),
+                # dbc.NavLink(
+                #     [
+                #         html.I(className="bi bi-balloon-heart-fill me-2"),
+                #         html.Span("Explore Preferences"),
+                #         dbc.Badge("New", color="warning", className="ms-2"),
+                #         # dbc.Collapse(
+                #         #     dbc.Nav(
+                #         #         [
+                #         #             dbc.NavLink([
+                #         #                 html.I(className="bi bi-dash-square-dotted me-2"),
+                #         #                 html.Span(" Energy Saving"),
+                #         #             ],
+                #         #                 href="/experiments/subitem1",
+                #         #                 active="exact"),
+                #         #             dbc.NavLink([
+                #         #                 html.I(className="bi bi-dash-square-dotted me-2"),
+                #         #                 html.Span(" Sun Exposure"),
+                #         #             ],
+                #         #                 href="/experiments/subitem2",
+                #         #                 active="exact"),
+                #         #         ],
+                #         #         vertical=True,
+                #         #     ),
+                #         #     id="collapse_experiments",
+                #         #     is_open=False,
+                #         # ),
+                #     ],
+                #     href="/experiments",
+                #     active="exact",
+                #     id="experiments_link",
+                # ),
                 dbc.NavLink(
                     [
                         html.I(className="bi bi-life-preserver me-2"),

@@ -1,9 +1,9 @@
 import dash
+import pandas as pd
 from dash import dash_table
 # import dash_table
 import dash_leaflet as dl
-from apps.test_data import df
-from apps.app_load_assets import fig
+from apps.app_load_assets import df, fig
 from pages.pages_helper.layout_modals import *
 from pages.pages_helper.layout_default import layout_header, layout_footer, sidebar, layout_notifications
 from pages.layout_chat import layout_modal_help
@@ -233,7 +233,9 @@ layout_stepper = html.Footer([
                          dmc.StepperStep(
                              label="Compare Results",
                              children=[
-                                 dmc.Text("Step 3/3: Compare the performances of your actives with the rest of the city", align="center")
+                                 dmc.Text(
+                                     "Step 3/3: Compare the performances of your actives with the rest of the city",
+                                     align="center")
                              ],
                          ),
                          dmc.StepperCompleted(
