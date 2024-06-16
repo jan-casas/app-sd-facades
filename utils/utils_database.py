@@ -31,7 +31,7 @@ def insert_dataframe(df, table_name, schema_name):
         return 'STATUS: ERROR'
 
 
-def retrieve_df(query):
+def retrieve_dataframe(query):
     try:
         engine = create_engine(f"postgresql://{PG_USER}:{PG_PASS}@{PG_HOST}/{PG_DATABASE}")
         df = pd.read_sql(query, engine)

@@ -11,33 +11,29 @@ import math
 import dash
 from dash import html
 import dash_deck
-from psycopg2.sql import SQL, Identifier
-from sqlalchemy import create_engine, text
-# import pickle
-# import pyarrow as pa
-# import pyarrow.parquet as pq
-
-# import dash_html_components as html
+from sqlalchemy import text
 import pydeck as pdk
 import pandas as pd
-import geopandas as gpd
 from shapely import wkb
+import geopandas as gpd
 
 from utils.utils import extract_main_colors_rgb
-from utils.utils_database import retrieve_df
-from constants import MAPBOX_API, PG_USER, PG_PASS, PG_HOST, PG_DATABASE, PG_PORT
+from utils.utils_database import retrieve_dataframe
+from constants import MAPBOX_API
 
-# Load in the JSON data
 # Load the GeoJSON file
-# DATA_URL = (r"C:\Users\casas\OneDrive\Escritorio\Projects-In "
-#             r"Progress\APPS\app-sd-facades\gis\buildings\building_logroño_bp.geojson")
-# gdf = gpd.read_file(DATA_URL)
+DATA_URL = (r"C:\Users\casas\OneDrive\Escritorio\Projects-In "
+            r"Progress\APPS\app-sd-facades\gis\buildings\building_logroño_bp.geojson")
+gdf = gpd.read_file(DATA_URL)
 
 
-query_buildings = text("SELECT * FROM {} WHERE numberoffl > 1;".format("qgis.logrono"))
-gdf = retrieve_df(query_buildings)
-gdf['geometry'] = gdf['wkb_geometry'].apply(lambda x: wkb.loads(bytes(x).hex(), hex=True))
-gdf.rename(columns={'localid': 'localId', 'numberoffl': 'numberOfFl'}, inplace=True)
+def query_buildings(table, schema='qgis'):
+    query_buildings = text("SELECT * FROM {} WHERE numberoffl > 1;".format('.'.join([schema, table])))
+    gdf = retrieve_dataframe(query_buildings)
+    gdf['geometry'] = gdf['wkb_geometry'].apply(lambda x: wkb.loads(bytes(x).hex(), hex=True))
+    gdf.rename(columns={'localid': 'localId', 'numberoffl': 'numberOfFl'}, inplace=True)
+
+    return gdf
 
 
 def extract_coordinates(geom):
@@ -134,7 +130,7 @@ def create_deck_layer(df):
     r = pdk.Deck(
         polygon_layer,
         initial_view_state=view_state,
-        map_style=pdk.map_styles.LIGHT,
+        map_style=pdk.map_styles.MAPBOX_LIGHT,  # style the map
         # effects=[lighting_effect],
     )
 
