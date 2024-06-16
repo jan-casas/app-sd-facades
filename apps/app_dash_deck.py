@@ -24,7 +24,7 @@ from constants import MAPBOX_API
 # Load the GeoJSON file
 DATA_URL = (r"C:\Users\casas\OneDrive\Escritorio\Projects-In "
             r"Progress\APPS\app-sd-facades\gis\buildings\building_logroño_bp.geojson")
-gdf = gpd.read_file(DATA_URL)
+gdf = gpd.read_file(DATA_URL, rows=100)
 
 
 def query_buildings(table, schema='qgis'):
