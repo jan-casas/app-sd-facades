@@ -482,3 +482,5 @@ layout = html.Div([
     layout_notifications,
     # layout_footer
 ])
+
+# TODO: NOOB -> DEV MUST BE ACTIVES

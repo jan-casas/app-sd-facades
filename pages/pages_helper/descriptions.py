@@ -38,10 +38,10 @@ facade_sun_radiation = {
     "docs": "/docs/sun_radiation",
     "image": "static/images/energy_saving8.png",
     "badge": "In Progress",
-    "src": """
-    https://app.speckle.systems/projects/166220d6a4/models/e2960ffb4a#embed=%7B%22isEnabled%22%3Atrue%2C
-    %22isTransparent%22%3Atrue%2C%22hideControls%22%3Atrue%2C%22hideSelectionInfo%22%3Atrue%7D
-    """,
+    "src": (
+        "https://app.speckle.systems/projects/3e6b72252b/models/c9f36d5d67#embed=%7B%22isEnabled%22%3Atrue%2C"
+        "%22isTransparent%22%3Atrue%2C%22hideControls%22%3Atrue%2C%22hideSelectionInfo%22%3Atrue%7D"
+    ),
     "updated": random_date()
 }
 
@@ -126,9 +126,8 @@ views_availability = {
     "image": "static/images/city_density4.png",
     "badge": "In Progress",
     "src": (
-        "https://speckle.xyz/embed?stream=b1603d1350&commit=a2a5e006ea&c=%5B-14.3149%2C56.02732%2C17.54074%2C0%2C43"
-        ".27%2C17.23%2C0"
-        "%2C1%5D&transparent=true&autoload=true&hidecontrols=true&hidesidebar=true&hideselectioninfo=true"),
+        "https://app.speckle.systems/projects/3e6b72252b/models/fd3c31eed0#embed=%7B%22isEnabled%22%3Atrue%2C"
+        "%22isTransparent%22%3Atrue%2C%22hideControls%22%3Atrue%2C%22hideSelectionInfo%22%3Atrue%7D"),
     "updated": random_date()
 }
 
