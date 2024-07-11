@@ -1,7 +1,8 @@
-from dash import dcc, html
-import dash_bootstrap_components as dbc
 import datetime
+
+import dash_bootstrap_components as dbc
 import dash_mantine_components as dmc
+from dash import dcc, html
 from dash_iconify import DashIconify
 
 # HEADER
@@ -147,13 +148,13 @@ def get_icon(icon):
     return DashIconify(icon=icon, height=20)
 
 
-layout_notifications = dmc.NotificationsProvider(
-    html.Div(
-        [
-            html.Div(id="notifications-container"),
-        ]
-    )
-)
+# layout_notifications = dmc.NotificationProvider(
+#     html.Div(
+#         [
+# html.Div(id="notifications-container"),
+#         ]
+#     )
+# )
 
 layout_footer = html.Footer([
     html.Div(id='grid-container_sub3', children=[
@@ -161,7 +162,8 @@ layout_footer = html.Footer([
             html.Div([
                 html.Img(src='/static/icons/life-preserver.svg',
                          className='icon-item-icon',
-                         style={'height': '20px', 'width': '20px', 'alignItems': 'center', 'justifyContent': 'center'}),
+                         style={'height': '20px', 'width': '20px', 'alignItems': 'center',
+                                'justifyContent': 'center'}),
                 html.H3('Help Center'),
                 html.P(
                     'Answers to frequently asked account and billing questions.'),
@@ -173,7 +175,8 @@ layout_footer = html.Footer([
             html.Div([
                 html.Img(src='/static/icons/search.svg',
                          className='icon-item-icon',
-                         style={'height': '20px', 'width': '20px', 'alignItems': 'center', 'justifyContent': 'center'}),
+                         style={'height': '20px', 'width': '20px', 'alignItems': 'center',
+                                'justifyContent': 'center'}),
                 html.H3('Disclosure'),
                 html.P(
                     'Ask questions and discuss topics with other developers.'),
@@ -185,7 +188,8 @@ layout_footer = html.Footer([
             html.Div([
                 html.Img(src='/static/icons/broadcast.svg',
                          className='icon-item-icon',
-                         style={'height': '20px', 'width': '20px', 'alignItems': 'center', 'justifyContent': 'center'}),
+                         style={'height': '20px', 'width': '20px', 'alignItems': 'center',
+                                'justifyContent': 'center'}),
                 html.H3('Service Status'),
                 html.P(
                     'Check the status of the API services.'),
@@ -193,7 +197,8 @@ layout_footer = html.Footer([
             ], style={'marginLeft': '20px', 'textAlign': 'center'})
         ], id='grid-item-53', className='grid-item',
             style={'display': 'flex', 'alignItems': 'center', 'margin': '0px'}),
-    ], style={'display': 'grid', 'grid-template-columns': 'repeat(3, 1fr)', 'grid-gap': '44px', 'marginTop': '24px',
+    ], style={'display': 'grid', 'grid-template-columns': 'repeat(3, 1fr)', 'grid-gap': '44px',
+              'marginTop': '24px',
               'width': '45%', 'margin-left': 'auto', 'margin-right': 'auto'}),
 ], style={'width': '100%', 'margin-left': 'auto', 'margin-right': 'auto', 'margin-top': '50px',
           'background-color': '#f7f7f8', 'height': '200px'})
@@ -204,7 +209,8 @@ default_modal = dbc.Row([
     dbc.Col([
         html.H6('Code Example'),
         dcc.Markdown(
-            '```python\n@app.route("/", methods=["GET"])\ndef read_root() -> dict:\n\treturn {"Hello": "World"}\n```'),
+            '```python\n@app.route("/", methods=["GET"])\ndef read_root() -> dict:\n\treturn {'
+            '"Hello": "World"}\n```'),
     ], style={'padding': '0px', 'margin': '0px'}),
     dbc.Col([
         html.H6('Response Example'),
@@ -212,20 +218,25 @@ default_modal = dbc.Row([
     ], style={'padding': '0px', 'margin': '0px'}),
     html.Div(id='api-response', children=[]),
     # html.Hr(),
-], style={'padding': '0px', 'margin-left': '40px', 'margin-right': '40px', 'margin-bottom': '0px', 'margin-top': '0px'})
+], style={'padding': '0px', 'margin-left': '40px', 'margin-right': '40px', 'margin-bottom': '0px',
+          'margin-top': '0px'})
 
 default_response = dbc.Row([
     # html.Hr(),
     html.P(
-        'Please tell us the orientation of the building where you live. This information is important for us to '
-        'understand the amount of sunlight and shade your building receives throughout the day.\n Please tell us the '
-        'orientation of the building where you live. This information is important for us to understand the amount of '
+        'Please tell us the orientation of the building where you live. This information is '
+        'important for us to '
+        'understand the amount of sunlight and shade your building receives throughout the day.\n '
+        'Please tell us the '
+        'orientation of the building where you live. This information is important for us to '
+        'understand the amount of '
         'sunlight and shade your building receives throughout the day.',
         style={'color': '#202123', 'padding': '0px'}
     ),
     html.Div(id='api-response', children=[]),
     # html.Hr(),
-], style={'padding': '0px', 'margin-left': '40px', 'margin-right': '40px', 'margin-bottom': '0px', 'margin-top': '0px'})
+], style={'padding': '0px', 'margin-left': '40px', 'margin-right': '40px', 'margin-bottom': '0px',
+          'margin-top': '0px'})
 
 app_welcome = html.Div([
     html.H1('Bienvenido a la plataforma', style={
@@ -235,7 +246,8 @@ app_welcome = html.Div([
           'margin-top': '100px'})
 
 LAYOUT_ASSETS = {
-    '1': ['/static/icons/life-preserver.svg', 'Areas verdes próximas', 'Find and refine existing data sources',
+    '1': ['/static/icons/life-preserver.svg', 'Areas verdes próximas',
+          'Find and refine existing data sources',
           'icon-item green-gradient-bg'],
     '2': ['/static/icons/virus.svg', 'Polución del aire', 'Deploy always changing scenarios',
           'icon-item pink-gradient-bg'],
@@ -243,50 +255,76 @@ LAYOUT_ASSETS = {
           'icon-item purple-gradient-bg'],
     '4': ['/static/icons/browser-safari.svg', 'Orientación edificación',
           'Query large datasets just asking for insights', 'icon-item yellow-gradient-bg'],
-    '5': ['/static/icons/volume-mute-fill.svg', 'Índice de ruido', 'Perform geospatial analysis on the cloud',
+    '5': ['/static/icons/volume-mute-fill.svg', 'Índice de ruido',
+          'Perform geospatial analysis on the cloud',
           'icon-item pink-gradient-bg'],
-    '6': ['/static/icons/fingerprint.svg', 'Proximidad cultural', 'Associate precise data with your assets',
+    '6': ['/static/icons/fingerprint.svg', 'Proximidad cultural',
+          'Associate precise data with your assets',
           'icon-item red-gradient-bg'],
     '7': ['/static/icons/image-fill.svg', 'Potenciales vistas', 'Extract information from imagery',
           'icon-item blue-gradient-bg'],
-    '8': ['/static/icons/thermometer.svg', 'Temperatura y clima', 'Extract data simulating 3d models',
+    '8': ['/static/icons/thermometer.svg', 'Temperatura y clima',
+          'Extract data simulating 3d models',
           'icon-item yellow-gradient-bg'],
-    '9': ['/static/icons/chat-square-text-fill.svg', 'Cercanía lugares turísticos', 'Extract information from imagery',
+    '9': ['/static/icons/chat-square-text-fill.svg', 'Cercanía lugares turísticos',
+          'Extract information from imagery',
           'icon-item red-gradient-bg'],
-    '10': ['/static/icons/balloon-heart-fill.svg', 'Densidad urbana', 'Extract data simulating 3d models',
+    '10': ['/static/icons/balloon-heart-fill.svg', 'Densidad urbana',
+           'Extract data simulating 3d models',
            'icon-item green-gradient-bg'],
 }
 
 TEXT_PLACEHOLDER = {
-    '1': 'Hola, estoy buscando una casa en Valencia con orientación sur para aprovechar la luz solar. ¿Podrías '
-         'recomendarme propiedades que cumplan con esta preferencia? Me encantaría tener habitaciones iluminadas por '
+    '1': 'Hola, estoy buscando una casa en Valencia con orientación sur para aprovechar la luz '
+         'solar. ¿Podrías '
+         'recomendarme propiedades que cumplan con esta preferencia? Me encantaría tener '
+         'habitaciones iluminadas por '
          'el sol de la mañana y espacios abiertos para disfrutar de la luz natural. Gracias.',
-    '2': 'Hola, estoy buscando una casa en Valencia que esté en una zona tranquila y libre de ruidos en la calle. '
-         '¿Podrías recomendarme propiedades que cumplan con esta preferencia? Me encantaría tener un ambiente '
+    '2': 'Hola, estoy buscando una casa en Valencia que esté en una zona tranquila y libre de '
+         'ruidos en la calle. '
+         '¿Podrías recomendarme propiedades que cumplan con esta preferencia? Me encantaría tener '
+         'un ambiente '
          'tranquilo y silencioso para poder relajarme y disfrutar de mi hogar. Gracias.',
-    '3': 'Hola, estoy buscando una casa en Valencia que sea de construcción reciente. ¿Podrías recomendarme '
-         'propiedades que cumplan con esta preferencia? Me encantaría tener una casa moderna y actualizada con todas '
+    '3': 'Hola, estoy buscando una casa en Valencia que sea de construcción reciente. ¿Podrías '
+         'recomendarme '
+         'propiedades que cumplan con esta preferencia? Me encantaría tener una casa moderna y '
+         'actualizada con todas '
          'las comodidades y tecnologías más recientes. Gracias.',
-    '4': 'Hola, estoy buscando una casa en Valencia que no esté en sombra debido a otros edificios cercanos. ¿Podrías '
-         'recomendarme propiedades que cumplan con esta preferencia? Me encantaría tener una casa con buena '
-         'iluminación natural y sin sombras de otros edificios que puedan afectar la luz solar. Gracias.',
-    '5': 'Hola, estoy buscando una casa en Valencia que esté cerca del centro de la ciudad. ¿Podrías recomendarme '
-         'propiedades que cumplan con esta preferencia? Me encantaría tener una casa con fácil acceso a todas las '
+    '4': 'Hola, estoy buscando una casa en Valencia que no esté en sombra debido a otros '
+         'edificios cercanos. ¿Podrías '
+         'recomendarme propiedades que cumplan con esta preferencia? Me encantaría tener una casa '
+         'con buena '
+         'iluminación natural y sin sombras de otros edificios que puedan afectar la luz solar. '
+         'Gracias.',
+    '5': 'Hola, estoy buscando una casa en Valencia que esté cerca del centro de la ciudad. '
+         '¿Podrías recomendarme '
+         'propiedades que cumplan con esta preferencia? Me encantaría tener una casa con fácil '
+         'acceso a todas las '
          'comodidades y atracciones del centro de la ciudad. Gracias.',
-    '6': 'Hola, estoy buscando una casa en Valencia que esté cerca de parques y entornos vegetales. ¿Podrías '
-         'recomendarme propiedades que cumplan con esta preferencia? Me encantaría tener una casa con fácil acceso a '
+    '6': 'Hola, estoy buscando una casa en Valencia que esté cerca de parques y entornos '
+         'vegetales. ¿Podrías '
+         'recomendarme propiedades que cumplan con esta preferencia? Me encantaría tener una casa '
+         'con fácil acceso a '
          'espacios verdes y naturales para disfrutar del aire libre y la naturaleza. Gracias.',
-    '7': 'Hola, estoy buscando una casa en Valencia que no esté cerca de centros turísticos. ¿Podrías recomendarme '
-         'propiedades que cumplan con esta preferencia? Me encantaría tener una casa en una zona tranquila y alejada '
+    '7': 'Hola, estoy buscando una casa en Valencia que no esté cerca de centros turísticos. '
+         '¿Podrías recomendarme '
+         'propiedades que cumplan con esta preferencia? Me encantaría tener una casa en una zona '
+         'tranquila y alejada '
          'del bullicio turístico para poder disfrutar de mi hogar en paz. Gracias.',
-    '8': 'Hola, estoy buscando una casa en Valencia que tenga buenas vistas. ¿Podrías recomendarme propiedades que '
-         'cumplan con esta preferencia? Me encantaría tener una casa con una vista impresionante de la ciudad o del '
+    '8': 'Hola, estoy buscando una casa en Valencia que tenga buenas vistas. ¿Podrías '
+         'recomendarme propiedades que '
+         'cumplan con esta preferencia? Me encantaría tener una casa con una vista impresionante '
+         'de la ciudad o del '
          'paisaje natural. Gracias.',
-    '9': 'Hola, estoy buscando una casa en Valencia que tenga un consumo energético eficiente. ¿Podrías recomendarme '
-         'propiedades que cumplan con esta preferencia? Me encantaría tener una casa con un bajo consumo de energía y '
+    '9': 'Hola, estoy buscando una casa en Valencia que tenga un consumo energético eficiente. '
+         '¿Podrías recomendarme '
+         'propiedades que cumplan con esta preferencia? Me encantaría tener una casa con un bajo '
+         'consumo de energía y '
          'que sea respetuosa con el medio ambiente. Gracias.',
-    '10': 'Hola, estoy buscando una casa en Valencia que esté en un vecindario seguro. ¿Podrías recomendarme '
-          'propiedades que cumplan con esta preferencia? Me encantaría tener una casa en una zona con bajos índices '
+    '10': 'Hola, estoy buscando una casa en Valencia que esté en un vecindario seguro. ¿Podrías '
+          'recomendarme '
+          'propiedades que cumplan con esta preferencia? Me encantaría tener una casa en una zona '
+          'con bajos índices '
           'de criminalidad y donde pueda vivir tranquilo y sin preocupaciones. Gracias.',
 
 }

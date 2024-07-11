@@ -1,5 +1,5 @@
 # Use the official Python image from Docker Hub
-FROM python:3.11
+FROM python:3.11-slim-buster
 
 # Copy all files from the current directory to the current directory in the container
 COPY . .

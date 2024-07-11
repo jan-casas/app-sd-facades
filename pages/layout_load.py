@@ -1,13 +1,11 @@
 import dash
-import pandas as pd
 from dash import dash_table
-# import dash_table
-import dash_leaflet as dl
-from apps.app_load_assets import df, fig
+from src.app_load_assets import df, fig
 from pages.pages_helper.layout_modals import *
-from pages.pages_helper.layout_default import layout_header, layout_footer, sidebar, layout_notifications
+from pages.pages_helper.layout_default import layout_header, sidebar#,
+# layout_notifications
 from pages.layout_chat import layout_modal_help
-from apps.futures_figures import fig_normal, fig_cum
+from src.futures_figures import fig_normal, fig_cum
 import dash_mantine_components as dmc
 
 dash.register_page(__name__, path="/load")
@@ -218,38 +216,37 @@ layout_stepper = html.Footer([
                  dmc.Stepper(
                      id="stepper-custom-icons",
                      active=0,
-                     breakpoint="sm",
+                     #breakpoint="sm",
                      children=[
                          dmc.StepperStep(
                              label="Geolocate Actives",
                              children=[
-                                 dmc.Text("Step 1/3: Load your actives", align="center")
+                                 dmc.Text("Step 1/3: Load your actives")
                              ],
                          ),
                          dmc.StepperStep(
                              label="Select Analysis",
-                             children=[dmc.Text("Step 2/3: Select the desire analysis", align="center")],
+                             children=[dmc.Text("Step 2/3: Select the desire analysis")],
                          ),
                          dmc.StepperStep(
                              label="Compare Results",
                              children=[
                                  dmc.Text(
                                      "Step 3/3: Compare the performances of your actives with the rest of the city",
-                                     align="center")
+                        )
                              ],
                          ),
                          dmc.StepperCompleted(
                              children=[
                                  dmc.Text(
                                      "Completed, click back button to get to previous step",
-                                     align="center",
                                  )
                              ]
                          ),
                      ],
                  ),
                  dmc.Group(
-                     position="center",
+                     #position="center",
                      mt="xl",
                      children=[
                          dmc.Button("Back", id="back-custom-icons", variant="default"),
@@ -268,7 +265,7 @@ layout = html.Div([
     layout_header,
     sidebar,
     html.Div(style={'height': '3.4rem'}),
-    selector_grid,
+    # selector_grid,
     dcc.Loading(
         id="loading",
         type="dot",
@@ -279,7 +276,7 @@ layout = html.Div([
     layout_modal_help,
     layout_stepper,
     layout_popup,
-    layout_notifications,
+    #layout_notifications,
     # layout_footer
 ])
 

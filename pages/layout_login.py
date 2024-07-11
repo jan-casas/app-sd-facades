@@ -1,13 +1,10 @@
 # TODO: https://community.plotly.com/t/dash-app-pages-with-flask-login-flow-using-flask/69507
-
-
 import dash
-from dash import html, dcc
 import dash_bootstrap_components as dbc
-from dash_iconify import DashIconify
 import dash_mantine_components as dmc
+from dash import html, dcc
 
-from apps.app_load_assets import empty_fig
+from src.app_load_assets import empty_fig
 
 dash.register_page(__name__, path='/login')
 
@@ -22,15 +19,16 @@ layout_login = dbc.Card(
                 dmc.PasswordInput(
                     label="Your username:",
                     placeholder="Your password",
-                    icon=DashIconify(icon="bi:shield-lock"),
+                    # icon=DashIconify(icon="bi:shield-lock"),
                 ),
-                # dcc.Input(placeholder="Enter your username", type="text", id="uname-box", name='username'),
+                # dcc.Input(placeholder="Enter your username", type="text", id="uname-box",
+                # name='username'),
             ),
             dbc.Row(
                 dmc.PasswordInput(
                     label="Your password:",
                     placeholder="Your password",
-                    icon=DashIconify(icon="bi:shield-lock"),
+                    # icon=DashIconify(icon="bi:shield-lock"),
                 ),
             ),
             html.Div(children="", id="output-state")

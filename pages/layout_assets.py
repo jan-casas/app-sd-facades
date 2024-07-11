@@ -1,16 +1,15 @@
 import dash
+import dash_mantine_components as dmc
 from dash import dash_table
 
-from apps.app_load_assets import df_post_analysis, fig_parcoord
-# import dash_table
-
-from apps.test_data import df
-from pages.pages_helper.descriptions import description_df
-from pages.pages_helper.layout_modals import *
-from pages.pages_helper.layout_default import layout_header, layout_footer, sidebar, layout_notifications
+from src.app_load_assets import df_post_analysis, fig_parcoord
+from src.futures_figures import fig_normal, fig_cum
+# layout_notifications
 from pages.layout_chat import layout_modal_help
-from apps.futures_figures import fig_normal, fig_cum
-import dash_mantine_components as dmc
+from pages.pages_helper.layout_default import layout_header, sidebar  # ,
+from pages.pages_helper.layout_modals import *
+
+# import dash_table
 
 dash.register_page(__name__, path="/assets")
 
@@ -29,11 +28,13 @@ selector_grid = dbc.Collapse(
                     {'label': 'Views Availability', 'value': 'static/images/city_density4.png'},
                     {'label': 'Age of the Building', 'value': 'static/images/city_density3.png'},
                     {'label': 'Urban Noise', 'value': 'static/images/city_density2.png'},
-                    {'label': 'Close Distance to Green/Walking Areas', 'value': 'static/images/energy_saving.png'},
+                    {'label': 'Close Distance to Green/Walking Areas',
+                     'value': 'static/images/energy_saving.png'},
                     {'label': 'Potential Cost Reduction Using Solar Energy',
                      'value': 'static/images/energy_saving2.png'},
                     {'label': 'Social Life', 'value': 'static/images/city_territorial.png'},
-                    {'label': 'Territorial Connection', 'value': 'static/images/energy_saving3.png'},
+                    {'label': 'Territorial Connection',
+                     'value': 'static/images/energy_saving3.png'},
                     {'label': 'Air Pollution', 'value': 'static/images/city_density.png'},
                 ],
                 value='static/images/energy_saving8.png',
@@ -42,9 +43,12 @@ selector_grid = dbc.Collapse(
             ),
             dcc.Markdown(
                 """
-                Morning/Afternoon Sun Radiation: The analysis is based on the data of the sensors that are installed in 
-                the building. The sensors are connected to a node that is connected to the internet. The node sends the 
-                data to a server that stores the data. The data is then processed and visualized in the dashboard. The 
+                Morning/Afternoon Sun Radiation: The analysis is based on the data of the sensors 
+                that are installed in 
+                the building. The sensors are connected to a node that is connected to the 
+                internet. The node sends the 
+                data to a server that stores the data. The data is then processed and visualized 
+                in the dashboard. The 
                 dashboard is updated every 5 minutes.
                 """),
         ], style={'margin-top': '1rem', 'margin-right': '1rem'}
@@ -92,8 +96,9 @@ selector_grid = dbc.Collapse(
         ], style={'margin-top': '1rem', 'margin-right': '1rem'}),
         html.Hr(),
     ], style={'--bs-gutter-x': '0rem', 'z-index': '9999'}, className="mx-5")
-    , id='collapse', is_open=True, style={'position': 'fixed', 'z-index': '9999', 'top': '3.4rem', 'width': '100%',
-                                          'background-color': 'white'}
+    , id='collapse', is_open=True,
+    style={'position': 'fixed', 'z-index': '9999', 'top': '3.4rem', 'width': '100%',
+           'background-color': 'white'}
 )
 
 layout_map_dash_deck = dbc.Container([
@@ -101,8 +106,10 @@ layout_map_dash_deck = dbc.Container([
     dbc.Row([
         html.Span('Description of the Analysis:'),
         dcc.Markdown("""
-The analysis is based on the data of the sensors that are installed in the building. The sensors are connected to 
-a node that is connected to the internet. The node sends the data to a server that stores the data. The data is 
+The analysis is based on the data of the sensors that are installed in the building. The sensors 
+are connected to 
+a node that is connected to the internet. The node sends the data to a server that stores the 
+data. The data is 
 then processed and visualized in the dashboard. The dashboard is updated every 5 minutes."""),
         dbc.Card(
             html.Div(id='layout_dash_deck', className="map-size"),
@@ -140,9 +147,12 @@ then processed and visualized in the dashboard. The dashboard is updated every 5
         # Conclusion of this section
         html.Span('Top Assets In Spain Performing the Current Analysis:'),
         dcc.Markdown("""
-The analysis is based on the data of the sensors that are installed in the building. The sensors are 
-connected to a node that is connected to the internet. The node sends the data to a server that stores the 
-data. The data is then processed and visualized in the dashboard. The dashboard is updated every 5 minutes."""),
+The analysis is based on the data of the sensors that are installed in the building. The sensors 
+are 
+connected to a node that is connected to the internet. The node sends the data to a server that 
+stores the 
+data. The data is then processed and visualized in the dashboard. The dashboard is updated every 
+5 minutes."""),
 
     ], className="my-4 mx-5"),
 ],
@@ -152,9 +162,12 @@ layout_asset_comparative = dbc.Container([
     dbc.Row([
         html.Span('Top Assets In Spain Performing the Current Analysis:'),
         dcc.Markdown("""
-    The analysis is based on the data of the sensors that are installed in the building. The sensors are 
-    connected to a node that is connected to the internet. The node sends the data to a server that stores the 
-    data. The data is then processed and visualized in the dashboard. The dashboard is updated every 5 minutes."""),
+    The analysis is based on the data of the sensors that are installed in the building. The 
+    sensors are 
+    connected to a node that is connected to the internet. The node sends the data to a server 
+    that stores the 
+    data. The data is then processed and visualized in the dashboard. The dashboard is updated 
+    every 5 minutes."""),
         dcc.Graph(id='subplot_div_assets', figure={}),
         dcc.Markdown("""**Figure 2.** Bar chart about 
             the current performance of the assets globally."""),
@@ -169,8 +182,10 @@ layout_popup = dbc.Row([
         [
             # dbc.PopoverHeader("Popover title"),
             dbc.PopoverBody(
-                "The Wake Up Services for Previews allows you test the functionalities of some of the services that "
-                "we develop in the Wake Up Lab. These services are anonimized and are not connected to any of the "
+                "The Wake Up Services for Previews allows you test the functionalities of some of "
+                "the services that "
+                "we develop in the Wake Up Lab. These services are anonimized and are not "
+                "connected to any of the "
                 "real data."),
         ],
         id="popover",
@@ -182,7 +197,8 @@ layout_popup = dbc.Row([
         [
             # dbc.PopoverHeader("Popover title"),
             dbc.PopoverBody(
-                "The Lines of Interest defines the main topics that we are currently working on. These topics are "
+                "The Lines of Interest defines the main topics that we are currently working on. "
+                "These topics are "
                 "related to the research that we are developing in the Wake Up Lab."),
         ],
         id="popover",
@@ -194,7 +210,8 @@ layout_popup = dbc.Row([
         [
             # dbc.PopoverHeader("Popover title"),
             dbc.PopoverBody(
-                "This sections makes tribute to the people that have been instrumental in shaping your projects, "
+                "This sections makes tribute to the people that have been instrumental in shaping "
+                "your projects, "
                 "fostering a culture of gratitude and collaboration."),
         ],
         id="popover",
@@ -213,38 +230,37 @@ layout_stepper = html.Footer([
                  dmc.Stepper(
                      id="stepper-custom-icons",
                      active=2,
-                     breakpoint="sm",
+                     # breakpoint="sm",
                      children=[
                          dmc.StepperStep(
                              label="Geolocate Actives",
                              children=[
-                                 dmc.Text("Step 1/3: Load your actives", align="center")
+                                 dmc.Text("Step 1/3: Load your actives")
                              ],
                          ),
                          dmc.StepperStep(
                              label="Select Analysis",
-                             children=[dmc.Text("Step 2/3: Select the desire analysis", align="center")],
+                             children=[dmc.Text("Step 2/3: Select the desire analysis")],
                          ),
                          dmc.StepperStep(
                              label="Compare Results",
                              children=[
                                  dmc.Text(
-                                     "Step 3/3: Compare the performances of your actives with the rest of the city",
-                                     align="center")
+                                     "Step 3/3: Compare the performances of your actives with the "
+                                     "rest of the city", )
                              ],
                          ),
                          dmc.StepperCompleted(
                              children=[
                                  dmc.Text(
                                      "Completed, click back button to get to previous step",
-                                     align="center",
                                  )
                              ]
                          ),
                      ],
                  ),
                  dmc.Group(
-                     position="center",
+                     # position="center",
                      mt="xl",
                      children=[
                          dmc.Button("Back", id="back-custom-icons", variant="default"),
@@ -308,8 +324,10 @@ layout_details = dbc.Container([
                                 dbc.Badge("In Progress",
                                           color="info"),
                                 html.P(
-                                    "Contemporary architecture is transformed by data-driven decision-making, "
-                                    "harmonizing aesthetics and practicality to create structures that resonate with "
+                                    "Contemporary architecture is transformed by data-driven "
+                                    "decision-making, "
+                                    "harmonizing aesthetics and practicality to create structures "
+                                    "that resonate with "
                                     "the modern world."),
                             ]
                         ),
@@ -345,8 +363,10 @@ layout_details = dbc.Container([
                                 html.H5("Ocupancy and Density",
                                         className="card-title"),
                                 html.P(
-                                    "Explorative Non Real Spaces are digital canvases where designers are unshackled "
-                                    "by the constraints of reality, enabling boundless creativity and the conception "
+                                    "Explorative Non Real Spaces are digital canvases where "
+                                    "designers are unshackled "
+                                    "by the constraints of reality, enabling boundless creativity "
+                                    "and the conception "
                                     "of visionary architectural concepts."),
                             ]
                         ),
@@ -388,7 +408,8 @@ layout_details = dbc.Container([
                                 html.H5("Climatic Responsive Design",
                                         className="card-title"),
                                 html.P(
-                                    "Urban analysis has evolved with a data-driven approach, enabling city planners."),
+                                    "Urban analysis has evolved with a data-driven approach, "
+                                    "enabling city planners."),
                             ]
                         ),
 
@@ -429,7 +450,8 @@ layout_details = dbc.Container([
                                 html.H5("Installation Performance",
                                         className="card-title"),
                                 html.P(
-                                    "Leverages generative design to swiftly explore and implement solutions."),
+                                    "Leverages generative design to swiftly explore and implement "
+                                    "solutions."),
                             ]
                         ),
 
@@ -467,7 +489,7 @@ layout = html.Div([
     layout_header,
     sidebar,
     html.Div(style={'height': '3.4rem'}),
-    selector_grid,
+    # selector_grid,
     dcc.Loading(
         id="loading",
         type="dot",
@@ -479,7 +501,7 @@ layout = html.Div([
     layout_modal_help,
     layout_stepper,
     layout_popup,
-    layout_notifications,
+    #layout_notifications,
     # layout_footer
 ])
 

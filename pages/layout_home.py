@@ -1,14 +1,13 @@
 import dash
-import dash_table
-import pandas as pd
-
-from apps.app_load_assets import df
-from pages.pages_helper.layout_modals import *
-from pages.pages_helper.layout_default import sidebar, layout_footer, layout_header, \
-    layout_notifications
-from pages.pages_helper.descriptions import *
-from pages.layout_chat import layout_modal_help
 import dash_mantine_components as dmc
+import dash_table
+
+from src.app_load_assets import df
+from pages.layout_chat import layout_modal_help
+# layout_notifications
+from pages.pages_helper.descriptions import *
+from pages.pages_helper.layout_default import sidebar, layout_header  # ,
+from pages.pages_helper.layout_modals import *
 
 dash.register_page(__name__, path="/home")
 
@@ -25,7 +24,8 @@ layout_modal = html.Div([
                     dcc.Store(id='card_image', storage_type='session'),
                 ], style={'marginLeft': '20px', 'textAlign': 'left'})
             ], id='grid-item-1', className='grid-item',
-                style={'display': 'flex', 'alignItems': 'center', 'margin-left': '40px', 'margin-right': '40px',
+                style={'display': 'flex', 'alignItems': 'center', 'margin-left': '40px',
+                       'margin-right': '40px',
                        'margin-top': '40px', 'margin-bottom': '15px'}),
         ], style={'padding': '0px', 'margin': '0px'}, close_button=False, id='modal-header'
         ),
@@ -244,7 +244,8 @@ layout_details = dbc.Container([
                 dbc.Card(
                     [
                         html.A(
-                            dbc.CardImg(src=potential_cost_reduction_solar_energy['image'], top=True,
+                            dbc.CardImg(src=potential_cost_reduction_solar_energy['image'],
+                                        top=True,
                                         alt="...", className="card-img-smallest"),
                             href="#",
                             id='card-image-9'
@@ -346,8 +347,10 @@ layout_helper = dbc.Container([
                             html.H5("Experience",
                                     className="card-title"),
                             html.P(
-                                "Go-to resource for entering the world of collaborative software development on "
-                                "GitHub, providing essential tools and insights to kickstart your coding projects.",
+                                "Go-to resource for entering the world of collaborative software "
+                                "development on "
+                                "GitHub, providing essential tools and insights to kickstart your "
+                                "coding projects.",
                                 className="card-text"),
                             dbc.Button(">>", id='helper-button-1',
                                        color="primary", href="#", size="sm"),
@@ -363,7 +366,8 @@ layout_helper = dbc.Container([
                             html.H5("Articles Published",
                                     className="card-title"),
                             html.P(
-                                "Repository of your expertise and ideas, featuring a collection of insightful and "
+                                "Repository of your expertise and ideas, featuring a collection "
+                                "of insightful and "
                                 "informative articles you've shared with the world.",
                                 className="card-text"),
                             dbc.Button(">>", id='helper-button-2',
@@ -380,8 +384,10 @@ layout_helper = dbc.Container([
                             html.H5("Credits and Acknowledgements",
                                     className="card-title"),
                             html.P(
-                                "Invaluable contributions of individuals and teams who have been instrumental in "
-                                "shaping your projects, fostering a culture of gratitude and collaboration.",
+                                "Invaluable contributions of individuals and teams who have been "
+                                "instrumental in "
+                                "shaping your projects, fostering a culture of gratitude and "
+                                "collaboration.",
                                 className="card-text"),
                             # dbc.Button("Watch list",
                             #            color="primary", href="#"),
@@ -400,8 +406,10 @@ layout_popup = dbc.Row([
         [
             # dbc.PopoverHeader("Popover title"),
             dbc.PopoverBody(
-                "The Wake Up Services for Previews allows you test the functionalities of some of the services that "
-                "we develop in the Wake Up Lab. These services are anonimized and are not connected to any of the "
+                "The Wake Up Services for Previews allows you test the functionalities of some of "
+                "the services that "
+                "we develop in the Wake Up Lab. These services are anonimized and are not "
+                "connected to any of the "
                 "real data."),
         ],
         id="popover",
@@ -413,7 +421,8 @@ layout_popup = dbc.Row([
         [
             # dbc.PopoverHeader("Popover title"),
             dbc.PopoverBody(
-                "The Lines of Interest defines the main topics that we are currently working on. These topics are "
+                "The Lines of Interest defines the main topics that we are currently working on. "
+                "These topics are "
                 "related to the research that we are developing in the Wake Up Lab."),
         ],
         id="popover",
@@ -425,7 +434,8 @@ layout_popup = dbc.Row([
         [
             # dbc.PopoverHeader("Popover title"),
             dbc.PopoverBody(
-                "This sections makes tribute to the people that have been instrumental in shaping your projects, "
+                "This sections makes tribute to the people that have been instrumental in shaping "
+                "your projects, "
                 "fostering a culture of gratitude and collaboration."),
         ],
         id="popover",
@@ -444,38 +454,38 @@ layout_stepper = html.Footer([
                  dmc.Stepper(
                      id="stepper-custom-icons",
                      active=1,
-                     breakpoint="sm",
+                     #breakpoint="sm",
                      children=[
                          dmc.StepperStep(
                              label="Geolocate Actives",
                              children=[
-                                 dmc.Text("Step 1/3: Load your actives", align="center")
+                                 dmc.Text("Step 1/3: Load your actives")
                              ],
                          ),
                          dmc.StepperStep(
                              label="Select Analysis",
-                             children=[dmc.Text("Step 2/3: Select the desire analysis", align="center")],
+                             children=[
+                                 dmc.Text("Step 2/3: Select the desire analysis")],
                          ),
                          dmc.StepperStep(
                              label="Compare Results",
                              children=[
                                  dmc.Text(
-                                     "Step 3/3: Compare the performances of your actives with the rest of the city",
-                                     align="center")
+                                     "Step 3/3: Compare the performances of your actives with the "
+                                     "rest of the city")
                              ],
                          ),
                          dmc.StepperCompleted(
                              children=[
                                  dmc.Text(
-                                     "Completed, click back button to get to previous step",
-                                     align="center",
+                                     "Completed, click back button to get to previous step"
                                  )
                              ]
                          ),
                      ],
                  ),
                  dmc.Group(
-                     position="center",
+                     #position="center",
                      mt="xl",
                      children=[
                          dmc.Button("Back", id="back-custom-icons", variant="default"),
@@ -495,13 +505,18 @@ layout_types_analysis = dbc.Container(
     [
         html.H2("New Releases", id='home_title', className="my-4 mx-5"),
         html.Span('Description of the comparative tables:', className="my-4 mx-5"),
-        dcc.Markdown("""The map displays various housing locations promoted by the company, marked with distinct 
+        dcc.Markdown("""The map displays various housing locations promoted by the company, 
+        marked with distinct 
         points. Each point 
-        represents a specific housing location and is color-coded based on the type of property (e.g., apartments, 
-        townhouses, single-family homes). The map includes key information such as the name of the housing development, 
-        address, and availability status. Interactive features allow users to click on each point for detailed 
+        represents a specific housing location and is color-coded based on the type of property (
+        e.g., apartments, 
+        townhouses, single-family homes). The map includes key information such as the name of 
+        the housing development, 
+        address, and availability status. Interactive features allow users to click on each point 
+        for detailed 
         descriptions, 
-        images, pricing, and contact information. Major roads, landmarks, and amenities are also highlighted for better 
+        images, pricing, and contact information. Major roads, landmarks, and amenities are also 
+        highlighted for better 
         orientation and context.""", className="my-4 mx-5"),
         dbc.Row([
             # Tabla analysis
@@ -537,7 +552,8 @@ layout_types_analysis = dbc.Container(
                     id='datatable-interactivity2',
                     columns=[
                         {"name": i, "id": i, "deletable": False, "selectable": True}
-                        for i in ['local_id', 'local_use', 'floor', 'year_construction', 'unit_cost']
+                        for i in
+                        ['local_id', 'local_use', 'floor', 'year_construction', 'unit_cost']
                         if i in df.columns
                     ],
                     data=df.to_dict('records'),
@@ -581,10 +597,11 @@ layout = html.Div([
     layout_modal,
     layout_modal_help,
     layout_popup,
-    layout_notifications,
+    #layout_notifications,
     # layout_footer
 ])
 
-# TODO: Add SPeckle layout inside the explanatory markdown. Is a grid of cards with a description and an speckle
+# TODO: Add SPeckle layout inside the explanatory markdown. Is a grid of cards with a description
+#  and an speckle
 #  embeded (like the
 #  bulding iot examples that i did

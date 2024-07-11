@@ -3,26 +3,25 @@ import io
 import logging
 import sys
 
+import dash
 import dash_bootstrap_components as dbc
 import dash_mantine_components as dmc
 import plotly.graph_objects as go
-from dash import dcc
+from dash import dcc, html
 from dash_iconify import DashIconify
 from numpy import intersect1d
 from pandas import DataFrame
 
-from apps.app_dash_deck import *
-from apps.app_load_assets import df, fig
-from apps.app_mapbox_playground import update_mapbox, geojson, propiedades_entidad
-from apps.app_modals import create_subplots
-from constants import MAPBOX_TOKEN
+from src.map_dash_deck import *
+from src.app_load_assets import df, fig
+from src.app_mapbox_playground import update_mapbox, geojson, propiedades_entidad
 from core_callbacks import dash_app
 from pages.pages_helper.descriptions import *
 from utils.utils import extract_main_colors
 
 sys.path.insert(0, '/static/style.py')
 sys.path.insert(0, 'core_callbacks.py')
-sys.path.insert(0, 'apps/app_mapbox_playground.py')
+sys.path.insert(0, 'src/app_mapbox_playground.py')
 
 
 # %% ---- GENERIC/MODALS ----
