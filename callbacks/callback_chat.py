@@ -1,16 +1,16 @@
 import sys
-import dash
-from dash import dcc
-from core_callbacks import dash_app
+import time
 
-from dash import html
+import dash
 import dash_bootstrap_components as dbc
+from dash import dcc
 from hugchat import hugchat
 from hugchat.login import Login
-import time
-# import dash_core_components as dcc
 
-from constants import HUGGINGFACE_MAIL, HUGGINGFACE_PASSWORD
+from config.settings import HUGGINGFACE_MAIL, HUGGINGFACE_PASSWORD
+from core_callbacks import dash_app
+
+# import dash_core_components as dcc
 
 sys.path.insert(0, 'core_callbacks.py')
 
@@ -41,7 +41,8 @@ def update_chat(send_n_clicks, reset_n_clicks, message, chat_history):
     if message:
         # simulate loading time (not needed)
         time.sleep(1)
-        message_prompt = f"{message}. Create a concise and precise response. Limit the answer to 1-2 short paragraphs."
+        message_prompt = (f"{message}. Create a concise and precise response. Limit the answer to"
+                          f"1-2 short paragraphs.")
         # call the function to handle HugChat logic
         response = handle_hugchat_logic(HUGGINGFACE_MAIL, HUGGINGFACE_PASSWORD, message_prompt)
 
@@ -89,7 +90,8 @@ def handle_hugchat_logic(email, password, user_message):
     # handle exceptions (like login failure, API errors, etc.)
     except Exception as e:
         print("Error in HugChat logic:", e)
-        return "Sorry, I couldn't process your request. Probably because the author's credential is expired or wrong!"
+        return ("Sorry, I couldn't process your request. Probably because the author's credential "
+                "is expired or wrong!")
 
 
 @dash_app.callback(

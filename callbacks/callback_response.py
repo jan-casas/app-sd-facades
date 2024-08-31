@@ -12,11 +12,11 @@ from dash_iconify import DashIconify
 from numpy import intersect1d
 from pandas import DataFrame
 
-from src.map_dash_deck import *
-from src.app_load_assets import df, fig
-from src.app_mapbox_playground import update_mapbox, geojson, propiedades_entidad
 from core_callbacks import dash_app
 from pages.pages_helper.descriptions import *
+from src.app_load_assets import df_real_state_original, fig
+from src.app_mapbox_playground import update_mapbox, geojson, propiedades_entidad
+from src.map_dash_deck import *
 from utils.utils import extract_main_colors
 
 sys.path.insert(0, '/static/style.py')
@@ -130,7 +130,8 @@ def toggle_collapse(n):
     return False
 
 
-# Stepper interaction: Capture the active step and update page route based on the next and back buttons
+# Stepper interaction: Capture the active step and update page route based on the next and back
+# buttons
 @dash_app.callback(
     [dash.dependencies.Output('url', 'pathname'),
      dash.dependencies.Output('stepper-state', 'data')],
@@ -140,7 +141,8 @@ def toggle_collapse(n):
     prevent_initial_call=True,
 )
 def update_url(next_clicks, back_clicks, active_step):
-    logging.info(f"Active step: {active_step}, Next clicks: {next_clicks}, Back clicks: {back_clicks}")
+    logging.info(
+        f"Active step: {active_step}, Next clicks: {next_clicks}, Back clicks: {back_clicks}")
 
     # Detect active step
     active_step_var = active_step if active_step is not None else 0
@@ -221,22 +223,21 @@ def update_output(contents, filename):
 # %% ---- LAYOUT ASSETS ----
 # My Assets location selectector in blank_map
 @dash_app.callback(
-    # dash.dependencies.Output('subplot_div_assets', 'figure'),
     dash.dependencies.Output('layout_dash_deck', 'children'),
-    [dash.dependencies.Input('dropdown_analysis_id', 'value')],
+    [dash.dependencies.Input('url', 'pathname')],
+    prevent_initial_call=False,
 )
-def callback(dropdown_analysis_id):
+def callback(pathname):
     # Main colors
-    n_rows = df.shape[0]
-    colors = extract_main_colors(dropdown_analysis_id, n_rows)
+    image_path = 'static/images/energy_saving8.png'
+    n_rows = df_real_state_original.shape[0]
+    colors = extract_main_colors(image_path, n_rows)  # Use a default image path or color scheme
     colors_str = ['rgb(' + ', '.join(map(str, color)) + ')' for color in colors]
-    # subplot_fig = create_subplots(df, colors_str=colors_str)
 
-    # TODO: Uncomment when the database is connected
-    # gdf = query_buildings(table='logrono', schema='gis')  # TODO: La ciudad podría cambiar, por eso se utiliza una
-    # función helper
-    df_deck = parse_data(gdf, dropdown_analysis_id)
+    # Parse data and create deck layer
+    df_deck = parse_data(gdf, image_path)  # Use a default image path
     deck_layer = create_deck_layer(df_deck)
+    print(f"Deck layer created with {n_rows} rows.")
 
     return deck_layer
 
@@ -250,7 +251,8 @@ def callback(dropdown_analysis_id):
 def update_table_home_markdown(rows: list):
     # Every row must read a different markdown file
     # if multiple rows append it
-    # TODO: Create a relation between the analysis row and the construction of the cards with the speckle models
+    # TODO: Create a relation between the analysis row and the construction of the cards with the
+    #  speckle models
     # if row is not None:
     #     return [dcc.Markdown(f"Row {r} selected") for r in row]
     # return no_update
@@ -258,19 +260,25 @@ def update_table_home_markdown(rows: list):
     result = [
         html.Span('Analysis Explanation:'),
         dcc.Markdown("""
-            The next Speckle Iframes models will show a glimpse of the analysis made in a small size city of Spain. 
+            The next Speckle Iframes models will show a glimpse of the analysis made in a small 
+            size city of Spain. 
             This is 
             used for preview purposes. 
-            The analysis includes various factors such as temperature, occupancy, climatic responsiveness, 
+            The analysis includes various factors such as temperature, occupancy, climatic 
+            responsiveness, 
             and installation performance. 
-            Each of these factors is carefully studied and visualized using Speckle, a data-driven design platform. 
-            The models provide a comprehensive understanding of the city's architectural and environmental dynamics. 
+            Each of these factors is carefully studied and visualized using Speckle, 
+            a data-driven design platform. 
+            The models provide a comprehensive understanding of the city's architectural and 
+            environmental dynamics. 
             They serve as a 
-            valuable tool for architects, city planners, and environmentalists to make informed decisions and create 
+            valuable tool for architects, city planners, and environmentalists to make informed 
+            decisions and create 
             sustainable urban 
             environments. 
             
-            Please note that the models are interactive, allowing you to explore different aspects of the city's 
+            Please note that the models are interactive, allowing you to explore different 
+            aspects of the city's 
             architecture and 
             environment in detail.
         """),
