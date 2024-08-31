@@ -1,16 +1,15 @@
-import plotly.graph_objects as go
 from random import choice
 
 import plotly.express as px
 import plotly.graph_objects as go
 from pandas import read_pickle
 
-monoparte_centroides = read_pickle(r'backend/database/georeference_data/monoparte.pkl')
+monoparte_centroides = read_pickle(r'database/georeference_data/monoparte.pkl')
 geojson_complete = read_pickle(
-    r'backend/database/georeference_data/data_barrios.pkl')  # geojson_complete
+    r'database/georeference_data/data_barrios.pkl')  # geojson_complete
 geojson = geojson_complete.sample(frac=0.1, random_state=0)
 propiedades_entidad = read_pickle(
-    r'backend/database/georeference_data/df_propiedades_entidaddes.pkl')
+    r'database/georeference_data/df_propiedades_entidaddes.pkl')
 val_size = 0.001
 number_of_colors = len(propiedades_entidad.nombre.unique())
 color_stacked = ["#" + ''.join([choice('0123456789ABCDEF')

@@ -3,7 +3,7 @@ import plotly.graph_objects as go
 import numpy as np
 import pandas as pd
 import sys
-from constants import MAPBOX_TOKEN
+from config.settings import MAPBOX_TOKEN
 import logging
 import dash_bootstrap_components as dbc
 from plotly.subplots import make_subplots

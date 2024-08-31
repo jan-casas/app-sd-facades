@@ -14,11 +14,11 @@ from shapely import wkb
 import geopandas as gpd
 
 from utils.utils import extract_main_colors_rgb
-from backend.utils.utils_database import retrieve_dataframe
-from constants import MAPBOX_API
+from utils_database import retrieve_dataframe
+from config.settings import MAPBOX_API
 
 # Load the GeoJSON file
-DATA_URL = (r"backend/database/georeference_data/building_logroño_bp.geojson")
+DATA_URL = (r"database/georeference_data/building_logroño_bp.geojson")
 gdf = gpd.read_file(DATA_URL, rows=100)
 
 
