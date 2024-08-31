@@ -1,6 +1,6 @@
-from sklearn.cluster import KMeans
 import numpy as np
 from PIL import Image
+from sklearn.cluster import KMeans
 
 
 def extract_main_colors(image_path, n_colors):
@@ -47,3 +47,9 @@ def extract_main_colors_rgb(image_path, n_colors):
     colors = [list(map(int, color)) for color in colors.round(0)]
 
     return colors
+
+
+def normalize_data(df):
+    df_numeric = df.select_dtypes(include=[np.number])
+    df_normalized = (df_numeric - df_numeric.min()) / (df_numeric.max() - df_numeric.min())
+    return df_normalized
