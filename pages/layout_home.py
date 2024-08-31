@@ -1,13 +1,13 @@
 import dash
 import dash_mantine_components as dmc
-import dash_table
+from dash import dash_table
 
-from src.app_load_assets import df
 from pages.layout_chat import layout_modal_help
 # layout_notifications
 from pages.pages_helper.descriptions import *
 from pages.pages_helper.layout_default import sidebar, layout_header  # ,
 from pages.pages_helper.layout_modals import *
+from src.app_load_assets import df_real_state_original
 
 dash.register_page(__name__, path="/home")
 
@@ -454,7 +454,7 @@ layout_stepper = html.Footer([
                  dmc.Stepper(
                      id="stepper-custom-icons",
                      active=1,
-                     #breakpoint="sm",
+                     # breakpoint="sm",
                      children=[
                          dmc.StepperStep(
                              label="Geolocate Actives",
@@ -485,7 +485,7 @@ layout_stepper = html.Footer([
                      ],
                  ),
                  dmc.Group(
-                     #position="center",
+                     # position="center",
                      mt="xl",
                      children=[
                          dmc.Button("Back", id="back-custom-icons", variant="default"),
@@ -554,9 +554,9 @@ layout_types_analysis = dbc.Container(
                         {"name": i, "id": i, "deletable": False, "selectable": True}
                         for i in
                         ['local_id', 'local_use', 'floor', 'year_construction', 'unit_cost']
-                        if i in df.columns
+                        if i in df_real_state_original.columns
                     ],
-                    data=df.to_dict('records'),
+                    data=df_real_state_original.to_dict('records'),
                     editable=False,
                     filter_action="native",
                     sort_action="native",
@@ -597,7 +597,7 @@ layout = html.Div([
     layout_modal,
     layout_modal_help,
     layout_popup,
-    #layout_notifications,
+    # layout_notifications,
     # layout_footer
 ])
 

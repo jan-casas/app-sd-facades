@@ -1,6 +1,6 @@
 import dash
 from dash import dash_table
-from src.app_load_assets import df, fig
+from src.app_load_assets import df_real_state_original, fig
 from pages.pages_helper.layout_modals import *
 from pages.pages_helper.layout_default import layout_header, sidebar#,
 # layout_notifications
@@ -119,8 +119,8 @@ orientation and context."""),
         # Existing assets in the database
         dash_table.DataTable(
             id='table',
-            columns=[{"name": i, "id": i} for i in df.columns],
-            data=df.to_dict('records'),
+            columns=[{"name": i, "id": i} for i in df_real_state_original.columns],
+            data=df_real_state_original.to_dict('records'),
             editable=False,
             filter_action="native",
             filter_options={"placeholder_text": "Filter column..."},

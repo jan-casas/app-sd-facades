@@ -2,12 +2,13 @@ import dash
 import dash_mantine_components as dmc
 from dash import dash_table
 
-from src.app_load_assets import df_post_analysis, fig_parcoord
-from src.futures_figures import fig_normal, fig_cum
-# layout_notifications
+from src.figures import kde_cdf_fig
 from pages.layout_chat import layout_modal_help
 from pages.pages_helper.layout_default import layout_header, sidebar  # ,
 from pages.pages_helper.layout_modals import *
+from src.app_load_assets import df_post_analysis, fig_par
+from src.futures_figures import fig_normal, fig_cum
+from src.weather_api import weather_fig
 
 # import dash_table
 
@@ -118,6 +119,10 @@ then processed and visualized in the dashboard. The dashboard is updated every 5
             """**Figure 1.** Map of the selected assets."""),
     ], className="my-4 mx-5"),
     dbc.Row([
+        # Add parcoord graph
+        dcc.Graph(id='parcoord_graph', figure=fig_par),
+        dcc.Markdown("""**Figure 3.** Compare resulted variables."""),
+
         dash_table.DataTable(
             id='table',
             columns=[{"name": i, "id": i} for i in df_post_analysis.columns],
@@ -136,13 +141,6 @@ then processed and visualized in the dashboard. The dashboard is updated every 5
             style_table={'overflowX': 'scroll'},
         ),
         dcc.Markdown("""**Figure 2.** Table about testing data."""),
-
-        # Add parcoord graph
-        dcc.Graph(id='parcoord_graph',
-                  figure=fig_parcoord,
-                  # style={'overflowX': 'scroll'}
-                  ),
-        dcc.Markdown("""**Figure 3.** Compare resulted variables."""),
 
         # Conclusion of this section
         html.Span('Top Assets In Spain Performing the Current Analysis:'),
@@ -484,6 +482,80 @@ layout_details = dbc.Container([
 ], fluid=True
 )
 
+
+def create_layout_figures():
+    return dbc.Container([
+        html.H2("My Assets In Detail View", className="my-3 mx-5"),
+        dbc.Row([
+            html.H3("Statistical Analysis of the Assets", ),
+            dcc.Markdown("""
+            The analysis is based on the data of the sensors that are installed in the building. The
+            sensors are connected to a node that is connected to the internet. The node sends the 
+            data
+            to a server that stores the data. The data is then processed and visualized in the 
+            dashboard.
+            """),
+            dcc.Graph(id='kde_cdf_fig', figure=kde_cdf_fig, config={'displayModeBar': False}),
+            dcc.Markdown("""**Figure 3.** Table about testing data.""")
+        ], className="my-4 mx-5"),
+    ], fluid=True)
+
+
+def create_card(title, text, color, inverse=False, badge_text=None, badge_color=None,
+                description=None):
+    card_content = [
+        dbc.Col(dbc.Card(
+            [
+                html.H2(title, className="card-title"),
+                html.H2(text, className="card-text", style={'color': 'white'} if inverse else {}),
+            ],
+            body=True,
+            color=color,
+            inverse=inverse,
+        ), width='50%'),
+        dbc.CardBody(
+            [
+                html.H5(description, className="card-title") if description else None,
+                dbc.Badge(badge_text, color=badge_color) if badge_text else None,
+                html.P(description) if description else None,
+            ]
+        ),
+    ]
+    return dbc.Card(card_content, className="h-100")
+
+
+def assets_conclusion_cards():
+    return dbc.Row(
+        [
+            dbc.Col(create_card("Temperatura:", "Es de 27ºC", "dark", inverse=True,
+                                badge_text="In Progress", badge_color="info",
+                                description="Temperature Thermal Comfort")),
+            dbc.Col(create_card("Ocupación:", "Es del 20%", "light",
+                                description="Ocupancy and Density")),
+            dbc.Col(create_card("Responsividad:", "Es de 1.2s", "light",
+                                description="Climatic Responsive Design")),
+            dbc.Col(create_card("Performance:", "Está al 95%", "light",
+                                description="Installation Performance")),
+        ],
+        className="my-4 mx-5"
+    )
+
+
+layout_weather = dbc.Container([
+    html.H2("Weather Forecast", className="my-3 mx-5"),
+    dbc.Row([
+        html.Span('Description of the Analysis:'),
+        dcc.Markdown("""
+        The analysis is based on the data of the sensors that are installed in the building. The 
+        sensors
+        """),
+        dcc.Graph(id='weather_fig', figure=weather_fig),
+        dcc.Markdown("""**Figure 1.** Map of the selected assets."""),
+        '''        dcc.Graph(id='historical_weather_fig', figure=historical_weather_fig),
+                dcc.Markdown("""**Figure 2.** Table about testing data."""),'''
+    ], className="my-4 mx-5"),
+], fluid=True)
+
 layout = html.Div([
     dcc.Location(id='url', refresh=True),
     layout_header,
@@ -496,12 +568,13 @@ layout = html.Div([
         fullscreen=True,
         children=[
             layout_map_dash_deck,
+            create_layout_figures(),
             layout_details,
         ]),
     layout_modal_help,
     layout_stepper,
     layout_popup,
-    #layout_notifications,
+    # layout_notifications,
     # layout_footer
 ])
 
