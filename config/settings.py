@@ -1,22 +1,25 @@
 import os
-from dotenv import load_dotenv
+
 import openai
+from dotenv import load_dotenv
 
 load_dotenv()
 
-# Local Database credentials
-PG_USER = os.environ.get('PG_USER')
-PG_PASS = os.environ.get('PG_PASS')
-PG_HOST = os.environ.get('PG_HOST')
-PG_PORT = os.environ.get('PG_PORT')
-PG_DATABASE = os.environ.get('PG_DATABASE')
+AZURE_DDBB = {
+    "user": os.getenv("DB_USER"),
+    "password": os.getenv("DB_PASSWORD"),
+    "host": os.getenv("DB_HOST"),
+    "database": os.getenv("DB_DATABASE"),
+    "port": os.getenv("DB_PORT")
+}
 
-# Azure Database credentials
-user = os.environ.get("DB_USER")
-password = os.environ.get("DB_PASSWORD")
-host = os.environ.get("DB_HOST")
-database = os.environ.get("DB_DATABASE")
-port = os.environ.get("DB_PORT")
+LOCAL_DDBB = {
+    "user": os.getenv("PG_USER"),
+    "password": os.getenv("PG_PASS"),
+    "host": os.getenv("PG_HOST"),
+    "database": os.getenv("PG_DATABASE"),
+    "port": os.getenv("PG_PORT")
+}
 
 # Mapbox credentials
 MAPBOX_TOKEN = os.environ.get('MAPBOX_TOKEN')
@@ -29,7 +32,8 @@ openai.api_key = os.getenv("OPENAI_API_KEY", "")
 weather_api_key = os.getenv("IQAIR_WEATHER_API", "")
 
 MAPBOX_API = os.getenv("MAPBOX_API",
-                       "pk.eyJ1IjoiamFuY2FzYXMiLCJhIjoiY2tlYTk4ZnBlMTBwZzJ5cHhzbzBjdTltaSJ9.nYGQnvw5kkC0m0EC5eHLbg")
+                       "pk.eyJ1IjoiamFuY2FzYXMiLCJhIjoiY2tlYTk4ZnBlMTBwZzJ5cHhzbzBjdTltaSJ9"
+                       ".nYGQnvw5kkC0m0EC5eHLbg")
 
 # Hughingface API
 HUGGINGFACE_MAIL = os.getenv("HUGGINGFACE_API", "casasvil@protonmail.com")
