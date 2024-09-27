@@ -60,8 +60,8 @@ sidebar = html.Div(
                 ),
                 dbc.NavLink(
                     [
-                        html.I(className="bi bi-house-heart me-2"),
-                        html.Span("My Assets"),
+                        html.I(className="bi bi-cloud-upload-fill me-2"),
+                        html.Span("Load Assets"),
                         # dbc.Collapse(
                         #     dbc.Nav(
                         #         [
@@ -90,7 +90,15 @@ sidebar = html.Div(
                 ),
                 dbc.NavLink(
                     [html.I(className="bi bi-search-heart me-2"),
-                     html.Span("Compare Results ")],
+                     html.Span("Performance Assets")],
+                    href="/performance",
+                    active="exact",
+                ),
+                dbc.NavLink(
+                    [html.I(className="bi bi-arrow-through-heart-fill me-2"),
+                     html.Span("Discover Assets "),
+                     dbc.Badge("Premium", color="warning", className="ms-2")
+                     ],
                     href="/assets",
                     active="exact",
                 ),

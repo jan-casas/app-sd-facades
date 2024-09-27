@@ -6,6 +6,7 @@ import sys
 import dash
 import dash_bootstrap_components as dbc
 import dash_mantine_components as dmc
+import numpy as np
 import plotly.graph_objects as go
 from dash import dcc, html
 from dash_iconify import DashIconify
@@ -14,7 +15,7 @@ from pandas import DataFrame
 
 from core_callbacks import dash_app
 from pages.pages_helper.descriptions import *
-from src.app_load_assets import df_real_state_original, fig
+from src.app_load_assets import df_real_state_original
 from src.app_mapbox_playground import update_mapbox, geojson, propiedades_entidad
 from src.map_dash_deck import *
 from utils.utils import extract_main_colors
@@ -22,6 +23,31 @@ from utils.utils import extract_main_colors
 sys.path.insert(0, '/static/style.py')
 sys.path.insert(0, 'core_callbacks.py')
 sys.path.insert(0, 'src/app_mapbox_playground.py')
+
+# %%
+"""# TODO: CHECK THE SPECKLE EUSKOTREN APP BECAUSE IT IS DONE THE SAME WAY
+@dash_app.callback(
+    [dash.dependencies.Output('table', 'data'),
+     dash.dependencies.Output('table', 'columns')],
+    [dash.dependencies.Input('parcoord_graph', 'selectedData')],
+)
+def update_figures(selected_data):
+    # Read and process data
+    df_real_state_original, df_post_analysis = read_and_process_data()
+
+    # Filter data based on selected points in the parallel coordinates graph
+    if selected_data:
+        selected_points = [point['pointIndex'] for point in selected_data['points']]
+        df_filtered = df_post_analysis.iloc[selected_points]
+    else:
+        df_filtered = df_post_analysis
+
+    # Update table data
+    table_data = df_filtered.to_dict('records')
+    columns = [{"name": i, "id": i} for i in df_filtered.columns]
+
+    return table_data, columns
+"""
 
 
 # %% ---- GENERIC/MODALS ----
@@ -174,7 +200,7 @@ def update_stepper(active_step):
     return active_step
 
 
-# %% ---- LAYOUT LOAD ----
+# ---- LAYOUT LOAD ----
 # Upload file interaction
 def parse_contents(contents, filename):
     content_type, content_string = contents.split(',')
@@ -188,7 +214,7 @@ def parse_contents(contents, filename):
         return pd.read_excel(io.BytesIO(decoded))
 
 
-@dash_app.callback(
+"""@dash_app.callback(
     dash.dependencies.Output('datatable-upload-container', 'data'),
     dash.dependencies.Output('datatable-upload-container', 'columns'),
     dash.dependencies.Output('load_assets', 'figure'),
@@ -216,11 +242,31 @@ def update_output(contents, filename):
         return [{}], [], fig
 
     return df_new.to_dict('records'), [{"name": i, "id": i} for i in df_new.columns], fig
+"""
+
+
+# Add this callback function to your Dash app
+@dash_app.callback(
+    dash.dependencies.Output('table', 'data'),
+    dash.dependencies.Input('load_assets', 'selectedData'),
+    dash.dependencies.State('table', 'data')
+)
+def update_table(selectedData, table_data):
+    original_table_data = df_real_state_original.to_dict('records')
+    if selectedData is None or not selectedData['points']:
+        logging.error("No points selected.")
+        return original_table_data
+
+    selected_points = {point['pointIndex'] for point in selectedData['points']}
+    filtered_data = [row for i, row in enumerate(original_table_data) if i in selected_points]
+    logging.info(f"Selected points: {len(filtered_data)}")
+
+    return filtered_data
 
 
 # TODO: Add popups if the format is not correct
 
-# %% ---- LAYOUT ASSETS ----
+# ---- LAYOUT ASSETS ----
 # My Assets location selectector in blank_map
 @dash_app.callback(
     dash.dependencies.Output('layout_dash_deck', 'children'),
@@ -307,3 +353,6 @@ def update_table_home_markdown(rows: list):
         result.append(card)
         result.append(html.Br())
     return result
+
+
+# ---- LAYOUT PERFORMANCE ----

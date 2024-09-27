@@ -5,3 +5,4 @@
 *.ipynb
 /test/
 /.ipynb_checkpoints/
+/venv/

@@ -14,7 +14,7 @@ from shapely import wkb
 import geopandas as gpd
 
 from utils.utils import extract_main_colors_rgb
-from utils_database import retrieve_dataframe
+from gis.src.utils_database import retrieve_dataframe
 from config.settings import MAPBOX_API
 
 # Load the GeoJSON file

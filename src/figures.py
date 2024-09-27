@@ -42,10 +42,11 @@ def create_subplots(df, plot_func, title_text, **kwargs):
     subplot_titles = [col.replace('_', ' ').title() for col in df.columns]
 
     df_numeric = df.select_dtypes(include=[np.number])
-    num_cols = 3
+    num_cols = 4
     num_rows = (len(df_numeric.columns) + num_cols - 1) // num_cols
     fig = make_subplots(rows=num_rows, cols=num_cols, subplot_titles=subplot_titles,
-                        shared_yaxes=False, shared_xaxes=False, vertical_spacing=0.1)
+                        shared_yaxes=False, shared_xaxes=False, vertical_spacing=0.1,
+                        )
 
     for i, col in enumerate(df_numeric.columns):
         row = i // num_cols + 1

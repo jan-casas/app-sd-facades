@@ -2,11 +2,11 @@ import dash
 import dash_mantine_components as dmc
 from dash import dash_table
 
-from src.figures import kde_cdf_fig
 from pages.layout_chat import layout_modal_help
 from pages.pages_helper.layout_default import layout_header, sidebar  # ,
 from pages.pages_helper.layout_modals import *
-from src.app_load_assets import df_post_analysis, fig_par
+from src.app_load_assets import fig_par, fig
+from src.figures import kde_cdf_fig
 from src.futures_figures import fig_normal, fig_cum
 from src.weather_api import weather_fig
 
@@ -103,30 +103,29 @@ selector_grid = dbc.Collapse(
 )
 
 layout_map_dash_deck = dbc.Container([
-    html.H2("My Assets In Detail View", className="my-3 mx-5"),
+    html.H2("Discover Long Term Profitable Assets", className="my-3 mx-5"),
     dbc.Row([
-        html.Span('Description of the Analysis:'),
-        dcc.Markdown("""
-The analysis is based on the data of the sensors that are installed in the building. The sensors 
-are connected to 
-a node that is connected to the internet. The node sends the data to a server that stores the 
-data. The data is 
-then processed and visualized in the dashboard. The dashboard is updated every 5 minutes."""),
-        dbc.Card(
-            html.Div(id='layout_dash_deck', className="map-size"),
-        ),
-        dcc.Markdown(
-            """**Figure 1.** Map of the selected assets."""),
-    ], className="my-4 mx-5"),
-    dbc.Row([
+        html.H3('View Selected Assets'),
+        dcc.Markdown("""    
+        The graphs below provide detailed metrics for the selected assets, enabling a 
+        comprehensive 
+        evaluation to determine the perfect asset for your specific needs. This analysis 
+        incorporates 
+        advanced 3D models and real-time environmental data, ensuring accuracy and relevance. 
+        The data is 
+        meticulously processed and then visualized within an interactive dashboard, offering 
+        intuitive 
+        insights. Additionally, the dashboard allows for customized filtering and comparison 
+        of assets, 
+        empowering users to make informed decisions based on their unique criteria and 
+        objectives.
+        """),
         # Add parcoord graph
         dcc.Graph(id='parcoord_graph', figure=fig_par),
-        dcc.Markdown("""**Figure 3.** Compare resulted variables."""),
-
         dash_table.DataTable(
             id='table',
-            columns=[{"name": i, "id": i} for i in df_post_analysis.columns],
-            data=df_post_analysis.to_dict('records'),
+            # columns=[{"name": i, "id": i} for i in selected_traces.columns],
+            # data=selected_traces.to_dict('records'),
             # export_format='xlsx',
             # export_headers='display',
             # export_columns='all',
@@ -461,6 +460,27 @@ layout_details = dbc.Container([
         ],
         className="my-4 mx-5"
     ),
+    # TODO: DEBERÍA SER UN GRID DE 4XN DONDE N ES EL NÚMERO DE TRAZOS SELECCIONADOS EN EL FILTRO.
+    #  CADA MAPA HACIENDO ZOOM A LA LOCALIZACIÓN DEL ACTIVO.
+    dbc.Row([
+        dcc.Markdown("""
+        The map displays various housing locations promoted by the company, marked with distinct 
+        points. Each point 
+        represents a specific housing location and is color-coded based on the type of property (
+        e.g., apartments, 
+        townhouses, single-family homes). The map includes key information such as the name of 
+        the housing development, 
+        address, and availability status. Interactive features allow users to click on each point 
+        for detailed descriptions, 
+        images, pricing, and contact information. Major roads, landmarks, and amenities are also 
+        highlighted for better 
+        orientation and context."""
+                     ),
+        dcc.Graph(id='load_assets', figure=fig),
+        dcc.Markdown("""**Figure 1.** Map of the selected assets."""),
+        # html.Div(id='layout_dash_deck',className="my-3 mx-52),
+        dcc.Markdown("""**Figure 2.** Map of the selected assets."""),
+    ], className="my-4 mx-5"),
     dbc.Row(
         [
             dcc.Markdown(congrats_conclusion),
@@ -485,7 +505,23 @@ layout_details = dbc.Container([
 
 def create_layout_figures():
     return dbc.Container([
-        html.H2("My Assets In Detail View", className="my-3 mx-5"),
+
+        html.H2("Comparative View", className="my-3 mx-5"),
+        dbc.Row([
+            html.H3('View Selected Assets', ),
+            dcc.Markdown("""
+    The analysis is based on the data of the sensors that are installed in the building. The 
+    sensors 
+    are connected to 
+    a node that is connected to the internet. The node sends the data to a server that stores the 
+    data. The data is 
+    then processed and visualized in the dashboard. The dashboard is updated every 5 minutes."""),
+            dbc.Card(
+                html.Div(id='layout_dash_deck', className="map-size"),
+            ),
+            dcc.Markdown(
+                """**Figure 1.** Map of the selected assets."""),
+        ], className="my-4 mx-5"),
         dbc.Row([
             html.H3("Statistical Analysis of the Assets", ),
             dcc.Markdown("""
@@ -499,46 +535,6 @@ def create_layout_figures():
             dcc.Markdown("""**Figure 3.** Table about testing data.""")
         ], className="my-4 mx-5"),
     ], fluid=True)
-
-
-def create_card(title, text, color, inverse=False, badge_text=None, badge_color=None,
-                description=None):
-    card_content = [
-        dbc.Col(dbc.Card(
-            [
-                html.H2(title, className="card-title"),
-                html.H2(text, className="card-text", style={'color': 'white'} if inverse else {}),
-            ],
-            body=True,
-            color=color,
-            inverse=inverse,
-        ), width='50%'),
-        dbc.CardBody(
-            [
-                html.H5(description, className="card-title") if description else None,
-                dbc.Badge(badge_text, color=badge_color) if badge_text else None,
-                html.P(description) if description else None,
-            ]
-        ),
-    ]
-    return dbc.Card(card_content, className="h-100")
-
-
-def assets_conclusion_cards():
-    return dbc.Row(
-        [
-            dbc.Col(create_card("Temperatura:", "Es de 27ºC", "dark", inverse=True,
-                                badge_text="In Progress", badge_color="info",
-                                description="Temperature Thermal Comfort")),
-            dbc.Col(create_card("Ocupación:", "Es del 20%", "light",
-                                description="Ocupancy and Density")),
-            dbc.Col(create_card("Responsividad:", "Es de 1.2s", "light",
-                                description="Climatic Responsive Design")),
-            dbc.Col(create_card("Performance:", "Está al 95%", "light",
-                                description="Installation Performance")),
-        ],
-        className="my-4 mx-5"
-    )
 
 
 layout_weather = dbc.Container([
@@ -568,7 +564,7 @@ layout = html.Div([
         fullscreen=True,
         children=[
             layout_map_dash_deck,
-            create_layout_figures(),
+            # create_layout_figures(),
             layout_details,
         ]),
     layout_modal_help,
@@ -577,5 +573,3 @@ layout = html.Div([
     # layout_notifications,
     # layout_footer
 ])
-
-# TODO: NOOB -> DEV MUST BE ACTIVES

@@ -1,6 +1,5 @@
 import numpy as np
 import pandas as pd
-import plotly.express as px
 import plotly.graph_objects as go
 
 from config.settings import MAPBOX_TOKEN
@@ -113,19 +112,6 @@ def create_parcoord_figure(df_post_analysis, margin_value=20):
         margin={"r": margin_value, "t": margin_value * 3, "l": margin_value, "b": margin_value * 3},
         showlegend=False,
     )
-
-    return fig_pa
-
-
-def create_parcoord_figure_express(df_post_analysis):
-    # Ensure only columns with numeric data types (int or float) are processed
-    df_post_analysis = df_post_analysis.select_dtypes(include=[np.number])
-
-    # Round, drop NaNs and any non-finite values
-    df_post_analysis = df_post_analysis.round(2).dropna()
-
-    # Create the parallel coordinates plot using Plotly Express
-    fig_pa = px.parallel_coordinates(df_post_analysis)
 
     return fig_pa
 
