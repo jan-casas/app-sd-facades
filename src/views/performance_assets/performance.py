@@ -6,6 +6,11 @@ import plotly.figure_factory as ff
 from plotly.subplots import make_subplots
 
 from utils.utils_database import fetch_data_from_db, fetch_data_from_sqlite_db
+from views.load_assets.load_assets import read_and_process_data
+
+# Initial load of the data
+_, df_post_analysis = read_and_process_data()
+fig = px.parallel_coordinates(df_post_analysis, dimensions=df_post_analysis.columns)
 
 
 def update_layout(fig, num_rows, title_text, background_color='rgba(0,0,0,0)', show_xaxis=True,

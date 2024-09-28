@@ -1,106 +1,14 @@
 import dash
 import dash_mantine_components as dmc
 from dash import dash_table
-
 from views.default.layout_chat import layout_modal_help
 from views.default.layout_default import layout_header, sidebar  # ,
 from views.default.layout_modals import *
-from views.load_assets.load_assets import fig_par, fig
-from views.performance_assets.performance import kde_cdf_fig
-from views.load_assets.futures_figures import fig_normal, fig_cum
-from views.default._deprecated.weather_api import weather_fig
+from src.views.performance_assets.performance import df_post_analysis, fig
 
 # import dash_table
 
 dash.register_page(__name__, path="/assets")
-
-selector_grid = dbc.Collapse(
-    dbc.Row([
-        dbc.Col([
-            html.Label('Slider 1', id='slider1-label'),
-            dcc.Dropdown(
-                id='dropdown_analysis_id',
-                options=[
-                    {'label': 'Facade Sun Radiation', 'value': 'static/images/energy_saving8.png'},
-                    {'label': 'Shadow Overcast Time', 'value': 'static/images/energy_saving7.png'},
-                    {'label': 'Morning/Afternoon Sun Radiation',
-                     'value': 'static/images/energy_saving6.png'},
-                    {'label': 'Density', 'value': 'static/images/energy_saving5.png'},
-                    {'label': 'Views Availability', 'value': 'static/images/city_density4.png'},
-                    {'label': 'Age of the Building', 'value': 'static/images/city_density3.png'},
-                    {'label': 'Urban Noise', 'value': 'static/images/city_density2.png'},
-                    {'label': 'Close Distance to Green/Walking Areas',
-                     'value': 'static/images/energy_saving.png'},
-                    {'label': 'Potential Cost Reduction Using Solar Energy',
-                     'value': 'static/images/energy_saving2.png'},
-                    {'label': 'Social Life', 'value': 'static/images/city_territorial.png'},
-                    {'label': 'Territorial Connection',
-                     'value': 'static/images/energy_saving3.png'},
-                    {'label': 'Air Pollution', 'value': 'static/images/city_density.png'},
-                ],
-                value='static/images/energy_saving8.png',
-                style={'margin-top': '1rem',
-                       'margin-right': '1rem'}
-            ),
-            dcc.Markdown(
-                """
-                Morning/Afternoon Sun Radiation: The analysis is based on the data of the sensors 
-                that are installed in 
-                the building. The sensors are connected to a node that is connected to the 
-                internet. The node sends the 
-                data to a server that stores the data. The data is then processed and visualized 
-                in the dashboard. The 
-                dashboard is updated every 5 minutes.
-                """),
-        ], style={'margin-top': '1rem', 'margin-right': '1rem'}
-        ),
-        # TODO: Create the collapsable bar like in speckle vsc
-        dbc.Col([
-            html.Label('Slider 1', id='slider1-label'),
-            dcc.RangeSlider(
-                id='slider_analysis_id',
-                min=-1,
-                max=1,
-                step=0.1,
-                value=[-0.5, 0.5],
-                marks={i / 10: str(i / 10) for i in range(-10, 11)}
-            ),
-            html.Label('Slider 2', id='slider2-label'),
-            dcc.RangeSlider(
-                id='slider_analysis_id2',
-                min=-1,
-                max=1,
-                step=0.2,
-                value=[-0.5, 0.5],
-                marks={i / 10: str(i / 10) for i in range(-10, 11)}
-            ),
-            html.Label('Slider 3', id='slider2-label'),
-            dcc.Slider(
-                id='slider_analysis_id2',
-                min=0,
-                max=10,
-                step=1,
-                value=5,
-                marks={i: str(i) for i in range(0, 11)}
-            ),
-        ], style={'margin-top': '1rem', 'margin-right': '1rem'}),
-        dbc.Col([
-            # html.Label('Slider 1', id='slider1-label'),
-            dbc.Row([
-                dbc.Col(
-                    dcc.Graph(id='normal_distribution', figure=fig_normal)
-                ),
-                dbc.Col(
-                    dcc.Graph(id='cumulative_distribution', figure=fig_cum)
-                ),
-            ]),
-        ], style={'margin-top': '1rem', 'margin-right': '1rem'}),
-        html.Hr(),
-    ], style={'--bs-gutter-x': '0rem', 'z-index': '9999'}, className="mx-5")
-    , id='collapse', is_open=True,
-    style={'position': 'fixed', 'z-index': '9999', 'top': '3.4rem', 'width': '100%',
-           'background-color': 'white'}
-)
 
 layout_map_dash_deck = dbc.Container([
     html.H2("Discover Long Term Profitable Assets", className="my-3 mx-5"),
@@ -121,11 +29,11 @@ layout_map_dash_deck = dbc.Container([
         objectives.
         """),
         # Add parcoord graph
-        dcc.Graph(id='parcoord_graph', figure=fig_par),
+        dcc.Graph(id='parcoord_graph', figure=fig),
         dash_table.DataTable(
             id='table',
-            # columns=[{"name": i, "id": i} for i in selected_traces.columns],
-            # data=selected_traces.to_dict('records'),
+            columns=[{"name": i, "id": i} for i in df_post_analysis.columns],
+            data=df_post_analysis.to_dict('records'),
             # export_format='xlsx',
             # export_headers='display',
             # export_columns='all',
@@ -134,7 +42,7 @@ layout_map_dash_deck = dbc.Container([
             filter_options={"placeholder_text": "Filter column..."},
             sort_action="native",
             sort_mode='multi',
-            page_size=10,
+            page_size=5,
             row_selectable="multi",
             selected_rows=[],
             style_table={'overflowX': 'scroll'},
@@ -502,62 +410,11 @@ layout_details = dbc.Container([
 ], fluid=True
 )
 
-
-def create_layout_figures():
-    return dbc.Container([
-
-        html.H2("Comparative View", className="my-3 mx-5"),
-        dbc.Row([
-            html.H3('View Selected Assets', ),
-            dcc.Markdown("""
-    The analysis is based on the data of the sensors that are installed in the building. The 
-    sensors 
-    are connected to 
-    a node that is connected to the internet. The node sends the data to a server that stores the 
-    data. The data is 
-    then processed and visualized in the dashboard. The dashboard is updated every 5 minutes."""),
-            dbc.Card(
-                html.Div(id='layout_dash_deck', className="map-size"),
-            ),
-            dcc.Markdown(
-                """**Figure 1.** Map of the selected performance_assets."""),
-        ], className="my-4 mx-5"),
-        dbc.Row([
-            html.H3("Statistical Analysis of the Assets", ),
-            dcc.Markdown("""
-            The analysis is based on the data of the sensors that are installed in the building. The
-            sensors are connected to a node that is connected to the internet. The node sends the 
-            data
-            to a server that stores the data. The data is then processed and visualized in the 
-            dashboard.
-            """),
-            dcc.Graph(id='kde_cdf_fig', figure=kde_cdf_fig, config={'displayModeBar': False}),
-            dcc.Markdown("""**Figure 3.** Table about testing data.""")
-        ], className="my-4 mx-5"),
-    ], fluid=True)
-
-
-layout_weather = dbc.Container([
-    html.H2("Weather Forecast", className="my-3 mx-5"),
-    dbc.Row([
-        html.Span('Description of the Analysis:'),
-        dcc.Markdown("""
-        The analysis is based on the data of the sensors that are installed in the building. The 
-        sensors
-        """),
-        dcc.Graph(id='weather_fig', figure=weather_fig),
-        dcc.Markdown("""**Figure 1.** Map of the selected performance_assets."""),
-        '''        dcc.Graph(id='historical_weather_fig', figure=historical_weather_fig),
-                dcc.Markdown("""**Figure 2.** Table about testing data."""),'''
-    ], className="my-4 mx-5"),
-], fluid=True)
-
 layout = html.Div([
     dcc.Location(id='url', refresh=True),
     layout_header,
     sidebar,
     html.Div(style={'height': '3.4rem'}),
-    # selector_grid,
     dcc.Loading(
         id="loading",
         type="dot",
@@ -569,7 +426,5 @@ layout = html.Div([
         ]),
     layout_modal_help,
     layout_stepper,
-    layout_popup,
-    # layout_notifications,
-    # layout_footer
+    layout_popup
 ])

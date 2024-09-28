@@ -11,6 +11,7 @@ import pydeck as pdk
 import pandas as pd
 from shapely import wkb
 import geopandas as gpd
+import dash_deck
 
 from utils.utils import extract_main_colors_rgb
 # from gis.src.utils_database import retrieve_dataframe
@@ -18,7 +19,7 @@ from config.settings import MAPBOX_API
 from utils.utils_database import fetch_data_from_db
 
 # Load the GeoJSON file
-DATA_URL = (r"database/georeference_data/building_logroño_bp.geojson")
+DATA_URL = (r"G:\app-sd-facades\gis\data\building_logroño_bp.geojson")
 gdf = gpd.read_file(DATA_URL, rows=100)
 
 

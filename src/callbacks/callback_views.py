@@ -8,35 +8,11 @@ from numpy import intersect1d
 from pandas import DataFrame
 
 from src.core_callbacks import dash_app
-from views.default._deprecated import update_mapbox, geojson, propiedades_entidad
+from src.views._deprecated.mapbox_interactive import update_mapbox, geojson, propiedades_entidad
 
 sys.path.insert(0, '/static/style.py')
 sys.path.insert(0, 'core_callbacks.py')
 sys.path.insert(0, 'src/mapbox_interactive.py')
-
-"""# TODO: CHECK THE SPECKLE EUSKOTREN APP BECAUSE IT IS DONE THE SAME WAY
-@dash_app.callback(
-    [dash.dependencies.Output('table', 'data'),
-     dash.dependencies.Output('table', 'columns')],
-    [dash.dependencies.Input('parcoord_graph', 'selectedData')],
-)
-def update_figures(selected_data):
-    # Read and process data
-    df_real_state_original, df_post_analysis = read_and_process_data()
-
-    # Filter data based on selected points in the parallel coordinates graph
-    if selected_data:
-        selected_points = [point['pointIndex'] for point in selected_data['points']]
-        df_filtered = df_post_analysis.iloc[selected_points]
-    else:
-        df_filtered = df_post_analysis
-
-    # Update table data
-    table_data = df_filtered.to_dict('records')
-    columns = [{"name": i, "id": i} for i in df_filtered.columns]
-
-    return table_data, columns
-"""
 
 
 # ---- GENERIC/MODALS ----

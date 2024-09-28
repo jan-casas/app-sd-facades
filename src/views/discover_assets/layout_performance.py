@@ -14,7 +14,7 @@ dash.register_page(__name__, path="/performance")
 def create_layout_figures():
     return dbc.Container([
         dbc.Row([
-            html.Span("Statistical Analysis of the Assets", ),
+            html.H3("Statistical Analysis of the Assets", ),
             dcc.Markdown("""
             The analysis is based on the data of the sensors that are installed in the building. The
             sensors are connected to a node that is connected to the internet. The node sends the 
@@ -31,7 +31,18 @@ def create_layout_figures():
 layout_table = dbc.Container([
     html.H2("Performance of your Assets", className="my-3 mx-5"),
     dbc.Row([
-        html.Span('Description of the Map:'),
+        dcc.Markdown("""
+        The Performance of your Assets section provides a comprehensive overview of the
+        performance of the selected assets. The analysis is based on the data obtain on a hight 
+        performance urban model. The data is processed and visualized in the dashboard. 
+        """
+                     ),
+        dcc.Dropdown(id='analysis_options', multi=True,
+                     options=['Sunlight', 'Temperature', 'Occupancy'], ),
+    ], className="my-4 mx-5"
+    ),
+    dbc.Row([
+        html.H3('Asset location'),
         dcc.Markdown("""
             The map displays various housing locations promoted by the company, marked with 
             distinct points. Each point 
@@ -46,8 +57,7 @@ layout_table = dbc.Container([
             orientation and context."""
                      ),
         dcc.Graph(id='load_assets', figure=fig),
-        dcc.Markdown(
-            """**Figure 1.** Location of the performance_assets."""),
+
         # Add inputs to insert new points
     ], className="my-4 mx-5"),
     dbc.Row([
@@ -63,11 +73,13 @@ layout_table = dbc.Container([
             filter_options={"placeholder_text": "Filter column..."},
             sort_action="native",
             sort_mode='multi',
-            page_size=10,
+            page_size=5,
             row_selectable="multi",
             selected_rows=[],
             style_table={'overflowX': 'scroll'},
         ),
+        dcc.Markdown(
+            """**Figure 1.** Location of the performance_assets."""),
     ], className="my-4 mx-5"),
 ],
     fluid=True)
@@ -122,12 +134,14 @@ layout_conclusion_performance = dbc.Container([
             data
             to a server that stores the data. The data is then processed and visualized in the 
             dashboard.
-            The graphs below provide detailed metrics for the selected performance_assets, enabling a 
+            The graphs below provide detailed metrics for the selected performance_assets, 
+            enabling a 
             comprehensive evaluation to determine the perfect asset for your specific needs. This 
             analysis incorporates advanced 3D models and real-time environmental data, ensuring 
             accuracy and relevance. The data is meticulously processed and then visualized within 
             an interactive dashboard, offering intuitive insights. Additionally, the dashboard 
-            allows for customized filtering and comparison of performance_assets, empowering users to make 
+            allows for customized filtering and comparison of performance_assets, empowering 
+            users to make 
             informed decisions based on their unique criteria and objectives.
             """),
     ], className="my-4 mx-5"),
