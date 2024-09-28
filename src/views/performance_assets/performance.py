@@ -10,7 +10,7 @@ from views.load_assets.load_assets import read_and_process_data
 
 # Initial load of the data
 _, df_post_analysis = read_and_process_data()
-fig = px.parallel_coordinates(df_post_analysis, dimensions=df_post_analysis.columns)
+fig_parcoord = px.parallel_coordinates(df_post_analysis, dimensions=df_post_analysis.columns)
 
 
 def update_layout(fig, num_rows, title_text, background_color='rgba(0,0,0,0)', show_xaxis=True,

@@ -4,7 +4,8 @@ from dash import dash_table
 from views.default.layout_chat import layout_modal_help
 from views.default.layout_default import layout_header, sidebar  # ,
 from views.default.layout_modals import *
-from src.views.performance_assets.performance import df_post_analysis, fig
+from src.views.performance_assets.performance import df_post_analysis, fig_parcoord
+from views.load_assets.load_assets import fig
 
 # import dash_table
 
@@ -29,7 +30,7 @@ layout_map_dash_deck = dbc.Container([
         objectives.
         """),
         # Add parcoord graph
-        dcc.Graph(id='parcoord_graph', figure=fig),
+        dcc.Graph(id='parcoord_graph', figure=fig_parcoord),
         dash_table.DataTable(
             id='table',
             columns=[{"name": i, "id": i} for i in df_post_analysis.columns],
