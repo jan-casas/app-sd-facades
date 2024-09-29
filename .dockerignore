@@ -3,4 +3,5 @@ __pycache__/
 .mypy_cache/
 .gitignore
 .conda//gis/
-/pages/deprecated/
+/views/deprecated/
+/views/default/_deprecated/

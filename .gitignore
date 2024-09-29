@@ -1,7 +1,11 @@
 /.vscode/
+/database/
 .env
+/gis/
 *.ipynb
 /test/
 /.ipynb_checkpoints/
 /venv/
 /gis/rhino_files
+/src/views/default/_deprecated/
+!/gis/data/
