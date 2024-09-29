@@ -2,7 +2,7 @@ import dash
 import dash_mantine_components as dmc
 from dash import dash_table
 
-from views.load_assets.load_assets import df_post_analysis, fig
+from views.load_assets.load_assets import filtered_building_data, fig
 from views.default.layout_chat import layout_modal_help
 from views.default.layout_default import layout_header, sidebar  # ,
 from views.default.layout_modals import *
@@ -63,8 +63,8 @@ layout_table = dbc.Container([
     dbc.Row([
         dash_table.DataTable(
             id='table',
-            columns=[{"name": i, "id": i} for i in df_post_analysis.columns],
-            data=df_post_analysis.to_dict('records'),
+            columns=[{"name": i, "id": i} for i in filtered_building_data.columns],
+            data=filtered_building_data.to_dict('records'),
             # export_format='xlsx',
             # export_headers='display',
             # export_columns='all',

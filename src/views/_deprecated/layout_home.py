@@ -7,7 +7,7 @@ from views.default.layout_chat import layout_modal_help
 from views.default.descriptions import *
 from views.default.layout_default import sidebar, layout_header  # ,
 from views.default.layout_modals import *
-from views.load_assets.load_assets import df_real_state_original
+from views.load_assets.load_assets import filtered_building_metadata
 
 dash.register_page(__name__, path="/home")
 
@@ -554,9 +554,9 @@ layout_types_analysis = dbc.Container(
                         {"name": i, "id": i, "deletable": False, "selectable": True}
                         for i in
                         ['local_id', 'local_use', 'floor', 'year_construction', 'unit_cost']
-                        if i in df_real_state_original.columns
+                        if i in filtered_building_metadata.columns
                     ],
-                    data=df_real_state_original.to_dict('records'),
+                    data=filtered_building_metadata.to_dict('records'),
                     editable=False,
                     filter_action="native",
                     sort_action="native",

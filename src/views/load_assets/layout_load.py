@@ -6,7 +6,7 @@ from dash import dash_table
 from views.default.layout_chat import layout_modal_help
 from views.default.layout_default import layout_header, sidebar  # ,
 from views.default.layout_modals import *
-from views.load_assets.load_assets import df_real_state_original, fig
+from views.load_assets.load_assets import filtered_building_metadata, fig
 from views.load_assets.futures_figures import fig_normal, fig_cum
 
 dash.register_page(__name__, path="/load")
@@ -245,8 +245,8 @@ orientation and context."""),
         # Existing discover_assets in the database
         dash_table.DataTable(
             id='table',
-            columns=[{"name": i, "id": i} for i in df_real_state_original.columns],
-            data=df_real_state_original.to_dict('records'),
+            columns=[{"name": i, "id": i} for i in filtered_building_metadata.columns],
+            data=filtered_building_metadata.to_dict('records'),
             editable=False,
             filter_action="native",
             filter_options={"placeholder_text": "Filter column..."},

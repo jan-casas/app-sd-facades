@@ -5,12 +5,13 @@ import plotly.express as px
 import plotly.figure_factory as ff
 from plotly.subplots import make_subplots
 
-from utils.utils_database import fetch_data_from_db, fetch_data_from_sqlite_db
+from utils.utils_database import fetch_data_from_sqlite_db, building_simulation_results
 from views.load_assets.load_assets import read_and_process_data
 
 # Initial load of the data
-_, df_post_analysis = read_and_process_data()
-fig_parcoord = px.parallel_coordinates(df_post_analysis, dimensions=df_post_analysis.columns)
+_, filtered_building_data = read_and_process_data()
+fig_parcoord = px.parallel_coordinates(filtered_building_data,
+                                       dimensions=filtered_building_data.columns)
 
 
 def update_layout(fig, num_rows, title_text, background_color='rgba(0,0,0,0)', show_xaxis=True,
@@ -124,6 +125,5 @@ def plot_combined(fig, data, row, col, show_legend):
 
 
 # Initialise figures
-df = fetch_data_from_sqlite_db(r'G:\app-sd-facades\gis_data.db',
-                               query="SELECT * FROM main.simulation_results").round(2)
-kde_cdf_fig = create_subplots(df, plot_combined, "")
+df_building_simulation_results = building_simulation_results()
+kde_cdf_fig = create_subplots(df_building_simulation_results, plot_combined, "")

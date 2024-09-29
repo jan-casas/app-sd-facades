@@ -4,7 +4,7 @@ import logging
 import dash
 
 from src.core_callbacks import dash_app
-from views.load_assets.load_assets import df_real_state_original, read_and_process_data
+from views.load_assets.load_assets import filtered_building_metadata, read_and_process_data
 from views.performance_assets.dash_deck import *
 from utils.utils import extract_main_colors
 
@@ -59,7 +59,7 @@ def parse_contents(contents, filename):
     dash.dependencies.State('table', 'data')
 )
 def update_table(selectedData, table_data):
-    original_table_data = df_real_state_original.to_dict('records')
+    original_table_data = filtered_building_metadata.to_dict('records')
     if selectedData is None or not selectedData['points']:
         logging.error("No points selected.")
         return original_table_data
@@ -82,7 +82,7 @@ def update_table(selectedData, table_data):
 def callback(pathname):
     # Main colors
     image_path = 'static/images/energy_saving8.png'
-    n_rows = df_real_state_original.shape[0]
+    n_rows = filtered_building_metadata.shape[0]
     colors = extract_main_colors(image_path, n_rows)  # Use a default image path or color scheme
     colors_str = ['rgb(' + ', '.join(map(str, color)) + ')' for color in colors]
 

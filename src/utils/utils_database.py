@@ -1,12 +1,13 @@
 import sqlite3
 import logging
-
+from functools import lru_cache
 import pandas as pd
 from sqlalchemy import create_engine
 
 from config.settings import AZURE_DDBB
 
 
+# Generic function to fetch data from a database
 def fetch_data_from_db(query, sample_size: int = 1000):
     try:
         # Create the SQLAlchemy engine
@@ -30,7 +31,9 @@ def fetch_data_from_db(query, sample_size: int = 1000):
         return None
 
 
-def fetch_data_from_sqlite_db(db_path, query, sample_size=1000):
+@lru_cache(maxsize=32)
+def fetch_data_from_sqlite_db(query, db_path: str = r'G:\app-sd-facades\gis_data.db',
+                              sample_size=None, only_numeric=False):
     try:
         # Connect to the SQLite database
         conn = sqlite3.connect(db_path)
@@ -41,14 +44,47 @@ def fetch_data_from_sqlite_db(db_path, query, sample_size=1000):
         # Close the connection
         conn.close()
 
-        # Reduce sample
-        df_reduced = df.sample(min(sample_size, len(df)))
+        if sample_size:
+            # Reduce sample
+            df = df.sample(min(sample_size, len(df)))
 
-        # Filter to include only numeric columns
-        df_numeric = df_reduced.select_dtypes(include=[float, int])
+        if only_numeric:
+            # Filter to include only numeric columns
+            df = df.select_dtypes(include=[float, int])
 
-        return df_numeric
+        return df
 
     except Exception as e:
         logging.error(f"An error occurred: {e}")
         return None
+
+
+# Specific queries to retrieve data from the buildings database
+def building_metadata():
+    query = "SELECT * FROM main.real_estate_data"
+    return fetch_data_from_sqlite_db(query)
+
+
+def building_data():
+    query = "SELECT * FROM main.real_estate_data_spain_updated"
+    return fetch_data_from_sqlite_db(query)
+
+
+def building_centroids():
+    query = "SELECT * FROM main.monoparte"
+    return fetch_data_from_sqlite_db(query)
+
+
+def building_polygons():
+    query = "SELECT * FROM main.data_barrios"
+    return fetch_data_from_sqlite_db(query)
+
+
+def building_entities():
+    query = "SELECT * FROM main.df_propiedades_entidaddes"
+    return fetch_data_from_sqlite_db(query)
+
+
+def building_simulation_results():
+    query = "SELECT * FROM main.simulation_results"
+    return fetch_data_from_sqlite_db(query).round(2)

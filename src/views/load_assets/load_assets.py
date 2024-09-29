@@ -2,40 +2,41 @@ import numpy as np
 import pandas as pd
 import plotly.graph_objects as go
 
-from config.settings import MAPBOX_TOKEN, GIS_URL
+from config.settings import MAPBOX_TOKEN
+from utils.utils_database import building_metadata, building_data
 from views.default.descriptions import description_df
 
 
 def read_and_process_data():
-    df_real_state_original = pd.read_excel(GIS_URL['metadata'])
-    df_post_analysis = pd.read_excel(GIS_URL['data'])
+    df_building_metadata = building_metadata()
+    df_building_data = building_data()
 
     title_simplified_title = description_df.set_index('title')['simplified_title'].to_dict()
-    df_post_analysis = df_post_analysis.rename(
-        columns={col: title_simplified_title[col] for col in df_post_analysis.columns if
+    df_building_data = df_building_data.rename(
+        columns={col: title_simplified_title[col] for col in df_building_data.columns if
                  col in title_simplified_title}
     )
 
-    df_post_analysis = df_post_analysis.apply(pd.to_numeric, errors='coerce')
-    df_post_analysis = df_post_analysis.dropna(axis=1, how='all')
+    df_building_data = df_building_data.apply(pd.to_numeric, errors='coerce')
+    df_building_data = df_building_data.dropna(axis=1, how='all')
 
-    return df_real_state_original, df_post_analysis
+    return df_building_metadata, df_building_data
 
 
-def create_scattermapbox(df_real_state_original):
+def create_scattermapbox(df_building_metadata):
     fig = go.Figure()
 
     # Add clustered layer
     fig.add_trace(
         go.Scattermapbox(
-            lat=df_real_state_original['latitude'],
-            lon=df_real_state_original['longitude'],
+            lat=df_building_metadata['latitude'],
+            lon=df_building_metadata['longitude'],
             mode='markers',
             marker=go.scattermapbox.Marker(
                 size=9,
                 color='#ffc400'
             ),
-            text=df_real_state_original['local_id'],
+            text=df_building_metadata['local_id'],
             cluster=dict(
                 enabled=True,
                 maxzoom=10
@@ -47,14 +48,14 @@ def create_scattermapbox(df_real_state_original):
     # Add individual points layer
     fig.add_trace(
         go.Scattermapbox(
-            lat=df_real_state_original['latitude'],
-            lon=df_real_state_original['longitude'],
+            lat=df_building_metadata['latitude'],
+            lon=df_building_metadata['longitude'],
             mode='markers',
             marker=go.scattermapbox.Marker(
                 size=9,
                 color='red'
             ),
-            text=df_real_state_original['local_id'],
+            text=df_building_metadata['local_id'],
             name='Points',
             visible=False  # Initially hidden
         )
@@ -104,16 +105,16 @@ def create_empty_scattermapbox():
     return empty_fig
 
 
-def create_parcoord_figure(df_post_analysis, margin_value=20):
+def create_parcoord_figure(df_building_data, margin_value=20):
     # Ensure only columns with numeric data types (int or float) are processed
-    df_post_analysis = df_post_analysis.select_dtypes(include=[np.number])
+    df_building_data = df_building_data.select_dtypes(include=[np.number])
 
     # Round, drop NaNs and any non-finite values
-    df_post_analysis = df_post_analysis.round(2).dropna()
+    df_building_data = df_building_data.round(2).dropna()
 
     par_coord_dimensions = []
-    for column in df_post_analysis.columns:
-        finite_values = df_post_analysis[column][np.isfinite(df_post_analysis[column])]
+    for column in df_building_data.columns:
+        finite_values = df_building_data[column][np.isfinite(df_building_data[column])]
         if not finite_values.empty:
             par_coord_dimensions.append(
                 dict(
@@ -141,9 +142,9 @@ def create_parcoord_figure(df_post_analysis, margin_value=20):
 
 
 # Initialize the data and figures
-df_real_state_original, df_post_analysis = read_and_process_data()
+filtered_building_metadata, filtered_building_data = read_and_process_data()
 
-fig = create_scattermapbox(df_real_state_original)
+fig = create_scattermapbox(filtered_building_metadata)
 empty_fig = create_empty_scattermapbox()
 
-fig_par = create_parcoord_figure(df_post_analysis)
+fig_par = create_parcoord_figure(filtered_building_data)
