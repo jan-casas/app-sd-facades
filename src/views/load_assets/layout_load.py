@@ -194,6 +194,20 @@ layout_stepper = html.Footer([
              style={
                  'marginTop': '24px', 'width': '45%', 'margin-left': 'auto', 'margin-right': 'auto'}
              ),
+    # dbc.Row(
+    #     dbc.Button(
+    #         children=html.H6('CHECK PERFORMANCE'),
+    #         id='continue-load',
+    #         # color="primary",
+    #         style={
+    #             'height': '60px', 'lineHeight': '60px',
+    #             'borderWidth': '1px', 'borderStyle': 'dashed',
+    #             'borderRadius': '5px', 'textAlign': 'center', 'margin': '10px',
+    #             'width': '27%'
+    #         },
+    #         className="my-4 diagonal-pattern"
+    #     ), className="my-4 mx-5 justify-content-end"
+    # ),
 ], style={'width': '100%', 'margin-left': 'auto', 'margin-right': 'auto', 'margin-top': '50px',
           'background-color': '#f7f7f8', 'height': '200px'})
 
@@ -224,11 +238,11 @@ orientation and context."""),
         # html.Div(id='layout_dash_deck', className="map-size"),
 
         dcc.Markdown(
-            """**Figure 1.** Location of the performance_assets."""),
+            """**Figure 1.** Location of the discover_assets."""),
         # Add inputs to insert new points
     ], className="my-4 mx-5"),
     dbc.Row([
-        # Existing performance_assets in the database
+        # Existing discover_assets in the database
         dash_table.DataTable(
             id='table',
             columns=[{"name": i, "id": i} for i in df_real_state_original.columns],
@@ -242,7 +256,7 @@ orientation and context."""),
             row_selectable="multi",
             selected_rows=[],
         ),
-        dcc.Markdown("""**Figure 2.** Existing performance_assets in the database."""),
+        dcc.Markdown("""**Figure 2.** Existing discover_assets in the database."""),
 
         # Upload new data
         dash_table.DataTable(
@@ -269,13 +283,14 @@ orientation and context."""),
             className="my-4 mx-5"
         ),
 
-        dcc.Markdown("""**Figure 3.** New performance_assets to include in the database."""),
+        dcc.Markdown("""**Figure 3.** New discover_assets to include in the database."""),
 
     ], className="my-4 mx-5"),
 
     # Conclusions
     dbc.Row(
         dcc.Markdown(congrats_conclusion), className="my-4 mx-5"),
+
 ],
     fluid=True)
 

@@ -8,7 +8,8 @@ from views.default.descriptions import description_df
 
 def read_and_process_data():
     df_real_state_original = pd.read_excel(r'G:\app-sd-facades\gis\data\real_estate_data.xlsx')
-    df_post_analysis = pd.read_excel(r'G:\app-sd-facades\gis\data\real_estate_data_spain_updated.xlsx')
+    df_post_analysis = pd.read_excel(
+        r'G:\app-sd-facades\gis\data\real_estate_data_spain_updated.xlsx')
 
     title_simplified_title = description_df.set_index('title')['simplified_title'].to_dict()
     df_post_analysis = df_post_analysis.rename(
@@ -33,6 +34,15 @@ def create_scattermapbox(df_real_state_original):
                 color='#ffc400'
             ),
             text=df_real_state_original['local_id'],
+            cluster=dict(
+                enabled=True,
+                # radius=30,  # Cluster radius in pixels
+                # maxzoom=12,  # Max zoom level for clustering
+                # steps=5,  # Number of cluster step levels
+                # color='blue',  # Cluster marker color
+                # size=14,  # Cluster marker size
+                # opacity=0.7  # Cluster marker opacity
+            )
         )
     )
 

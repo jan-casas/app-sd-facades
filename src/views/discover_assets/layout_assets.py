@@ -4,7 +4,7 @@ from dash import dash_table
 from views.default.layout_chat import layout_modal_help
 from views.default.layout_default import layout_header, sidebar  # ,
 from views.default.layout_modals import *
-from src.views.performance_assets.performance import df_post_analysis, fig_parcoord
+from src.views.discover_assets.performance import df_post_analysis, fig_parcoord
 from views.load_assets.load_assets import fig
 
 # import dash_table
@@ -16,7 +16,7 @@ layout_map_dash_deck = dbc.Container([
     dbc.Row([
         html.H3('View Selected Assets'),
         dcc.Markdown("""    
-        The graphs below provide detailed metrics for the selected performance_assets, enabling a 
+        The graphs below provide detailed metrics for the selected discover_assets, enabling a 
         comprehensive 
         evaluation to determine the perfect asset for your specific needs. This analysis 
         incorporates 
@@ -25,7 +25,7 @@ layout_map_dash_deck = dbc.Container([
         meticulously processed and then visualized within an interactive dashboard, offering 
         intuitive 
         insights. Additionally, the dashboard allows for customized filtering and comparison 
-        of performance_assets, 
+        of discover_assets, 
         empowering users to make informed decisions based on their unique criteria and 
         objectives.
         """),
@@ -76,7 +76,7 @@ layout_asset_comparative = dbc.Container([
     every 5 minutes."""),
         dcc.Graph(id='subplot_div_assets', figure={}),
         dcc.Markdown("""**Figure 2.** Bar chart about 
-            the current performance of the performance_assets globally."""),
+            the current performance of the discover_assets globally."""),
         # dcc.Markdown(congrats_conclusion),
     ], className="my-4 mx-5"),
 
@@ -386,9 +386,9 @@ layout_details = dbc.Container([
         orientation and context."""
                      ),
         dcc.Graph(id='load_assets', figure=fig),
-        dcc.Markdown("""**Figure 1.** Map of the selected performance_assets."""),
+        dcc.Markdown("""**Figure 1.** Map of the selected discover_assets."""),
         # html.Div(id='layout_dash_deck',className="my-3 mx-52),
-        dcc.Markdown("""**Figure 2.** Map of the selected performance_assets."""),
+        dcc.Markdown("""**Figure 2.** Map of the selected discover_assets."""),
     ], className="my-4 mx-5"),
     dbc.Row(
         [

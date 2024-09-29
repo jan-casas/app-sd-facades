@@ -255,7 +255,7 @@ grid_option_2 = dbc.Row(
 
 )
 
-# Layout performance_assets
+# Layout discover_assets
 grid_option_1_assets = dbc.Row(
     [
         dbc.Col(

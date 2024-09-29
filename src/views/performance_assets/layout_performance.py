@@ -6,7 +6,7 @@ from views.load_assets.load_assets import df_post_analysis, fig
 from views.default.layout_chat import layout_modal_help
 from views.default.layout_default import layout_header, sidebar  # ,
 from views.default.layout_modals import *
-from views.performance_assets.performance import kde_cdf_fig
+from views.discover_assets.performance import kde_cdf_fig
 
 dash.register_page(__name__, path="/performance")
 
@@ -79,7 +79,7 @@ layout_table = dbc.Container([
             style_table={'overflowX': 'scroll'},
         ),
         dcc.Markdown(
-            """**Figure 1.** Location of the performance_assets."""),
+            """**Figure 1.** Location of the discover_assets."""),
     ], className="my-4 mx-5"),
 ],
     fluid=True)
@@ -134,13 +134,13 @@ layout_conclusion_performance = dbc.Container([
             data
             to a server that stores the data. The data is then processed and visualized in the 
             dashboard.
-            The graphs below provide detailed metrics for the selected performance_assets, 
+            The graphs below provide detailed metrics for the selected discover_assets, 
             enabling a 
             comprehensive evaluation to determine the perfect asset for your specific needs. This 
             analysis incorporates advanced 3D models and real-time environmental data, ensuring 
             accuracy and relevance. The data is meticulously processed and then visualized within 
             an interactive dashboard, offering intuitive insights. Additionally, the dashboard 
-            allows for customized filtering and comparison of performance_assets, empowering 
+            allows for customized filtering and comparison of discover_assets, empowering 
             users to make 
             informed decisions based on their unique criteria and objectives.
             """),
@@ -148,6 +148,20 @@ layout_conclusion_performance = dbc.Container([
     assets_conclusion_cards(),
     dbc.Row([
         dcc.Markdown(congrats_conclusion),
+        # dbc.Row(
+        #     dbc.Button(
+        #         children=html.H6('Download Report'),
+        #         id='continue-discover',
+        #         # color="primary",
+        #         style={
+        #             'height': '60px', 'lineHeight': '60px',
+        #             'borderWidth': '1px', 'borderStyle': 'dashed',
+        #             'borderRadius': '5px', 'textAlign': 'center', 'margin': '10px',
+        #             'width': '45%'
+        #         },
+        #         className="my-4 diagonal-pattern"
+        #     ), className="my-4 mx-5 justify-content-end"
+        # ),
         dcc.Upload(
             id='datatable-download',
             children=html.Div([

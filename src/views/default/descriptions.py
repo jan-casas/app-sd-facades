@@ -285,27 +285,27 @@ air_pollution = {
 }
 
 congrats_intro = """
-        **Congratulations** on the performance of your current performance_assets according to this analysis! Your strategic 
+        **Congratulations** on the performance of your current discover_assets according to this analysis! Your strategic 
         decisions 
-        and careful management have led to impressive results. This analysis shows that your performance_assets are performing 
+        and careful management have led to impressive results. This analysis shows that your discover_assets are performing 
         well, 
         which is a testament to your effective strategies and diligent management. Keep up the good work!
         
         There is more to be done, however. **The analysis shows that there is still room for improvement.** The 
         following 
-        sections will provide you with some suggestions on how to improve your performance_assets' performance.
+        sections will provide you with some suggestions on how to improve your discover_assets' performance.
         """
 
 congrats_conclusion = """
-        **Congratulations** on the performance of your current performance_assets according to this analysis! Your strategic 
+        **Congratulations** on the performance of your current discover_assets according to this analysis! Your strategic 
         decisions and careful 
-        management have led to impressive results. This analysis shows that your performance_assets are performing well, 
+        management have led to impressive results. This analysis shows that your discover_assets are performing well, 
         which is a testament to your 
         effective strategies and diligent management. Keep up the good work!
         
         There is more to be done, however. **The analysis shows that there is still room for improvement.** The 
         following 
-        sections will provide you with some suggestions on how to improve your performance_assets' performance.
+        sections will provide you with some suggestions on how to improve your discover_assets' performance.
         """
 
 description_df = pd.DataFrame({

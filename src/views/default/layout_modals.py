@@ -13,11 +13,11 @@ modal_default_layout = dbc.Row([
         html.Span('Low Assets Performing the Current Analysis:'),
         dcc.Graph(id='progress_graph_min', figure={}),
         dcc.Graph(id='progress_graph_global', figure={}, style={'display': 'none'}),
-        dcc.Markdown("""**Figure 1.** Bar chart about the current performance of the performance_assets."""),
+        dcc.Markdown("""**Figure 1.** Bar chart about the current performance of the discover_assets."""),
         dcc.Markdown(congrats_intro),
     ]),
     html.H3('Valuable Assets on Current Analysis'),
-    html.Span('Location of best performing performance_assets:'),
+    html.Span('Location of best performing discover_assets:'),
     dbc.Row(
         dcc.Graph(id='city_mapbox_modal', figure={}, clickData={'points': []}, config={'displayModeBar': False}),
         style={'height': '50vh'}),
@@ -25,7 +25,7 @@ modal_default_layout = dbc.Row([
     dbc.Row([
         html.Span('Top Assets In Spain Performing the Current Analysis:'),
         dcc.Graph(id='subplot_div', figure={}),
-        dcc.Markdown("""**Figure 1.** Bar chart about the current performance of the performance_assets globally."""),
+        dcc.Markdown("""**Figure 1.** Bar chart about the current performance of the discover_assets globally."""),
         dcc.Markdown(congrats_conclusion),
     ]),
     dbc.Row([
@@ -149,7 +149,7 @@ modal_default_layout = dbc.Row([
     ]),
     dbc.Row([
         html.Hr(style={'borderTop': '1px solid white'}),
-        html.Span("Know more about this analysis on your performance_assets, please visit the [GitHub repository]()"),
+        html.Span("Know more about this analysis on your discover_assets, please visit the [GitHub repository]()"),
         html.Hr(style={'borderTop': '1px solid white'}),
         html.Hr(style={'borderTop': '1px solid white'}),
     ]),
