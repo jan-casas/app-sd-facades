@@ -37,8 +37,17 @@ layout_table = dbc.Container([
         performance urban model. The data is processed and visualized in the dashboard. 
         """
                      ),
-        dcc.Dropdown(id='analysis_options', multi=True,
-                     options=['Sunlight', 'Temperature', 'Occupancy'], ),
+        dcc.Dropdown(
+            id='analysis_options',
+            multi=True,
+            options=[
+                {'label': 'All', 'value': 'all'},
+                {'label': 'Sunlight', 'value': 'Sunlight'},
+                {'label': 'Temperature', 'value': 'Temperature'},
+                {'label': 'Occupancy', 'value': 'Occupancy'}
+            ],
+            placeholder='Select analysis options',
+        ),
     ], className="my-4 mx-5"
     ),
     dbc.Row([
