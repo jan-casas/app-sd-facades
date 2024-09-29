@@ -88,7 +88,7 @@ def toggle_collapse(n, is_open):
     [dash.dependencies.State("collapse_assets", "is_open")],
 )
 def toggle_collapse(n, pathname, is_open):
-    if pathname != '/performance_assets/':
+    if pathname != '/discover_assets/':
         if n:
             return not is_open
     return is_open
@@ -149,7 +149,7 @@ def update_url(next_clicks, back_clicks, active_step):
     if active_step_var == 0:
         return "/home", active_step_var
     elif active_step_var == 1:
-        return "/performance_assets", active_step_var
+        return "/discover_assets", active_step_var
     elif active_step_var == 2:
         return "/futures", active_step_var
     elif active_step_var > 2 or active_step_var < 1:

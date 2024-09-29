@@ -5,7 +5,7 @@ import dash
 
 from src.core_callbacks import dash_app
 from views.load_assets.load_assets import df_real_state_original, read_and_process_data
-from views.discover_assets.dash_deck import *
+from views.performance_assets.dash_deck import *
 from utils.utils import extract_main_colors
 
 

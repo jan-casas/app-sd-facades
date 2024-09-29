@@ -339,9 +339,8 @@ footer {
     z-index: 1050;
     transition: width 0.1s ease-in-out;
     border: 1px solid #ccc;
-    box-shadow: 0 0 10px rgba(0,0,0,0.15);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
 }
-
 
 
 /* This creates a skinny side bar fixed to the left of the page */
@@ -436,6 +435,26 @@ footer {
             #e8e8e8 10px
     );
 }
+
+.diagonal-pattern:hover {
+    background: repeating-linear-gradient(
+            45deg,
+            #dcdcdc,
+            #dcdcdc 5px,
+            #c0c0c0 5px,
+            #c0c0c0 10px
+    );
+}
+
+/*.diagonal-pattern:active {*/
+/*    background: repeating-linear-gradient(*/
+/*            45deg,*/
+/*            #e8e8e8,*/
+/*            #e8e8e8 5px,*/
+/*            #f5f5f5 5px,*/
+/*            #f5f5f5 10px*/
+/*    );*/
+/*}*/
 
 .sidebar-subitem {
     font-size: 12px;
