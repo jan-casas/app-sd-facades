@@ -5,24 +5,25 @@ import plotly.graph_objects as go
 from pandas import read_pickle
 
 from config.settings import GIS_URL
+from utils.utils_database import building_entities, building_polygons, building_centroids
 
-monoparte_centroides = read_pickle(GIS_URL['centroid'])
-geojson_complete = read_pickle(GIS_URL['polygon'])  # geojson_complete
-geojson = geojson_complete.sample(frac=0.1, random_state=0)
-propiedades_entidad = read_pickle(GIS_URL['entities'])
+df_building_centroids = building_centroids()
+df_building_polygons = building_polygons()
+geojson = df_building_polygons.sample(frac=0.1, random_state=0)
+df_building_entities = building_entities()
 val_size = 0.001
-number_of_colors = len(propiedades_entidad.nombre.unique())
+number_of_colors = len(df_building_entities.nombre.unique())
 color_stacked = ["#" + ''.join([choice('0123456789ABCDEF')
                                 for j in range(6)]) for i in range(number_of_colors)]
 color_landuse = ["#" + ''.join([choice('0123456789ABCDEF') for j in range(6)])
-                 for i in range(len(propiedades_entidad.currentuse.unique()))]
+                 for i in range(len(df_building_entities.currentuse.unique()))]
 
 
 def update_mapbox(df, selectedpoints, df_graph):
     fig_mapa = px.scatter_mapbox(
-        monoparte_centroides,
-        lat=monoparte_centroides.centroid.y,
-        lon=monoparte_centroides.centroid.x,
+        df_building_centroids,
+        lat=df_building_centroids.centroid.y,
+        lon=df_building_centroids.centroid.x,
         color_discrete_sequence=["fuchsia"],
         zoom=16,
         center={"lat": 39.468217, "lon": -0.377127},
@@ -134,9 +135,9 @@ def update_mapbox(df, selectedpoints, df_graph):
 
 def blank_map(df, selectedpoints, df_graph):
     fig_mapa = px.scatter_mapbox(
-        monoparte_centroides,
-        lat=monoparte_centroides.centroid.y,
-        lon=monoparte_centroides.centroid.x,
+        df_building_centroids,
+        lat=df_building_centroids.centroid.y,
+        lon=df_building_centroids.centroid.x,
         color_discrete_sequence=["fuchsia"],
         zoom=6,
         center={"lat": 39.468217, "lon": -0.377127},

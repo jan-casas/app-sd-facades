@@ -8,4 +8,4 @@
 /venv/
 /gis/rhino_files
 /src/views/default/_deprecated/
-!/gis/data/
+/gis

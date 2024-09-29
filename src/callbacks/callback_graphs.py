@@ -66,7 +66,7 @@ def update_table(selectedData, table_data):
 
     selected_points = {point['pointIndex'] for point in selectedData['points']}
     filtered_data = [row for i, row in enumerate(original_table_data) if i in selected_points]
-    logging.info(f"Selected points: {len(filtered_data)}")
+    # logging.info(f"Selected points: {len(filtered_data)}")
 
     return filtered_data
 

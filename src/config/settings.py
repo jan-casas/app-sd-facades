@@ -42,7 +42,4 @@ HUGGINGFACE_PASSWORD = os.getenv("HUGGINGFACE_PASSWORD", "MArbuTpw29t:8zB")
 # DATA URL
 GIS_URL = {
     "centroid": os.getenv("GIS_CENTROID", r'G:\app-sd-facades\gis\data\monoparte.pkl'),
-    "polygon": os.getenv("GIS_POLYGON", r'G:\app-sd-facades\gis\data\data_barrios.pkl'),
-    "entities": os.getenv("GIS_ENTITIES",
-                          r'G:\app-sd-facades\gis\data\df_propiedades_entidaddes.pkl'),
 }

@@ -8,7 +8,7 @@ from numpy import intersect1d
 from pandas import DataFrame
 
 from src.core_callbacks import dash_app
-from src.views._deprecated.mapbox_interactive import update_mapbox, geojson, propiedades_entidad
+from src.views._deprecated.mapbox_interactive import update_mapbox, geojson, df_building_entities
 
 sys.path.insert(0, '/static/style.py')
 sys.path.insert(0, 'core_callbacks.py')
@@ -30,7 +30,7 @@ def callback(selection1):
             selectedpoints = intersect1d(selectedpoints,
                                          [p['customdata'] for p in selected_data['points']])
     df_selected = DataFrame.from_dict(selectedpoints)
-    df_selected_prop = propiedades_entidad.iloc[df_selected.iloc[:, 0].values.tolist(
+    df_selected_prop = df_building_entities.iloc[df_selected.iloc[:, 0].values.tolist(
     ), :].reset_index(drop=True)
 
     return update_mapbox(geojson, selection1, df_selected_prop)
