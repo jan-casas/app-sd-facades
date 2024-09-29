@@ -2,14 +2,13 @@ import numpy as np
 import pandas as pd
 import plotly.graph_objects as go
 
-from config.settings import MAPBOX_TOKEN
+from config.settings import MAPBOX_TOKEN, GIS_URL
 from views.default.descriptions import description_df
 
 
 def read_and_process_data():
-    df_real_state_original = pd.read_excel(r'G:\app-sd-facades\gis\data\real_estate_data.xlsx')
-    df_post_analysis = pd.read_excel(
-        r'G:\app-sd-facades\gis\data\real_estate_data_spain_updated.xlsx')
+    df_real_state_original = pd.read_excel(GIS_URL['metadata'])
+    df_post_analysis = pd.read_excel(GIS_URL['data'])
 
     title_simplified_title = description_df.set_index('title')['simplified_title'].to_dict()
     df_post_analysis = df_post_analysis.rename(
@@ -24,7 +23,10 @@ def read_and_process_data():
 
 
 def create_scattermapbox(df_real_state_original):
-    fig = go.Figure(
+    fig = go.Figure()
+
+    # Add clustered layer
+    fig.add_trace(
         go.Scattermapbox(
             lat=df_real_state_original['latitude'],
             lon=df_real_state_original['longitude'],
@@ -36,13 +38,25 @@ def create_scattermapbox(df_real_state_original):
             text=df_real_state_original['local_id'],
             cluster=dict(
                 enabled=True,
-                # radius=30,  # Cluster radius in pixels
-                # maxzoom=12,  # Max zoom level for clustering
-                # steps=5,  # Number of cluster step levels
-                # color='blue',  # Cluster marker color
-                # size=14,  # Cluster marker size
-                # opacity=0.7  # Cluster marker opacity
-            )
+                maxzoom=10
+            ),
+            name='Clusters'
+        )
+    )
+
+    # Add individual points layer
+    fig.add_trace(
+        go.Scattermapbox(
+            lat=df_real_state_original['latitude'],
+            lon=df_real_state_original['longitude'],
+            mode='markers',
+            marker=go.scattermapbox.Marker(
+                size=9,
+                color='red'
+            ),
+            text=df_real_state_original['local_id'],
+            name='Points',
+            visible=False  # Initially hidden
         )
     )
 
