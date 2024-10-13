@@ -237,10 +237,29 @@ recibida en la fachada `radiation`. La matriz de puntos (centroid mesh faces) se
 archivo `json` para su
 uso posterior.
 
-![3D Model of Logroño](docs/3dmodel_l.png)
+```mermaid
+graph LR
+    A[Data Collection Stage]
+    A -->|Imports| B[GIS Data from Catastro]
+    B -->|Processes| C[Building Data]
+    B -->|Processes| D[Block Data Manzanas]
+    C -->|Classifies| E[Buildings by ID & Height]
+    D -->|Classifies| F[Blocks by ID]
+    E -->|Segmentation| G[Grid Creation]
+    F -->|Segmentation| G
+    G -->|Intersects| H[Batch Classification by Grid]
+    A -->|Transitions to| I[Data Analysis Stage]
+    I -->|Uses| J[Ladybug Plugin for Solar, Shadow, and View Simulation]
+    J -->|Creates| K[3D Model of Logroño]
+    K -->|Simulates| L[Solar Exposure and Shadows]
+    L -->|Generates| M[Simulation Data]
+    M -->|Organizes| N[Data by Building Part, Height, Orientation, Radiation]
+    N -->|Stores| O[JSON File for Future Use]
+
+```
 *Figure 1: 3D Model of Valencia from Grasshopper.*
 
-![3D Model of Logroño](docs/load.jpeg)
+![3D Model of Logroño](docs/3dmodel_l.png)
 *Figure 1: 3D Model of Valencia from Grasshopper.*
 
 ### Data Warehousing (ETL)
@@ -263,7 +282,7 @@ la radiación en las cubiertas, lo cual sería objeto de un estudio posterior.
   promedio. Los resultados se
   almacenan en `percent_view`, `percent_type_view`.
 
-![3D Model of Logroño](docs/performance.jpeg)
+![3D Model of Logroño](docs/load.jpeg)
 *Figure 1: 3D Model of Valencia from Grasshopper.*
 
 ### Business Logic
