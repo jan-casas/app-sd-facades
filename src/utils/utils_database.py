@@ -3,11 +3,24 @@ import logging
 from functools import lru_cache
 import pandas as pd
 from sqlalchemy import create_engine
+import os
 
 from config.settings import AZURE_DDBB
 
 
 # Generic function to fetch data from a database
+def create_database_if_not_exists(db_path: str = r'G:\app-sd-facades\gis_data.db',
+                                  sql_file: str = 'database.sql'):
+    if not os.path.exists(db_path):
+        try:
+            with sqlite3.connect(db_path) as conn:
+                with open(sql_file, 'r') as f:
+                    conn.executescript(f.read())
+            logging.info(f"Database created at {db_path} using {sql_file}.")
+        except Exception as e:
+            logging.error(f"An error occurred while creating the database: {e}")
+
+
 def fetch_data_from_db(query, sample_size: int = 1000):
     try:
         # Create the SQLAlchemy engine
@@ -61,7 +74,11 @@ def fetch_data_from_sqlite_db(query, db_path: str = r'G:\app-sd-facades\gis_data
 
 # Specific queries to retrieve data from the buildings database
 def building_metadata():
-    query = "SELECT * FROM main.real_estate_data"
+    query = """
+        SELECT DISTINCT "properties.gml_id", "properties.localId", "properties.numberOfFl"
+        FROM main.monoparte
+    """
+    query = "SELECT * FROM main.real_estate_data_spain_updated"
     return fetch_data_from_sqlite_db(query)
 
 

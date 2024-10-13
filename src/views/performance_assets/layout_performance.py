@@ -56,6 +56,8 @@ layout_table = dbc.Container([
             also highlighted for better 
             orientation and context."""
                      ),
+        # html.Iframe(src="https://speckle.xyz/streams/df13255f81/commits/0c61f52341",
+        # style={"width": "100%", "height": "400px"}),
         dcc.Graph(id='load_assets', figure=fig),
 
         # Add inputs to insert new points

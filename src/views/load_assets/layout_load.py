@@ -255,6 +255,7 @@ orientation and context."""),
             page_size=5,
             row_selectable="multi",
             selected_rows=[],
+            style_table={'overflowY': 'auto'},
         ),
         dcc.Markdown("""**Figure 2.** Existing discover_assets in the database."""),
 
