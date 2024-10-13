@@ -259,7 +259,7 @@ graph LR
 ```
 *Figure 1: 3D Model of Valencia from Grasshopper.*
 
-![3D Model of Logroño](docs/3dmodel_l.png)
+![3D Model of Logroño](docs/3dmodel_l2.png)
 *Figure 1: 3D Model of Valencia from Grasshopper.*
 
 ### Data Warehousing (ETL)
