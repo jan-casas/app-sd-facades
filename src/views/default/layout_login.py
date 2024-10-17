@@ -1,45 +1,53 @@
 # TODO: https://community.plotly.com/t/dash-app-pages-with-flask-login-flow-using-flask/69507
 import dash
 import dash_bootstrap_components as dbc
-import dash_mantine_components as dmc
 from dash import html, dcc
-
 from views.load_assets.load_assets import empty_fig
 
 dash.register_page(__name__, path='/login')
 
-# Login screen
+# Layout for the login screen
 layout_login = dbc.Card(
     html.Form(
         [
             dbc.Row(
                 html.H2("Please log in to continue:", id="h1"),
-                justify="center"),
-            dbc.Row(
-                dmc.PasswordInput(
-                    label="Your username:",
-                    placeholder="Your password",
-                    # icon=DashIconify(icon="bi:shield-lock"),
-                ),
-                # dcc.Input(placeholder="Enter your username", type="text", id="uname-box",
-                # name='username'),
+                justify="center"
             ),
             dbc.Row(
-                dmc.PasswordInput(
-                    label="Your password:",
-                    placeholder="Your password",
-                    # icon=DashIconify(icon="bi:shield-lock"),
-                ),
+                dcc.Input(
+                    placeholder="Enter your username",
+                    type="text",
+                    id="uname-box",
+                    name='username',
+                    className="mb-3",
+                )
             ),
-            html.Div(children="", id="output-state")
-        ], method='POST', className='sidebar-login'
+            dbc.Row(
+                dcc.Input(
+                    placeholder="Enter your password",
+                    type="password",
+                    id="pwd-box",
+                    name='password',
+                    className="mb-3",
+                )
+            ),
+            dbc.Row(
+                dbc.Button("Login", id="login-button", color="primary", className="mt-3")
+            ),
+            html.Div(children="", id="output-state", className="mt-3"),
+            dcc.Store(id='login-data')
+        ],
+        className='sidebar-login'
     ),
+    body=True,
+    className='p-4'
 )
 
+# Layout for the background
 layout_background = html.Div(
     dcc.Graph(id='empty_fig', figure=empty_fig, config={'displayModeBar': False}),
     style={
-        # 'display': 'none',
         'position': 'fixed',
         'top': '0',
         'left': '0',
@@ -48,6 +56,7 @@ layout_background = html.Div(
     },
 )
 
+# Complete layout
 layout = html.Div([
     dcc.Location(id='url', refresh=True),
     dcc.Loading(
