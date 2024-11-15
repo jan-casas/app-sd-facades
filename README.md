@@ -596,7 +596,7 @@ para locales comerciales.
   valor teórico de los activos comerciales.
 
 ![3D Model of Logroño](docs/assets.jpeg)
-*Figure 1: 3D Model of Valencia from Grasshopper.*
+*Figure 3: Webapp view shocasing the filtering by column (the cards are filled with useless info at the moment).*
 
 In this image:
 
